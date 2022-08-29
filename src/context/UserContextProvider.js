@@ -2,6 +2,7 @@ import React from 'react';
 // import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default class UserProvider extends React.Component{
     state = {
@@ -17,6 +18,7 @@ export default class UserProvider extends React.Component{
         // const url = "https://tea4u-express.herokuapp.com/api/customer/";
         const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/";
         const loginUrl = url + "customer/login";
+        const logoutUrl = url + "customer/logout";
         const userContext = {
             login: async (email,password) => {
                 let loginResponse = await axios.post(loginUrl,{
@@ -26,18 +28,24 @@ export default class UserProvider extends React.Component{
                 console.log(loginResponse);
                 let tokenData = loginResponse.data;
                 console.log(tokenData);
+                let loggedInUser = {
+                    id:tokenData.userDetails.id,
+                    email:tokenData.userDetails.email,
+                    username:tokenData.userDetails.username,
+                    accessToken:tokenData.accessToken,
+                    refreshToken:tokenData.refreshToken,
+                }
                 this.setState({
-                    userDetails:tokenData.userDetails.id,
-
+                    userDetails:{loggedInUser}
                 })
-                // await localStorage.setItem('accessToken', JSON.stringify(tokenData.accessToken));
-                // await localStorage.setItem('refreshToken', JSON.stringify(tokenData.refreshToken));
-                // await this.setState({
-                //     loggedIn: true
-                // })
-                // console.log(loginResponse.data);
-                // return this.state.loggedIn
+            },
+            logout: async (refreshToken) => {
+                refreshToken = this.state.userDetails.refreshToken;
+                let logoutResponse = await axios.post (logoutUrl,{
+                    refreshToken
+                })
             }
+            
         }
 
         return(

@@ -22,7 +22,7 @@ export default function Login(props) {
   const navigate = useNavigate();
 
   const login = async () => {
-    console.log('hello');
+    console.log('login');
     await userContext.login(loginDetails.email, loginDetails.password);
     navigate("/tea");
   }

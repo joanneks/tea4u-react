@@ -10,24 +10,27 @@ import Tea from './pages/Tea';
 import Login from './pages/Login';
 
 import UserProvider from './context/UserContextProvider';
+import TeaProvider from './context/TeaContextProvider';
 
 function App() {
 
   return (
     <React.Fragment>
-      <div style={{height:'100vh'}}>
-        <UserProvider>
-          <Router>
+      <div style={{ height: '100vh' }}>
+        <TeaProvider>
+          <UserProvider>
 
-            <Routes>
-              <Route path="/" element={<Home/>} />
-              <Route path="/about" element={<AboutUs/>} />
-              <Route path="/tea" element={<Tea/>} />
-                <Route path="/login" element={<Login/>} />
-            </Routes>
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<AboutUs />} />
+                <Route path="/tea" element={<Tea />} />
+                <Route path="/login" element={<Login />} />
+              </Routes>
+            </Router>
 
-          </Router>
-        </UserProvider>
+          </UserProvider>
+        </TeaProvider>
       </div>
     </React.Fragment>
   );
