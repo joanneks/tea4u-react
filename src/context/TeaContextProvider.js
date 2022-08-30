@@ -2,7 +2,6 @@ import React from 'react';
 // import { useNavigate } from "react-router-dom";
 import TeaContext from "./TeaContext";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 export default class TeaProvider extends React.Component{
     state = {

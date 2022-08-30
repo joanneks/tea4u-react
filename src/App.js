@@ -8,9 +8,12 @@ import Home from './pages/Home';
 import AboutUs from './pages/AboutUs';
 import Tea from './pages/Tea';
 import Login from './pages/Login';
+import Cart from './pages/Cart';
+import Profile from './pages/Profile';
 
 import UserProvider from './context/UserContextProvider';
 import TeaProvider from './context/TeaContextProvider';
+import CartProvider from './context/CartContextProvider';
 
 function App() {
 
@@ -19,16 +22,20 @@ function App() {
       <div style={{ height: '100vh' }}>
         <TeaProvider>
           <UserProvider>
+            <CartProvider>
 
-            <Router>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<AboutUs />} />
-                <Route path="/tea" element={<Tea />} />
-                <Route path="/login" element={<Login />} />
-              </Routes>
-            </Router>
+              <Router>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<AboutUs />} />
+                  <Route path="/tea" element={<Tea />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/cart" element={<Cart />} />
+                </Routes>
+              </Router>
 
+            </CartProvider>
           </UserProvider>
         </TeaProvider>
       </div>

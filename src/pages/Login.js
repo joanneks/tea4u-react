@@ -24,7 +24,8 @@ export default function Login(props) {
   const login = async () => {
     console.log('login');
     await userContext.login(loginDetails.email, loginDetails.password);
-    navigate("/tea");
+    await userContext.getUserProfile();
+    navigate("/profile");
   }
 
   return (

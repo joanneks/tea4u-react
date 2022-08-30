@@ -16,7 +16,7 @@ export default function NavbarInstance(props) {
 
   const logout = async () => {
     console.log('logout');
-    await userContext.logout(this.props.userDetails.refreshToken);
+    await userContext.logout();
     navigate("/tea");
   }
 
@@ -31,6 +31,8 @@ export default function NavbarInstance(props) {
                   <Nav className="me-auto">
                   <Nav.Link href="/about">About Us</Nav.Link>
                   <Nav.Link href="/tea">Tea</Nav.Link>
+                  <Nav.Link href="/profile">Profile</Nav.Link>
+                  <Nav.Link href="/cart">Cart</Nav.Link>
                   <Nav.Link href="/login">Login</Nav.Link>
                   </Nav>
               </Navbar.Collapse>
