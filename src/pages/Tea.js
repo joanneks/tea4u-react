@@ -26,7 +26,7 @@ export default function Tea(props) {
     teaType: '',
     placeOfOrigin: '',
     packaging: '0',
-    tasteProfile: []
+    tasteProfiles: []
   });
 
   const updateFormField = (e) => {
@@ -37,37 +37,23 @@ export default function Tea(props) {
   }
 
   const updateFormFieldMultiple = (e) => {
-    if (searchQuery.tasteProfile.includes(e.target.value)) {
-      console.log('searchQuery', searchQuery.tasteProfile, 'e.target.value', e.target.value);
-      console.log('true or false', searchQuery.tasteProfile.includes(e.target.value.toString()))
-      let indexToRemove = searchQuery.tasteProfile.indexOf(e.target.value);
-      console.log('indexToRemove', indexToRemove)
-      let revisedTasteProfile = [
-        ...searchQuery.tasteProfile.slice(0, indexToRemove),
-        ...searchQuery.tasteProfile.slice(indexToRemove + 1)
-      ];
-      console.log('removeRevised', revisedTasteProfile)
-      setSearchQuery({
-        ...searchQuery,
-        tasteProfile: revisedTasteProfile
-      })
-      console.log('revisedSearchQuery', searchQuery.tasteProfile)
-    } else {
-      console.log('searchQuery', searchQuery.tasteProfile, 'e.target.value', e.target.value);
-      console.log('true or false', searchQuery.tasteProfile.includes(e.target.value.toString()))
-      let revisedTasteProfile = searchQuery.tasteProfile;
-      revisedTasteProfile.push(e.target.value);
+      console.log('searchQuery', searchQuery.tasteProfiles, 'e.target.options', e.target.options);
+      let revisedTasteProfile = []
+      let options = e.target.options;
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].selected) {
+          revisedTasteProfile.push(options[i].value);
+        }
+      }
       console.log('addRevised', revisedTasteProfile)
       setSearchQuery({
         ...searchQuery,
-        tasteProfile: revisedTasteProfile
+        tasteProfiles: revisedTasteProfile
       })
-    }
   }
 
   const addToCart = async (teaId) => {
     await cartContext.addToCart(teaId);
-    navigate('/cart');
   }
 
   return (
@@ -79,7 +65,6 @@ export default function Tea(props) {
         <h1>Tea</h1>
         <Container>
           <Container style={{ margin: '20px' }}>
-
             <div style={{ margin: '20px' }}>
               <div>
                 <label style={{ marginRight: '20px' }}>Product Name: </label>
@@ -124,7 +109,7 @@ export default function Tea(props) {
                   })}
                 </select>
                 <label style={{ marginRight: '20px' }}>Taste Profiles: </label>
-                <select className="form-select" size="3" multiple aria-label="size 3 select multiple" value={props.osCompatibilitySearch} onChange={updateFormFieldMultiple}>
+                <select className="form-select" multiple={true} size="3" aria-label="size 3 select multiple" value={searchQuery.tasteProfiles} onChange={updateFormFieldMultiple}>
                   {teaContext.getAllTasteProfiles().map(each => {
                     return (
                       <option key={each[0]} value={each[0]}>{each[1]}</option>

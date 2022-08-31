@@ -17,7 +17,6 @@ export default class TeaProvider extends React.Component{
         const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
         let teaResponse = await axios.get(url + "tea");
         console.log(teaResponse);
-        // let searchFieldsResponse = await axios.get(url + "products/fields");
         this.setState({
             tea: teaResponse.data.tea,
             teaTypes: teaResponse.data.teaTypes,
@@ -45,7 +44,7 @@ export default class TeaProvider extends React.Component{
                   tea_type_id: searchQuery.teaType,
                   place_of_origin_id: searchQuery.placeOfOrigin,
                   packaging_id: searchQuery.packaging,
-                  taste_profile_id:searchQuery.tasteProfile
+                  taste_profiles:searchQuery.tasteProfiles
                 }
               });
               console.log(teaSearchResults.data)

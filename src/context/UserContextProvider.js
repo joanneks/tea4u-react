@@ -61,7 +61,7 @@ export default class UserProvider extends React.Component{
                 let profileResponse = await axios.get(url + "customer/profile");
                 let userProfile = profileResponse.data;
                 console.log('profileObject',profileResponse.data);
-                // return userProfile
+                return userProfile
 
                 // let customerId = JSON.parse(localStorage.getItem('customerId'));
                 // let orderHistoryResponse = await axios.get(url + "order/" + customerId);

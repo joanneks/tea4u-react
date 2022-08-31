@@ -1,6 +1,6 @@
 import React from 'react';
 import NavbarInstance from './Navbar';
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate } from 'react-router-dom';
 
@@ -9,7 +9,7 @@ export default function Profile(props) {
   const navigate = useNavigate();
 
   const [profileDetails, setProfileDetails] = useState({
-    id: 5,
+    id: '',
     first_name: '',
     last_name: '',
     username: '',
@@ -19,9 +19,18 @@ export default function Profile(props) {
     mobile_number: 0
   });
 
-  const userProfile = async () => {
-    return await userContext.getUserProfile();
-  }
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await userContext.getUserProfile();
+      setProfileDetails(data);
+      console.log('userprofile',data);
+    }
+  
+    fetchData()
+      .catch(console.error);
+    }, [profileDetails.Id]
+  )
+
   
 
   return (
@@ -31,7 +40,7 @@ export default function Profile(props) {
           <NavbarInstance/>
         </div>
         <div style = {{margin:'20px'}}>
-          <h1 style = {{marginTop:'80px'}}>Hi UserName</h1>
+          <h1 style = {{marginTop:'80px'}}>Hi {profileDetails.username}</h1>
           <div style = {{margin:'20px'}}>
             <table>
               <thead>
@@ -43,27 +52,27 @@ export default function Profile(props) {
               <tbody>
                 <tr>
                   <td>First Name</td>
-                  <td>First Name</td>
+                  <td>{profileDetails.first_name}</td>
                 </tr>
                 <tr>
                   <td>Last Name</td>
-                  <td>Last Name</td>
+                  <td>{profileDetails.last_name}</td>
                 </tr>
                 <tr>
                   <td>Email</td>
-                  <td>Email</td>
+                  <td>{profileDetails.email}</td>
                 </tr>
                 <tr>
                   <td>Mobile Number</td>
-                  <td>Mobile Number</td>
+                  <td>{profileDetails.mobile_number}</td>
                 </tr>
                 <tr>
                   <td>Shipping Address</td>
-                  <td>Shipping Address</td>
+                  <td>{profileDetails.shipping_address}</td>
                 </tr>
                 <tr>
                   <td>Postal Code</td>
-                  <td>Postal Code</td>
+                  <td>{profileDetails.postal_code}</td>
                 </tr>
               </tbody>
             </table>
