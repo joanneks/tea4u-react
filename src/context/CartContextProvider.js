@@ -1,8 +1,6 @@
 import React from 'react';
-// import { useNavigate } from "react-router-dom";
 import CartContext from "./CartContext";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 export default class CartProvider extends React.Component{
     state = {

@@ -3,15 +3,18 @@ import NavbarInstance from './Navbar';
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../context/CartContext';
+import UserContext from '../context/UserContext';
 import Container from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import add from '../css/images/add.png';
 import minus from '../css/images/minus.png';
+import axios from 'axios';
 
 export default function Cart(props) {
   const navigate = useNavigate();
   const cartContext = useContext(CartContext);
+  const userContext = useContext(UserContext);
   const [cartItems, setCartItems] = useState([]);
 
   const addToCart = async (teaId, customerId) => {
@@ -22,6 +25,24 @@ export default function Cart(props) {
     const cartItems = await cartContext.minusFromCart(teaId, customerId);
     setCartItems(cartItems);
   }
+
+
+  const checkout = async (userId,email,shippingAddress,postalCode) => {
+    const userProfile =  await userContext.retrieveUserProfile();
+    console.log('whale',userProfile);
+    const checkoutObject = {
+      user_id:userProfile.id,
+      user_email:userProfile.email,
+      shipping_address:userProfile.shipping_address,
+      postal_code:userProfile.postal_code
+    }
+    const checkoutUrl = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/checkout"
+        
+    const checkoutResponse = await axios.post(checkoutUrl,checkoutObject);
+    console.log(checkoutResponse.data)
+    window.location.href = checkoutResponse.data.sessionUrl
+  }
+
   useEffect(() => {
     async function getCartItems() {
       const cartItems = await cartContext.getCartItems();
@@ -78,6 +99,7 @@ export default function Cart(props) {
                 </Row>
               )
             })}
+            <button className="btn btn-success my-3" onClick={checkout}>Submit</button>
           </Container>
         </div>
       </div>

@@ -13,16 +13,53 @@ export default class UserProvider extends React.Component{
             refreshToken:'',
         },
         loggedIn:false,
+        profileDetails:{
+            id: '',
+            first_name: '',
+            last_name: '',
+            username: '',
+            email: '',
+            shipping_address: '',
+            postal_code: 0,
+            mobile_number: 0
+          }
+    }
+
+    async componentDidMount () {
+        const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/";
+        const getUserProfileUrl = url + "customer/profile"
+        let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        console.log('black sheep')
+        const userProfileResponse = await axios.get(getUserProfileUrl);
+
+        console.log('black sheep2')
+        const userProfile = userProfileResponse.data
+        console.log(userProfile);
+        const profileDetails = {
+            id: userProfile.id,
+            first_name: userProfile.first_name,
+            last_name: userProfile.last_name,
+            username: userProfile.username,
+            email: userProfile.email,
+            shipping_address: userProfile.shipping_address,
+            postal_code: userProfile.postal_code,
+            mobile_number: userProfile.mobile_number
+          }
+          this.setState({profileDetails});
     }
     
-
     render(){
         // const url = "https://tea4u-express.herokuapp.com/api/customer/";
         const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/";
         const loginUrl = url + "customer/login";
         const refreshUrl = url + "customer/refresh";
         const logoutUrl = url + "customer/logout";
+
         const userContext = {
+            retrieveUserProfile: () =>{
+                return this.state.profileDetails;
+            },
             login: async (email,password) => {
                 let loginResponse = await axios.post(loginUrl,{
                     email,
