@@ -1,0 +1,28 @@
+.search-label{
+    text-align:left;
+    margin:5px 0px 5px 0px;
+    padding:6px 0px 6px 0px;
+    font-size:16px;
+}
+
+.search-input{
+    text-align:left;
+    margin:10px 0px 5px 0px;
+    padding:0px;
+}
+
+
+.search-input-div{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin:0px 0px 0px 0px;
+    padding:0px;
+}
+.search-input-cost{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin:5px 0px 5px 0px;
+    padding:0px;
+}

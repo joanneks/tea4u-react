@@ -11,18 +11,24 @@ export default class TeaProvider extends React.Component{
         packaging:[],
         placeOfOrigins:[],
         tasteProfiles:[],
-        
       }
     async componentDidMount() {
         const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
         let teaResponse = await axios.get(url + "tea");
-        console.log(teaResponse);
+        let packaging= teaResponse.data.packaging;
+        let teaTypes= teaResponse.data.teaTypes;
+        let brands= teaResponse.data.brands;
+        let origins = teaResponse.data.placeOfOrigins;
+        teaTypes[0] = [0,'All Types'];
+        origins[0] = [0,'All Origins'];
+        packaging[0] = [0,'All Packaging'];
+        brands[0] = [0,'All Brands'];
         this.setState({
             tea: teaResponse.data.tea,
-            teaTypes: teaResponse.data.teaTypes,
-            brands: teaResponse.data.brands,
-            packaging: teaResponse.data.packaging,
-            placeOfOrigins: teaResponse.data.placeOfOrigins,
+            teaTypes: teaTypes,
+            brands: brands,
+            packaging: packaging,
+            placeOfOrigins: origins,
             tasteProfiles: teaResponse.data.tasteProfiles
         })
     };
@@ -69,6 +75,14 @@ export default class TeaProvider extends React.Component{
             getAllTasteProfiles: () => {
                 return this.state.tasteProfiles
             },
+            getTeaDetails: async (teaId) => {
+                const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
+                let teaResponse = await axios.get(url + "tea/" + teaId); 
+                let tea = teaResponse.data.tea;
+                console.log(tea)
+                
+                return tea;
+            }
         }
         return(
             <React.Fragment>

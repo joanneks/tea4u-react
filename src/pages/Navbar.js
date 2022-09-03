@@ -9,15 +9,25 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
 
-
 export default function NavbarInstance(props) {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
 
   const logout = async () => {
-    console.log('logout');
-    await userContext.logout();
-    navigate("/tea");
+    let customerId = JSON.parse(localStorage.getItem('customerId'));
+    if(customerId){
+      console.log('logout');
+      await userContext.logout();
+      navigate("/tea");
+    }
+  }
+  const checkIfLoggedIn = () => {
+    let customerId = JSON.parse(localStorage.getItem('customerId'));
+    if(customerId){
+      return true;
+    }else {
+      return false;
+    }
   }
 
   return (
@@ -30,13 +40,17 @@ export default function NavbarInstance(props) {
               <Navbar.Collapse id="basic-navbar-nav">
                   <Nav className="me-auto">
                   <Nav.Link href="/about">About Us</Nav.Link>
-                  <Nav.Link href="/tea">Tea</Nav.Link>
+                  <Nav.Link href="/tea">Shop</Nav.Link>
                   <Nav.Link href="/profile">Profile</Nav.Link>
                   <Nav.Link href="/cart">Cart</Nav.Link>
+                  <Nav.Link href="/orders">Orders</Nav.Link>
                   <Nav.Link href="/login">Login</Nav.Link>
                   </Nav>
               </Navbar.Collapse>
-              <button className="btn btn-danger" onClick={logout}>Logout</button>
+              {checkIfLoggedIn() ?
+                <button className="btn btn-danger" onClick={logout}>Logout</button>
+                : ''
+              }
               </Container>
           </Navbar>
       </div>

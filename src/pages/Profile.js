@@ -20,16 +20,21 @@ export default function Profile(props) {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await userContext.getUserProfile();
-      setProfileDetails(data);
-      console.log('userprofile',data);
+    const userProfile = async () => {
+      let customerId = JSON.parse(localStorage.getItem('customerId'));
+      if(customerId){
+        const data = await userContext.getUserProfile();
+        setProfileDetails(data);
+        console.log('userprofile',data);
+      } else{
+        console.log(`Login required to view past order's details`);
+        navigate('/login');
+      }
     }
   
-    fetchData()
-      .catch(console.error);
-    }, [profileDetails.Id]
-  )
+    userProfile()
+    }, 
+    [])
 
   
 
@@ -78,27 +83,7 @@ export default function Profile(props) {
             </table>
           </div>
           <div style={{marginTop:'50px'}}>
-            <h4>History</h4>
-            <table>
-              <thead>
-                <tr>
-                  <th>Order Id</th>
-                  <th>Order Date</th>
-                  <th>Order Status</th>
-                  <th>Shipping Method</th>
-                  <th>Shipping Address</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+            
           </div>
         </div>
       </div>
