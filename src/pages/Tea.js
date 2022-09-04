@@ -85,7 +85,7 @@ export default function Tea(props) {
 
   return (
     <React.Fragment>
-    <div style={{minHeight:'100vh',backgroundColor: '#d4e0e2' }}>
+    <div style={{minHeight:'100vh'}}>
       <div>
         <NavbarInstance />
       </div>
@@ -200,7 +200,7 @@ export default function Tea(props) {
               <Col key={each.id}>
                 <div className="col d-flex justify-content-center">
                   <div>
-                    <Card style={{width:'20rem'}} >
+                    <Card style={{width:'19rem'}} >
                       <Card.Img variant="top" src={each.image_url} className="card-img-top" alt={each.name} style={{ height: '16rem', width: '100%', objectFit: 'cover', }} />
                       <Card.Body style={{ backgroundColor: '#f7f3f2', height: '260px', padding: '20px' }}>
                         <Card.Title >
@@ -222,9 +222,9 @@ export default function Tea(props) {
                             {each.packaging.name}
                             <span>{each.sachet ? ' (' + each.sachet + 'pcs)' : ''} </span>
                             <span style={{ float: 'right' }}>Net weight: {each.weight ? each.weight + 'g' : ''} </span>
-                            <div>
+                            {/* <div> */}
                               <span style={{ fontSize: 'larger', fontWeight: '600' }}>S${each.cost / 100}</span>
-                            </div>
+                            {/* </div> */}
                           </span>
                           {each.tasteProfile.map(eachTasteProfile => {
                             return (

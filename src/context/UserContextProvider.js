@@ -26,7 +26,7 @@ export default class UserProvider extends React.Component{
     }
 
     async componentDidMount () {
-        const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/";
+        const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/";
         const getUserProfileUrl = url + "customer/profile"
         let customerId = JSON.parse(localStorage.getItem('customerId'));
         if(customerId){
@@ -54,7 +54,7 @@ export default class UserProvider extends React.Component{
     
     render(){
         // const url = "https://tea4u-express.herokuapp.com/api/customer/";
-        const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/";
+        const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/";
         const loginUrl = url + "customer/login";
         const refreshUrl = url + "customer/refresh";
         const logoutUrl = url + "customer/logout";

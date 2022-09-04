@@ -7,12 +7,13 @@ export default class CartProvider extends React.Component{
         cartItems:[],
         // totalCost:0,
       }
+      
     async componentDidMount() {
         let customerId = JSON.parse(localStorage.getItem('customerId'));
         if(customerId){
             let accessToken = JSON.parse(localStorage.getItem('accessToken'));
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
+            const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/"
             let cartResponse = await axios.post(url + "cart/",{
                 user_id:customerId
             });
@@ -25,7 +26,7 @@ export default class CartProvider extends React.Component{
         }
     };
     render(){
-        const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/";
+        const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/";
         
         const cartContext = { 
             addToCart: async(teaId,customerId) => {
@@ -57,7 +58,7 @@ export default class CartProvider extends React.Component{
                 let customerId = JSON.parse(localStorage.getItem('customerId'));
                 let accessToken = JSON.parse(localStorage.getItem('accessToken'));
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
+                // const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
                 let cartResponse = await axios.post(url + "cart/",{
                     user_id:customerId
                 });

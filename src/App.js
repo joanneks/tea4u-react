@@ -1,3 +1,4 @@
+import './App.css';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -24,7 +25,7 @@ function App() {
   setInterval(userContext.getNewAccessToken,890000)
   return (
     <React.Fragment>
-      <div style={{ minHeight: '100vh' }}>
+      <div style={{minHeight:'100vh',backgroundColor: '#d4e0e2' }}>
         <TeaProvider>
           <UserProvider>
             <CartProvider>

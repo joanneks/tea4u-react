@@ -37,37 +37,84 @@ function TeaDetails(props) {
 
   return (
     <React.Fragment>
+      <div style={{minHeight:'100vh'}}>
         <div>
           <NavbarInstance/>
         </div>
-        <div style={{marginTop:'70px'}}>
-          <h1>Tea Details</h1>
-          <div style={{margin:'20px'}}>
-            <div>
-                <img src={teaDetails.image_url} alt={teaDetails.name} style={{objectFit:'cover', width:'60vw',maxHeight:'70vh'}}/>
+        <div style={{height:'57px'}}></div>
+        
+        <div style={{display:'flex',flexWrap:'wrap'}}>
+          <div className="col-12 col-sm-12 col-md-12 col-lg-6"><img src={teaDetails.image_url} alt={teaDetails.name} style={{objectFit:'cover', width:'100%'}}/></div>
+          <div className="col-12 col-sm-12 col-md-12 col-lg-6 tea-details-padding">
+            <div style={{margin:'20px 0px 20px 0px'}}>
+              <div style={{fontSize:'30px',fontFamily:'Khula,sans-serif',fontWeight:'500'}}>{teaDetails.name}</div>
+              <div style={{fontSize:'23px',fontFamily:'Khula,sans-serif',fontWeight:'300'}}>S${teaDetails.cost/100}</div>
             </div>
-            <div>
-                <div>{teaDetails.name}</div>
-                <div>{teaDetails.cost}</div>
-                <div>{teaPackaging}</div>
-                <div>{teaBrand}</div>
-                <div>{teaPlaceOfOrigin}</div>
-                <div>{teaType}</div>
-                {teaTasteProfile.map(each => {
-                    return (
-                    <Badge key={each.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{each.name} </Badge>
-                    )
-                })}
-                <div>{teaDetails.weight}</div>
-                <div>{teaDetails.brew_tea_weight} {teaDetails.brew_sachet_quantity}</div>
-                <div>{teaDetails.brew_temperature} °C {teaDetails.brew_time} min {teaDetails.brew_water_quantity} ml</div>
-                <div>{teaDetails.description}</div>
-                <div>Stock Available: {teaDetails.quantity}</div>
 
+            
+            <div style={{display:'flex',flexWrap:'wrap',margin:'20px 0px 20px 0px'}}>
+              <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{fontSize:'15px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'45%'}}>TYPE:</div>
+                <div style={{fontSize:'15px',fontFamily:'Khula,sans-serif',fontWeight:'400'}}>{teaType}</div>
+              </div>
+              <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'50%'}}>ORIGIN:</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400'}}>{teaPlaceOfOrigin}</div>
+              </div>
             </div>
+            <div style={{display:'flex',flexWrap:'wrap',margin:'20px 0px 20px 0px'}}>
+              <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'45%'}}>WEIGHT:</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400'}}>{teaDetails.weight}g</div>
+              </div>
+              <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'50%'}}>STOCK:</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',textAlign:'center'}}>{teaDetails.quantity}</div>
+              </div>
+            </div>
+            <div style={{display:'flex',flexWrap:'wrap',margin:'20px 0px 20px 0px'}}>
+              <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%'}}>BRAND:</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400'}}>{teaBrand}</div>
+              </div>
+              <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%'}}>PACKAGING:</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400'}}>
+                  {teaPackaging}
+                  {teaDetails.brew_sachet_quantity === 0 ? '' : teaDetails.brew_sachet_quantity}
+                </div>
+              </div>
+            </div>
+            <div style={{display:'flex',flexWrap:'wrap',margin:'20px 0px 20px 0px'}}>
+              <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%'}}>INSTRUCTIONS:</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'20%'}}>I</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'80%'}}>{teaDetails.brew_temperature} °C</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'20%'}}>I</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'80%'}}>{teaDetails.brew_water_quantity} ml</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'20%'}}>I</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'80%'}}>{teaDetails.brew_time} min</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'20%'}}>I</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'80%'}}>
+                  {teaDetails.brew_tea_weight}g {teaDetails.brew_sachet_quantity === 0 ? ' ': '('+teaDetails.brew_sachet_quantity+'sachets)'}
+                </div>
+              </div>
+              <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%'}}>TASTE PROFILE</div>
+                <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%'}}>
+                  {teaTasteProfile.map(each => {
+                      return (
+                        <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'80%'}}>{each.name},</div>
+                      )
+                  })}
+                </div>
+              </div>
+            </div>
+            <div style={{margin:'30px 0px 20px 0px',fontSize:'15px',fontFamily:'Khula,sans-serif',fontWeight:'300',textAlign:'justify'}}>{teaDetails.description}</div>
           </div>
         </div>
-
+          
+      </div>
     </React.Fragment>
     );
   }

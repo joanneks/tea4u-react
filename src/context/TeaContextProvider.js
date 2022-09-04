@@ -13,7 +13,7 @@ export default class TeaProvider extends React.Component{
         tasteProfiles:[],
       }
     async componentDidMount() {
-        const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
+        const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/"
         let teaResponse = await axios.get(url + "tea");
         let packaging= teaResponse.data.packaging;
         let teaTypes= teaResponse.data.teaTypes;
@@ -33,7 +33,7 @@ export default class TeaProvider extends React.Component{
         })
     };
     render(){
-        const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/";
+        const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/";
         const teaSearchUrl = url + "tea/";
         
         const teaContext = { 
@@ -76,7 +76,7 @@ export default class TeaProvider extends React.Component{
                 return this.state.tasteProfiles
             },
             getTeaDetails: async (teaId) => {
-                const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
+                // const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
                 let teaResponse = await axios.get(url + "tea/" + teaId); 
                 let tea = teaResponse.data.tea;
                 console.log(tea)

@@ -11,7 +11,6 @@
     padding:0px;
 }
 
-
 .search-input-div{
     display:flex;
     justify-content: center;
@@ -25,4 +24,40 @@
     align-items: center;
     margin:5px 0px 5px 0px;
     padding:0px;
+}
+
+.tea-margin {
+    margin: 40px 80px 0px 80px;
+    padding-bottom: 40px;
+}
+
+.tea-details-padding {
+    padding:80px;
+}
+
+@media screen and (max-width: 991px) {
+    .tea-margin {
+        margin: 40px 60px 0px 60px;
+        padding-bottom: 40px;
+    }
+    .tea-details-padding {
+        padding:20px 60px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .tea-margin {
+        margin: 30px 50px 0px 50px;
+        padding-bottom: 30px 60px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .tea-margin {
+        margin: 20px 30px 0px 30px;
+        padding-bottom: 20px;
+    }
+    .tea-details-padding {
+        padding:20px;
+    }
 }

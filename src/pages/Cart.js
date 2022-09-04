@@ -53,9 +53,7 @@ export default function Cart(props) {
     setCartItems(cartItems);
   }
 
-  useEffect(()=>{
-
-  },cartItems)
+  useEffect(()=>{},[cartItems])
 
   const deleteFromCart = async(teaId,customerId) => {
     const cartItems = await cartContext.deleteFromCart(teaId,customerId);
@@ -71,7 +69,7 @@ export default function Cart(props) {
       shipping_address:userProfile.shipping_address,
       postal_code:userProfile.postal_code
     }
-    const checkoutUrl = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/checkout"
+    const checkoutUrl = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/checkout"
         
     const checkoutResponse = await axios.post(checkoutUrl,checkoutObject);
     console.log(checkoutResponse.data)
@@ -145,7 +143,6 @@ export default function Cart(props) {
         <h1 style={{ marginLeft: '30px' }}>Shopping Cart</h1>
         <Container style={{ marginLeft: '30px', marginRight: '30px', marginTop: '10px' }}>
           <table className="table">
-            <div class="table-responsive"> 
               <thead>
                 <tr>
                   <th colSpan="2" className="text-left col-5">Product</th>
@@ -195,7 +192,6 @@ export default function Cart(props) {
                   <td><img src={pay} alt="addToCartBtn" style={{ height: "40px", width: "40px" }} onClick={checkout}/></td>
                 </tr>
               </tbody>
-            </div>
           </table>
           
           {/* <button className="btn btn-success my-3" onClick={checkout}>Submit</button> */}
