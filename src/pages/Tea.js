@@ -202,35 +202,27 @@ export default function Tea(props) {
                   <div>
                     <Card style={{width:'19rem'}} >
                       <Card.Img variant="top" src={each.image_url} className="card-img-top" alt={each.name} style={{ height: '16rem', width: '100%', objectFit: 'cover', }} />
-                      <Card.Body style={{ backgroundColor: '#f7f3f2', height: '260px', padding: '20px' }}>
+                      <Card.Body style={{ backgroundColor: '#f3f2f1', height: '160px', padding: '20px',fontFamily:'Khula,sans-serif',fontWeight:'600' }}>
                         <Card.Title >
-                          <div style={{ marginBottom: '8px', padding: '0px 5px 0px 5px',fontSize:'25px'}}>
-                            {each.brand.name}
+                          <div style={{ marginBottom: '8px', padding: '0px 5px 0px 5px',fontSize:'20px',height:'34px'}}>
+                            <span style={{fontWeight:'500'}}>{each.brand.name}</span>
                             <span style={{ float: 'right'}}>
                               <img src={more} alt="moreTeaDetails" style={{ height: "34px", width: "34px",marginLeft:'10px' }} onClick={()=>{showTeaInfo(each.id)}}/>
                               <img src={cart} alt="addToCartBtn" style={{ height: "34px", width: "34px",marginLeft:'10px' }} onClick={()=>{addToCart(each.id)}}/>
                             </span>
                           </div>
-                          <div style={{ height: '50px', margin: '20px 0px 30px 0px',padding: '0px 5px 0px 5px' }}>
+                          <div style={{ height: '50px', margin: '20px 0px 30px 0px',padding: '0px 5px 0px 5px',fontWeight:'600' }}>
                             {each.name}
                             <div style={{ fontStyle: 'italic', fontSize: 'small', fontWeight: '400', marginTop: '5px' }}>{each.quantity === 0 ? 'Sold Out' : 'Available Stock: ' + each.quantity}</div>
                           </div>
 
                         </Card.Title>
                         <Card.Text style={{ marginTop: '15px' }}>
-                          <span style={{ marginBottom: '10px', marginTop: '10px', padding: '0px 5px 0px 5px', display: 'block' }}>
-                            {each.packaging.name}
-                            <span>{each.sachet ? ' (' + each.sachet + 'pcs)' : ''} </span>
-                            <span style={{ float: 'right' }}>Net weight: {each.weight ? each.weight + 'g' : ''} </span>
-                            {/* <div> */}
-                              <span style={{ fontSize: 'larger', fontWeight: '600' }}>S${each.cost / 100}</span>
-                            {/* </div> */}
-                          </span>
-                          {each.tasteProfile.map(eachTasteProfile => {
+                          {/* {each.tasteProfile.map(eachTasteProfile => {
                             return (
                               <Badge key={eachTasteProfile.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{eachTasteProfile.name} </Badge>
                             )
-                          })}
+                          })} */}
                         </Card.Text>
                       </Card.Body>
                     </Card>

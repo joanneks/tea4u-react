@@ -92,23 +92,26 @@ function OrderItems(props) {
 
         getOrderItems();
     },[])
-    
+    let count = 0;
     return (
         <React.Fragment>
-            <div style={{ backgroundColor: '#d4e0e2', height: '100vh' }}>
+            <div style={{minHeight:'100vh'}}>
                 <div>
                     <NavbarInstance />
                 </div>
-                <div style={{ margin: '20px' }}>
-                    <div style={{ marginTop: '100px' }}>
-                        <h5>Order Id: {orderId}</h5>
-                        <h5>Total: {orderItemDetails.totalCosts}</h5>
-                        <div>
+                <div style={{height:'57px'}}></div>
+                <div style={{ margin: '20px 20px 0px 20px' }}>
+                    <div style={{margin:'20px 20px 0px 20px'}}>
+                        <div style={{fontSize:'20px',fontFamily:'Khula,sans-serif',fontWeight:'700'}}>Order Id #{orderId} 
+                            <span style={{fontSize:'20px',fontFamily:'Khula,sans-serif',fontWeight:'700',float:'right'}}>Total: S${orderItemDetails.totalCosts}</span>
+                        </div>
+                        <div style={{fontSize:'15px',fontFamily:'Khula,sans-serif'}}>
                         {orderItems.map(each => {
+                            count = count + 1;
                             return(
                                 <div key={each.id}>
                                     <Row>
-                                        <Col xs={12} md={9} lg={9}>
+                                        <Col>
                                         <table className='table'>
                                             <thead>
                                                 <tr>
@@ -116,50 +119,47 @@ function OrderItems(props) {
                                                     </th>
                                                     <th>
                                                     </th>
+                                                    <th>
+
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Brand:</td>
-                                                    <td>{brands[each.tea.brand_id]}</td>
+                                                    <td style={{fontWeight:'600'}}>{count}.</td>
+                                                    <td style={{fontWeight:'600'}}>Name:</td>
+                                                    <td style={{fontWeight:'500'}}>
+                                                        <div>{each.tea.name}</div>
+                                                        <img src={each.tea.image_url} alt={each.tea.name} style={{height:'150px',width:'150px'}}/>
+                                                    </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Name:</td>
-                                                    <td>{each.tea.name}</td>
+                                                    <td></td>
+                                                    <td style={{fontWeight:'600'}}>Brand:</td>
+                                                    <td style={{fontWeight:'500'}}>{brands[each.tea.brand_id]}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Type:</td>
-                                                    <td>{teaTypes[each.tea.tea_type_id]}</td>
+                                                    <td></td>
+                                                    <td style={{fontWeight:'600'}}>Type/From:</td>
+                                                    <td style={{fontWeight:'500'}}>{teaTypes[each.tea.tea_type_id]}, {places[each.tea.place_of_origin_id]}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Place of Origin:</td>
-                                                    <td>{places[each.tea.place_of_origin_id]}</td>
+                                                    <td></td>
+                                                    <td style={{fontWeight:'600'}}>Packaging:</td>
+                                                    <td style={{fontWeight:'500'}}>{packaging[each.tea.packaging_id]} ( {each.tea.weight === 0? '': each.tea.weight+'g'} / {each.tea.sachet===0?'':each.tea.sachet+' sachets'} )</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Packaging:</td>
-                                                    <td>{packaging[each.tea.packaging_id]}</td>
+                                                    <td></td>
+                                                    <td style={{fontWeight:'600'}}>Cost x Quantity:</td>
+                                                    <td style={{fontWeight:'500'}}>{each.tea.cost/100}     x     {each.quantity}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Weight:</td>
-                                                    <td>{each.tea.weight}g</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Cost:</td>
-                                                    <td>{each.tea.cost/100}     x     {each.quantity}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Quantity:</td>
-                                                    <td>{each.quantity}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Subtotal:</td>
-                                                    <td>{orderItemDetails[each.tea.id].eachTeaCosts}</td>
+                                                    <td></td>
+                                                    <td style={{fontWeight:'600'}}>Subtotal:</td>
+                                                    <td style={{fontWeight:'500'}}>S${orderItemDetails[each.tea.id].eachTeaCosts}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        </Col>
-                                        <Col xs={12} md={3} lg={3}>
-                                    <img src={each.tea.image_url} alt={each.tea.name} style={{height:'150px',width:'150px'}}/>
                                         </Col>
                                     </Row>
                                 </div>

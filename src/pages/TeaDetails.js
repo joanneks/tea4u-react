@@ -41,10 +41,10 @@ function TeaDetails(props) {
         <div>
           <NavbarInstance/>
         </div>
-        <div style={{height:'57px'}}></div>
+        <div style={{height:'56px'}}></div>
         
         <div style={{display:'flex',flexWrap:'wrap'}}>
-          <div className="col-12 col-sm-12 col-md-12 col-lg-6"><img src={teaDetails.image_url} alt={teaDetails.name} style={{objectFit:'cover', width:'100%'}}/></div>
+          <div className="col-12 col-sm-12 col-md-12 col-lg-6"><img src={teaDetails.image_url} alt={teaDetails.name} style={{objectFit:'cover', width:'100%',maxHeight:'100vh'}}/></div>
           <div className="col-12 col-sm-12 col-md-12 col-lg-6 tea-details-padding">
             <div style={{margin:'20px 0px 20px 0px'}}>
               <div style={{fontSize:'30px',fontFamily:'Khula,sans-serif',fontWeight:'500'}}>{teaDetails.name}</div>
@@ -85,7 +85,7 @@ function TeaDetails(props) {
                 </div>
               </div>
             </div>
-            <div style={{display:'flex',flexWrap:'wrap',margin:'20px 0px 20px 0px'}}>
+            <div style={{display:'flex',flexWrap:'wrap',margin:'30px 0px 20px 0px'}}>
               <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
                 <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%'}}>INSTRUCTIONS:</div>
                 <div style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',width:'20%'}}>I</div>

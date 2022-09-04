@@ -49,6 +49,7 @@ export default function NavbarInstance(props) {
               </Navbar.Collapse>
               {checkIfLoggedIn() ?
                 <button className="btn btn-danger" onClick={logout}>Logout</button>
+                // <a href='' style={{fontFamily:'Khula,sans-serif',fontSize:'16px',fontWeight:'600',textDecoration:'none'}} onClick={logout}>Logout</a>
                 : ''
               }
               </Container>

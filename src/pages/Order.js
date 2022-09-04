@@ -35,36 +35,74 @@ export default function Order(props) {
 
   return (
     <React.Fragment>
-        <div style = {{backgroundColor:'#d4e0e2',height:'100vh'}}>
+        <div style={{minHeight:'100vh'}}>
             <div>
             <NavbarInstance/>
             </div>
+            <div style={{height:'57px'}}></div>
             <div style={{margin:'20px'}}>
-                <div style={{marginTop:'100px'}}>
-                    <h1>Orders</h1>
+                <div>
+                    <h1 style={{fontSize:'35px',fontFamily:'Khula,sans-serif',fontWeight:'500',textAlign:'center'}}>Order History</h1>
                     <div>
                         {orders.map(each=>{
                             const createdDate = each.datetime_created.slice(0,10) + " " +each.datetime_created.slice(11,18)
-                            // const formatCreatedDate = moment(createdDate).format('DD-MM-YYYY hh:mm:ss A')
                             const formatOrderedDate = moment(createdDate).format('DD-MM-YYYY')
                             const modifiedDate = each.datetime_last_modified.slice(0,10) + " " +each.datetime_created.slice(11,18)
                             // const formatModifiedDate = moment(modifiedDate).format('DD-MM-YYYY hh:mm:ss A')
-                            const expectedDeliveryDate = moment(moment(createdDate).add(7, 'days')).format('DD-MM-YYYY hh:mm:ss A');
+                            const expectedDeliveryDate = moment(moment(createdDate).add(7, 'days')).format('DD-MM-YYYY');
                             const formatModifiedDate = moment(modifiedDate).format('DD-MM-YYYY')
                                 return(
                                     <div key={each.id} style={{marginTop:'20px'}}>
                                         <div>
-                                            <div>Order Id: {each.id} <span style={{float:'right'}}>Date: {formatOrderedDate}</span></div>
-                                            <div>Order Status: {each.orderStatus.name} <span style={{float:'right'}}>Updated: {formatModifiedDate}</span></div>
-                                            {/* <div>Updated On: {formatModifiedDate}</div> */}
-                                            <div>Delivery Method: {each.shippingMethod.name} ({each.shippingMethod.min_days} to {each.shippingMethod.max_days} days) {each.orderItem.length === 0 ? '' : <span style={{float:'right'}}>{each.orderItem.length} items</span>}</div>
-                                            <div>ETA: {expectedDeliveryDate}</div>
-                                            <div>Recipient Address: {each.shipping_address}, S({each.postal_code})</div>
-                                            {each.remarks === 'nil' ? '' : <div>Remarks: {each.remarks}</div>}
-                                            {/* <a href={`orders/${each.id}`} className="btn btn-dark btn-sm">View Items</a> */}
-                                            <button className="btn btn-dark btn-sm" onClick={()=>showOrder(each.id)}>View Items</button>
-                                        </div>
-                                        <div style={{display:'none'}}>
+                                            <div>
+                                                <div style={{display:'flex',flexWrap:'wrap',backgroundColor:'#e2d6d4'}}>
+                                                    <div className="col-6" style={{padding:'10px'}}>
+                                                        <div style={{fontSize:'18px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%'}}>Order Id #{each.id}</div>
+                                                    </div>
+                                                    <div className="col-6" style={{padding:'10px'}}>
+                                                        <div style={{fontSize:'18px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%',textAlign:'end',alignItems:'center'}}><button className="btn btn-dark btn-sm" onClick={()=>showOrder(each.id)}>View Items</button></div>
+                                                    </div>
+                                                </div>
+                                                <div style={{backgroundColor:'#eae1e0',padding:'10px'}}>
+                                                    <div style={{display:'flex',flexWrap:'wrap',margin:'0px 0px 10px 0px'}}>
+                                                        <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                                                            <div style={{fontSize:'18px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%'}}>{each.orderStatus.name}</div>
+                                                        </div>
+                                                        <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                                                            <div style={{fontSize:'18px',fontFamily:'Khula,sans-serif',fontWeight:'600',width:'100%',textAlign:'end'}}>{each.orderItem.length === 0 ? '' : <span>{each.orderItem.length} item(s)</span>}</div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div style={{display:'flex',flexWrap:'wrap',margin:'20px 0px 20px 0px'}}>
+                                                        <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                                                            <div className="col-12 col-sm-5 col-md-5 col-lg-4 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600'}}>Order Date:</div>
+                                                            <div className="col-12 col-sm-7 col-md-7 col-lg-8 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400'}}>{formatOrderedDate}</div>
+                                                        </div>
+                                                        <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                                                            <div className="col-12 col-sm-5 col-md-5 col-lg-4 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',textAlign:'end'}}>Last Updated:</div>
+                                                            <div className="col-12 col-sm-7 col-md-7 col-lg-8 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',textAlign:'end'}}>{formatModifiedDate}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div style={{display:'flex',flexWrap:'wrap',margin:'20px 0px 20px 0px'}}>
+                                                        <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                                                            <div className="col-12 col-sm-5 col-md-5 col-lg-4 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600'}}>Delivery Method:</div>
+                                                            <div className="col-12 col-sm-7 col-md-7 col-lg-8 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400'}}>{each.shippingMethod.name} ({each.shippingMethod.min_days} to {each.shippingMethod.max_days} days) </div>
+                                                        </div>
+                                                        <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                                                            <div className="col-12 col-sm-5 col-md-5 col-lg-4 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600',textAlign:'end'}}>Estimated Arrival:</div>
+                                                            <div className="col-12 col-sm-7 col-md-7 col-lg-8 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400',textAlign:'end'}}>{expectedDeliveryDate}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div style={{display:'flex',flexWrap:'wrap',margin:'20px 0px 20px 0px'}}>
+                                                        <div className="col-6" style={{display:'flex',flexWrap:'wrap'}}>
+                                                            <div className="col-12 col-sm-5 col-md-5 col-lg-4 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'600'}}>Shipping Address:</div>
+                                                            <div className="col-12 col-sm-7 col-md-7 col-lg-8 " style={{fontSize:'16px',fontFamily:'Khula,sans-serif',fontWeight:'400'}}>{each.shipping_address}, S({each.postal_code})</div>
+                                                        </div>
+                                                    </div>
+
+                                                    
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
