@@ -5,12 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import CartContext from '../context/CartContext';
 import UserContext from '../context/UserContext';
 import TeaContext from "../context/TeaContext";
+import '../css/cart.css';
 import Container from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import info from '../css/images/info.png';
 import add from '../css/images/add.png';
 import minus from '../css/images/minus.png';
+import remove from '../css/images/remove.png';
+import pay from '../css/images/pay.png';
 import axios from 'axios';
 
 export default function Cart(props) {
@@ -20,6 +23,7 @@ export default function Cart(props) {
   const teaContext = useContext(TeaContext);
   const [cartItems, setCartItems] = useState([]);
   const [brands,setBrands] = useState();
+  const [totalCost,setTotalCost] = useState();
   const [cartItemDetails,setCartItemDetails] = useState([]);
 
   const addToCart = async (teaId, customerId) => {
@@ -28,6 +32,33 @@ export default function Cart(props) {
   }
   const minusFromCart = async (teaId, customerId) => {
     const cartItems = await cartContext.minusFromCart(teaId, customerId);
+    // let itemDetails = {};
+    //     let totalCosts = 0;
+    //     for(let item of cartItems){
+    //         let quantity = item.quantity;
+    //         let teaId = item.tea.id;
+    //         let teaName = item.tea.name;
+    //         let teaCost = item.tea.cost/100;
+    //         let eachTeaCosts = teaCost * quantity;
+    //         totalCosts += eachTeaCosts;
+    //         itemDetails[teaId] = {
+    //             name: teaName,
+    //             cost: teaCost,
+    //             quantity,
+    //             eachTeaCosts
+    //         }
+    //         await setCartItemDetails(itemDetails);
+    //     }
+    //     await setTotalCost(totalCosts);
+    setCartItems(cartItems);
+  }
+
+  useEffect(()=>{
+
+  },cartItems)
+
+  const deleteFromCart = async(teaId,customerId) => {
+    const cartItems = await cartContext.deleteFromCart(teaId,customerId);
     setCartItems(cartItems);
   }
 
@@ -71,10 +102,8 @@ export default function Cart(props) {
                 eachTeaCosts
             }
         }
-
-        itemDetails['totalCosts'] = totalCosts;
-        console.log('ITEMS333',itemDetails);
-        setCartItemDetails(itemDetails)
+        await setCartItemDetails(itemDetails);
+        await setTotalCost(totalCosts);
 
         const brands = await teaContext.getAllTeaBrands();
         let brandObject = {};
@@ -98,46 +127,79 @@ export default function Cart(props) {
     navigate('/tea/'+teaId)
     // `/orders/${orderId}`
   }
+  const deriveTotal = () => {
+    let totalCost = 0;
+    for(let each of cartItemDetails){
+      totalCost = totalCost + each.eachTeaCosts;
+    }
+    setTotalCost(totalCost);
+  }
 
   return (
     <React.Fragment>
-      <div style={{ backgroundColor: '#d4e0e2', height: '100vh' }}>
+      <div style={{minHeight:'100vh',backgroundColor: '#d4e0e2' }}>
         <div>
           <NavbarInstance />
         </div>
-        <div style={{ marginTop: '70px', backgroundColor: '#d4e0e2' }}>
-          <h1 style={{ marginLeft: '30px' }}>Cart</h1>
-          <Container style={{ marginLeft: '30px', marginRight: '30px', marginTop: '10px' }}>
-            {cartItems.map(each => {
-              return (
-                <Row className="g-2" key={each.id}>
-                  <Col xs={12} md={7} lg={7} style={{ marginTop: '40px' }}>
-                    <h5>{each.tea.name} <img src={info} alt={each.tea_id} style={{height:'25px',width:'25px'}} onClick={()=>{showTeaInfo(each.tea_id)}}/></h5>
-                    <div>Subtotal: {cartItemDetails[each.tea_id].eachTeaCosts}</div>
-                    <div>Brand: {brands[each.tea.brand_id]}</div>
-                    <div>Quantity: {each.quantity}</div>
-                    <div>Cost: {each.tea.cost/100}</div>
-                    <div>Weight: {each.tea.weight}</div>
-                  </Col>
-                  <Col xs={12} md={3} lg={2} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', width: '100px', marginRight: '20px', marginLeftt: '20px' }}>
-                    <span style={{ float: 'left', justifyContent: 'center' }}>
-                      <img src={minus} alt="minusFromCartBtn" style={{ height: "25px", width: "25px" }} onClick={() => { minusFromCart(each.tea_id, each.customer_id) }} />
-                    </span>
-                    <span>{each.quantity}</span>
-                    <span style={{ float: 'right', justifyContent: 'center' }}>
-                      <img src={add} alt="addToCartBtn" style={{ height: "25px", width: "25px" }} onClick={() => { addToCart(each.tea_id, each.customer_id) }} />
-                    </span>
-                  </Col>
-                  <Col xs={12} md={2} lg={2}>
-                    <img src={each.tea.image_url} alt={each.tea.name} style={{ height: '150px', width: '150px', objectFit: 'cover' }} />
-                  </Col>
-                </Row>
-              )
-            })}
-            <div>Total:{cartItemDetails.totalCost}</div>
-            <button className="btn btn-success my-3" onClick={checkout}>Submit</button>
-          </Container>
-        </div>
+        <div style={{height:'70px'}}></div>
+        <h1 style={{ marginLeft: '30px' }}>Shopping Cart</h1>
+        <Container style={{ marginLeft: '30px', marginRight: '30px', marginTop: '10px' }}>
+          <table className="table">
+            <div class="table-responsive"> 
+              <thead>
+                <tr>
+                  <th colSpan="2" className="text-left col-5">Product</th>
+                  <th className="text-center col-2">Unit Price</th>
+                  <th className="text-center col-2">Quantity</th>
+                  <th className="text-center col-2">Total</th>
+                  <th className="text-center col-1"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems.map(each => {
+                  return (
+                    <React.Fragment key={each.tea.id}>
+                      <tr>
+                        <td style={{width:'150px'}}><img src={each.tea.image_url} alt={each.tea.name} style={{ height: '130px', width: '130px', objectFit: 'cover' }} /></td>
+                        <td>
+                          <div>
+                            <span style={{marginRight:'10px'}}>{each.tea.name}</span> <img src={info} alt={each.tea_id} style={{height:'20px',width:'20px'}} onClick={()=>{showTeaInfo(each.tea_id)}}/>
+                          </div>
+                          <div>Brand: {brands[each.tea.brand_id]}</div>
+                          <div>Weight: {each.tea.weight} g</div>
+                        </td>
+                        <td className="text-center">S${each.tea.cost/100}</td>
+                        <td className="text-center" style={{display:'flex', justifyContent:'center'}}>
+                          <Col xs={12} md={3} lg={2} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', width: '100px', marginLeftt: '20px' }}>
+                            <span style={{ float: 'left', justifyContent: 'center' }}>
+                              <img src={minus} alt="minusFromCartBtn" style={{ height: "20px", width: "20px" }} onClick={() => { minusFromCart(each.tea_id, each.customer_id) }} />
+                            </span>
+                            <span>{each.quantity}</span>
+                            <span style={{ float: 'right', justifyContent: 'center' }}>
+                              <img src={add} alt="addToCartBtn" style={{ height: "20px", width: "20px" }} onClick={() => { addToCart(each.tea_id, each.customer_id) }} />
+                            </span>
+                          </Col>
+                        </td>
+                        <td className="text-center">{cartItemDetails[each.tea_id].eachTeaCosts}</td>
+                        <td className="text-center"><img src={remove} alt="addToCartBtn" style={{ height: "20px", width: "20px" }} onClick={()=>{deleteFromCart(each.tea_id, each.customer_id)}}/></td>
+                      </tr>
+                    </React.Fragment>
+                  )
+                })}
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td className="text-center" style={{verticalAlign:'middle'}}>Total:</td>
+                  <td className="text-center" style={{verticalAlign:'middle'}}>{totalCost}</td>
+                  <td><img src={pay} alt="addToCartBtn" style={{ height: "40px", width: "40px" }} onClick={checkout}/></td>
+                </tr>
+              </tbody>
+            </div>
+          </table>
+          
+          {/* <button className="btn btn-success my-3" onClick={checkout}>Submit</button> */}
+        </Container>
       </div>
     </React.Fragment>
   )

@@ -67,9 +67,17 @@ export default class CartProvider extends React.Component{
             displayCartItems: () => {
                 return this.state.cartItems;
             },
-            // displayTotalCost: () => {
-            //     return this.state.totalCost;
-            // }
+            deleteFromCart: async(teaId,customerId) => {
+                const deleteFromCartUrl = url + "cart/remove/" + teaId
+                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                let deleteFromCartResponse = await axios.post(deleteFromCartUrl,{
+                    user_id:customerId,
+                    tea_id:teaId,
+                });
+                let cartItems = deleteFromCartResponse.data.cartItems;
+                return cartItems;
+            }
         }
         return(
             <React.Fragment>
