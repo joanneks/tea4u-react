@@ -1,6 +1,7 @@
 import React from 'react';
 import CartContext from "./CartContext";
 import axios from 'axios';
+import {jwtDecode} from './Jwt.js';
 
 export default class CartProvider extends React.Component{
     state = {
@@ -11,7 +12,7 @@ export default class CartProvider extends React.Component{
     async componentDidMount() {
         let customerId = JSON.parse(localStorage.getItem('customerId'));
         if(customerId){
-            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+            let accessToken = await jwtDecode();
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/"
             let cartResponse = await axios.post(url + "cart/",{
@@ -32,7 +33,7 @@ export default class CartProvider extends React.Component{
             addToCart: async(teaId,customerId) => {
                 const addToCartUrl = url + "cart/add/" + teaId;
                 customerId = JSON.parse(localStorage.getItem('customerId'));
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 let addCartResponse = await axios.post(addToCartUrl,{
                     user_id:customerId,
@@ -43,8 +44,8 @@ export default class CartProvider extends React.Component{
                 return revisedCartItems;
             },
             minusFromCart: async(teaId,customerId) => {
-                const minusFromCartUrl = url + "cart/minus/" + teaId
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                const minusFromCartUrl = url + "cart/minus/" + teaId;
+                let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 let minusFromCartResponse = await axios.post(minusFromCartUrl,{
                     user_id:customerId,
@@ -56,7 +57,7 @@ export default class CartProvider extends React.Component{
             },
             getCartItems:async () =>{
                 let customerId = JSON.parse(localStorage.getItem('customerId'));
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 // const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
                 let cartResponse = await axios.post(url + "cart/",{
@@ -70,7 +71,7 @@ export default class CartProvider extends React.Component{
             },
             deleteFromCart: async(teaId,customerId) => {
                 const deleteFromCartUrl = url + "cart/remove/" + teaId
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 let deleteFromCartResponse = await axios.post(deleteFromCartUrl,{
                     user_id:customerId,

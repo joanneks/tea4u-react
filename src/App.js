@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home';
-import AboutUs from './pages/AboutUs';
 import Tea from './pages/Tea';
 import TeaDetails from './pages/TeaDetails';
 import Login from './pages/Login';
@@ -35,7 +34,6 @@ function App() {
                 <Router>
                   <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/about" element={<AboutUs />} />
                     <Route path="/tea" element={<Tea />} />
                     <Route path="/tea/:teaId" element={<TeaDetails />} />
                     <Route path="/login" element={<Login />} />

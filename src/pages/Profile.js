@@ -22,7 +22,7 @@ export default function Profile(props) {
   useEffect(() => {
     const userProfile = async () => {
       let customerId = JSON.parse(localStorage.getItem('customerId'));
-      if(customerId){
+      if(customerId){console.log('here')
         const data = await userContext.getUserProfile();
         setProfileDetails(data);
         console.log('userprofile',data);
@@ -31,7 +31,6 @@ export default function Profile(props) {
         navigate('/login');
       }
     }
-  
     userProfile()
     }, 
     [])
@@ -57,7 +56,7 @@ export default function Profile(props) {
               </div>
               <div className="col-6 col-sm-6 col-md-4 col-lg-3  mb-3">
                 <h6 style={{fontWeight:'600'}}>USERNAME</h6>
-                <p style={{ontWeight:'500', fontSize:'17px'}}>{profileDetails.username}</p>
+                <p style={{fontWeight:'500', fontSize:'17px'}}>{profileDetails.username}</p>
               </div>
               <div className="col-6 col-sm-6 col-md-4 col-lg-3  mb-3">
                 <h6 style={{fontWeight:'600'}}>PHONE NUMBER</h6>

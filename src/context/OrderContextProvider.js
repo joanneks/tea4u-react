@@ -1,6 +1,7 @@
 import React from 'react';
 import OrderContext from "./OrderContext";
 import axios from 'axios';
+import {jwtDecode} from './Jwt.js';
 
 export default class OrderProvider extends React.Component{
     state={
@@ -13,7 +14,7 @@ export default class OrderProvider extends React.Component{
         
         const orderContext = {
             getOrders: async (customerId) => {
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 const getOrdersUrl = url + "order/" + customerId;
                 const ordersResponse = await axios.get(getOrdersUrl);
@@ -22,7 +23,7 @@ export default class OrderProvider extends React.Component{
                 return orders;
             },
             getOrderItems: async (customerId,orderId) => {
-                let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 const getOrderItemsUrl = url + "order/" + customerId + "/" + orderId;
                 const orderItemsResponse = await axios.get(getOrderItemsUrl);

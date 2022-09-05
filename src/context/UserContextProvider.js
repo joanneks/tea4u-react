@@ -2,6 +2,7 @@ import React from 'react';
 // import { useNavigate } from "react-router-dom";
 import UserContext from "./UserContext";
 import axios from 'axios';
+import {jwtDecode} from './Jwt.js';
 
 export default class UserProvider extends React.Component{
     state = {
@@ -30,12 +31,11 @@ export default class UserProvider extends React.Component{
         const getUserProfileUrl = url + "customer/profile"
         let customerId = JSON.parse(localStorage.getItem('customerId'));
         if(customerId){
-            let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+            let accessToken = await jwtDecode();
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             const userProfileResponse = await axios.get(getUserProfileUrl);
 
-            const userProfile = userProfileResponse.data
-            console.log('userProfile',userProfile);
+            const userProfile = userProfileResponse.data;
             const profileDetails = {
                 id: userProfile.id,
                 first_name: userProfile.first_name,
@@ -56,9 +56,9 @@ export default class UserProvider extends React.Component{
         // const url = "https://tea4u-express.herokuapp.com/api/customer/";
         const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/";
         const loginUrl = url + "customer/login";
-        const refreshUrl = url + "customer/refresh";
         const logoutUrl = url + "customer/logout";
-
+        const createUserUrl = url + "customer/create";
+        const getProfileUrl = url + "customer/profile";
         const userContext = {
             retrieveUserProfile: () =>{
                 return this.state.profileDetails;
@@ -87,32 +87,25 @@ export default class UserProvider extends React.Component{
                     loggedIn:true
                 })
             },
-            getNewAccessToken: async () => {
-                let customerId = JSON.parse(localStorage.getItem('customerId'));
-                if(customerId){
-                    let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-                    let refreshTokenResponse = await axios.post(refreshUrl,{
-                        refreshToken
-                    })
-                    let newAccessToken = refreshTokenResponse.data.accessToken;
-                    console.log('newAccessToken',newAccessToken);
-                    await localStorage.setItem('accessToken', JSON.stringify(newAccessToken));
-                } else{
-                    return false;
-                }
-            },
             getUserProfile:async() => {
                 let customerId = JSON.parse(localStorage.getItem('customerId'));
                 if(customerId){
-                    let accessToken = JSON.parse(localStorage.getItem('accessToken'));
+                    let accessToken = await jwtDecode();
                     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                    let profileResponse = await axios.get(url + "customer/profile");
+                    let profileResponse = await axios.get(getProfileUrl);
                     let userProfile = profileResponse.data;
                     console.log('profileObject',profileResponse.data);
                     return userProfile
                 } else{
                     return false;
                 }
+            },
+            createUser:async(userDetailsObject) => {
+                let userDetails =  userDetailsObject;
+                let createUserResponse = await axios.post(createUserUrl,userDetails);
+                
+                console.log('user context provide create user',createUserResponse.data);
+                return createUserResponse.data;
             },
             logout: async () => {
                 let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
@@ -136,8 +129,6 @@ export default class UserProvider extends React.Component{
             }
             
         }
-        
-        setInterval(userContext.getNewAccessToken,60000)
 
         return(
             <React.Fragment>
