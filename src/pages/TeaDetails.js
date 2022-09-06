@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import{useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../css/teaDetails.css';
-import Badge from 'react-bootstrap/Badge';
 
 function TeaDetails(props) {
     const teaContext = useContext(TeaContext);
@@ -167,7 +166,7 @@ function TeaDetails(props) {
                   ADD TO CART
                 </div>
               </div>
-            <div style={{margin:'30px 0px 20px 0px',fontSize:'15px',fontFamily:'Khula,sans-serif',fontWeight:'300',textAlign:'justify'}}>{teaDetails.description}</div>       
+            <div style={{margin:'30px 0px 20px 0px',fontSize:'15px',fontFamily:'Khula,sans-serif',fontWeight:'500',textAlign:'justify'}}>{teaDetails.description}</div>       
           </div>
         </div>
           

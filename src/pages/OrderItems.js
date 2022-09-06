@@ -7,6 +7,7 @@ import TeaContext from "../context/TeaContext";
 import { useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import info from '../css/images/info.png';
 
 function OrderItems(props) {
     const orderContext = useContext(OrderContext);
@@ -92,7 +93,13 @@ function OrderItems(props) {
 
         getOrderItems();
     },[])
+
     let count = 0;
+
+    const showTeaInfo = (teaId) => {
+        navigate('/tea/'+teaId)
+    }
+
     return (
         <React.Fragment>
             <div style={{minHeight:'100vh'}}>
@@ -127,8 +134,14 @@ function OrderItems(props) {
                                             <tbody>
                                                 <tr>
                                                     <td style={{fontWeight:'600'}}>{count}.</td>
-                                                    <td style={{fontWeight:'600'}}>Name:</td>
-                                                    <td style={{fontWeight:'500'}}>
+                                                    <td style={{fontWeight:'600'}}>
+                                                        Name:
+                                                        <div>
+                                                            {/* <span style={{marginRight:'10px'}}>{each.tea.name}</span>  */}
+                                                            <img src={info} alt={each.tea_id} style={{height:'20px',width:'20px'}} onClick={()=>{showTeaInfo(each.tea_id)}}/>
+                                                        </div>
+                                                    </td>
+                                                    <td style={{fontWeight:'600'}}>
                                                         <div>{each.tea.name}</div>
                                                         <img src={each.tea.image_url} alt={each.tea.name} style={{height:'150px',width:'150px'}}/>
                                                     </td>

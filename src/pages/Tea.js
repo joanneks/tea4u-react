@@ -23,6 +23,7 @@ export default function Tea(props) {
   const cartContext = useContext(CartContext);
   const [loading,setLoading] = useState(false);
   const [allTea,setAllTea] = useState([]);
+  const [allTeaCount,setAllTeaCount] = useState();
   const [isShown, setIsShown] = useState(false);
 
   useEffect(()=>{
@@ -30,12 +31,12 @@ export default function Tea(props) {
       setLoading(true);
       let allTeaResults = await teaContext.getAllTea()
       await setAllTea(allTeaResults);
+      await setAllTeaCount(allTeaResults.length)
+      console.log(allTeaResults)
       
       setTimeout(async()=>{await setLoading(false)},1000)
     }
     displayAllTea();
-
-    console.log(allTea);
   },[])
 
   const [searchQuery, setSearchQuery] = useState({
@@ -53,6 +54,8 @@ export default function Tea(props) {
     setLoading(true);
     let searchTeaResults = await teaContext.searchTea(searchQuery);
     await setAllTea(searchTeaResults);
+    console.log(searchTeaResults)
+    await setAllTeaCount(searchTeaResults.length)
     setTimeout(async()=>{await setLoading(false)},1000)
   }
 
@@ -134,118 +137,118 @@ export default function Tea(props) {
         )}
       </div>
       <Container className="tea-margin">
-          <div>
-              <div className="text-center justify-content-start">
-                <div className="col-12 col-sm-12 col-md-12 col-lg-12 search-input">
-                  <div className="form-control">
-                    <input type="text" name="name" placeholder='SEARCH' style={{border:'none',padding:'0px',width:'70%'}} value={searchQuery.name} onChange={updateFormField} />
-                    <span style={{float:'right'}}>
-                      <img src={clearSearch} alt="filter" style={{height:'20px',width:'20px'}} 
-                        onClick={clearSearchQuery}
-                      />
-                    </span>
-                    <span style={{float:'right'}}>
-                      <img src={filter} id="filter1" alt="filter" style={{height:'20px',width:'20px',marginRight:'10px'}}
-                        onClick={showFilters}
-                        onMouseEnter={() => setIsShown(true)}
-                        onMouseLeave={() => setIsShown(false)}
-                      />
-                    </span>
-                    <span style={{float:'right'}}><img src={search} alt="search" style={{height:'20px',width:'20px',marginRight:'10px'}} onClick={() => { searchTea(searchQuery) }}/></span>
+        <div>
+            <div className="text-center justify-content-start">
+              <div className="col-12 col-sm-12 col-md-12 col-lg-12 search-input">
+                <div className="form-control" style={{padding:'6px 10px',fontFamily:'Khula,sans-serif',fontWeight:'500'}}>
+                  <input type="text" name="name" placeholder='SEARCH' style={{fontSize:'17px',border:'none',padding:'0px',width:'70%'}} value={searchQuery.name} onChange={updateFormField} />
+                  <span style={{float:'right'}}>
+                    <img src={clearSearch} alt="filter" style={{height:'20px',width:'20px'}} 
+                      onClick={clearSearchQuery}
+                    />
+                  </span>
+                  <span style={{float:'right'}}>
+                    <img src={filter} id="filter1" alt="filter" style={{height:'20px',width:'20px',marginRight:'10px'}}
+                      onClick={showFilters}
+                      onMouseEnter={() => setIsShown(true)}
+                      onMouseLeave={() => setIsShown(false)}
+                    />
+                  </span>
+                  <span style={{float:'right'}}><img src={search} alt="search" style={{height:'20px',width:'20px',marginRight:'10px'}} onClick={() => { searchTea(searchQuery) }}/></span>
+                </div>
+              </div>
+
+              <div className="text-center justify-content-start" style={{display:showFilter,marginLeft: '10px'}}>
+                <div className="search-input-cost">
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
+                    <label>Price Range: </label>
+                  </div>
+                  <div className="col-3 col-sm-3 col-md-3 col-lg-3 search-input">
+                    <input type="text" name="min_cost" placeholder='Min.' className="form-control" value={searchQuery.min_cost} onChange={updateFormField} />
+                  </div>
+                  <div className="col-2 col-sm-2 col-md-2 col-lg-2">
+                    <span> to </span>
+                  </div>
+                  <div className="col-3 col-sm-3 col-md-3 col-lg-3 search-input">
+                    <input type="text" name="max_cost" placeholder='Max.' className="form-control" value={searchQuery.max_cost} onChange={updateFormField} />
                   </div>
                 </div>
-
-                <div className="text-center justify-content-start" style={{display:showFilter,marginLeft: '10px'}}>
-                  <div className="search-input-cost">
-                    <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
-                      <label>Price Range: </label>
-                    </div>
-                    <div className="col-3 col-sm-3 col-md-3 col-lg-3 search-input">
-                      <input type="text" name="min_cost" placeholder='Min.' className="form-control" value={searchQuery.min_cost} onChange={updateFormField} />
-                    </div>
-                    <div className="col-2 col-sm-2 col-md-2 col-lg-2">
-                      <span> to </span>
-                    </div>
-                    <div className="col-3 col-sm-3 col-md-3 col-lg-3 search-input">
-                      <input type="text" name="max_cost" placeholder='Max.' className="form-control" value={searchQuery.max_cost} onChange={updateFormField} />
-                    </div>
+                <div className="search-input-div">
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
+                    <label>Packaging: </label>
                   </div>
-                  <div className="search-input-div">
-                    <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
-                      <label>Packaging: </label>
-                    </div>
-                    <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
-                      <select name="packaging" className="form-control" value={searchQuery.packaging} onChange={updateFormField}>
-                        {teaContext.getAllPackaging().map(each => {
-                          return (
-                            <option key={each[0]} value={each[0]}>{each[1]}</option>
-                          )
-                        })}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="search-input-div">
-                    <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
-                    <label>Tea Type: </label>
-                    </div>
-                    <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
-                      <select name="teaType" className="form-control" value={searchQuery.teaType} onChange={updateFormField}>
-                        {teaContext.getAllTeaTypes().map(each => {
-                          return (
-                            <option key={each[0]} value={each[0]}>{each[1]}</option>
-                          )
-                        })}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="search-input-div">
-                    <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
-                      <label>Brand: </label>
-                    </div>
-                    <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
-                      <select name="brand" style={{ marginRight: '20px' }} className="form-control" value={searchQuery.brand} onChange={updateFormField}>
-                        {teaContext.getAllTeaBrands().map(each => {
-                          return (
-                            <option key={each[0]} value={each[0]}>{each[1]}</option>
-                          )
-                        })}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="search-input-div">
-                    <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
-                      <label>Tea Origin: </label>
-                    </div>
-                    <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
-                    <select name="placeOfOrigin" style={{ marginRight: '20px' }} className="form-control" value={searchQuery.placeOfOrigin} onChange={updateFormField}>
-                      {teaContext.getAllPlaceOfOrigins().map(each => {
+                  <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
+                    <select name="packaging" className="form-control" value={searchQuery.packaging} onChange={updateFormField}>
+                      {teaContext.getAllPackaging().map(each => {
                         return (
                           <option key={each[0]} value={each[0]}>{each[1]}</option>
                         )
                       })}
                     </select>
-                    </div>
-                  </div>
-                  <div className="search-input-div">
-                    <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
-                      <label>Taste Profiles: </label>
-                    </div>
-                    <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
-                      <select className="form-select" multiple={true} size="3" aria-label="size 3 select multiple" value={searchQuery.tasteProfiles} onChange={updateFormFieldMultiple}>
-                        {teaContext.getAllTasteProfiles().map(each => {
-                          return (
-                            <option key={each[0]} value={each[0]}>{each[1]}</option>
-                          )
-                        })}
-                      </select>
-                    </div>
                   </div>
                 </div>
-            </div>
+                <div className="search-input-div">
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
+                  <label>Tea Type: </label>
+                  </div>
+                  <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
+                    <select name="teaType" className="form-control" value={searchQuery.teaType} onChange={updateFormField}>
+                      {teaContext.getAllTeaTypes().map(each => {
+                        return (
+                          <option key={each[0]} value={each[0]}>{each[1]}</option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                </div>
+                <div className="search-input-div">
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
+                    <label>Brand: </label>
+                  </div>
+                  <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
+                    <select name="brand" style={{ marginRight: '20px' }} className="form-control" value={searchQuery.brand} onChange={updateFormField}>
+                      {teaContext.getAllTeaBrands().map(each => {
+                        return (
+                          <option key={each[0]} value={each[0]}>{each[1]}</option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                </div>
+                <div className="search-input-div">
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
+                    <label>Tea Origin: </label>
+                  </div>
+                  <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
+                  <select name="placeOfOrigin" style={{ marginRight: '20px' }} className="form-control" value={searchQuery.placeOfOrigin} onChange={updateFormField}>
+                    {teaContext.getAllPlaceOfOrigins().map(each => {
+                      return (
+                        <option key={each[0]} value={each[0]}>{each[1]}</option>
+                      )
+                    })}
+                  </select>
+                  </div>
+                </div>
+                <div className="search-input-div">
+                  <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
+                    <label>Taste Profiles: </label>
+                  </div>
+                  <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
+                    <select className="form-select" multiple={true} size="3" aria-label="size 3 select multiple" value={searchQuery.tasteProfiles} onChange={updateFormFieldMultiple}>
+                      {teaContext.getAllTasteProfiles().map(each => {
+                        return (
+                          <option key={each[0]} value={each[0]}>{each[1]}</option>
+                        )
+                      })}
+                    </select>
+                  </div>
+                </div>
+              </div>
           </div>
-      </Container>
-      <Container className="tea-margin">
-        
+        </div>
+
+        <div style={{textAlign:'start',margin:'20px 0px 20px 10px',fontFamily:'Khula,sans-serif',fontWeight:'600'}}>{ loading ? '' : allTeaCount + ' results(s) found' }</div>
+      
         {loading ? 
           <div style={{position:'relative',display:'flex',justifyContent:'center'}}>
           <img src={loadingPic} alt="loadingPic" style={{position:'absolute',height:'300px',margin:'auto'}}/>

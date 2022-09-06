@@ -21,10 +21,9 @@ import OrderProvider from './context/OrderContextProvider';
 function App() {
   const userContext = useContext(UserContext);
 
-  setInterval(userContext.getNewAccessToken,890000)
+  // setInterval(userContext.getNewAccessToken,890000)
   return (
     <React.Fragment>
-      {/* <div style={{minHeight:'100vh',backgroundColor: '#d4e0e2' }}> */}
       <div style={{minHeight:'100vh',backgroundColor: '#f5f2ee' }}>
         <TeaProvider>
           <UserProvider>

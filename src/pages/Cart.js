@@ -7,7 +7,6 @@ import UserContext from '../context/UserContext';
 import TeaContext from "../context/TeaContext";
 import '../css/cart.css';
 import Container from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import info from '../css/images/info.png';
 import add from '../css/images/add.png';
@@ -27,29 +26,33 @@ export default function Cart(props) {
   const [cartItemDetails,setCartItemDetails] = useState([]);
 
   const addToCart = async (teaId, customerId) => {
+    let newQuantity = cartItemDetails[teaId].quantity + 1;
+    let newEachTeaCosts = cartItemDetails[teaId].cost * newQuantity;
+    let newTotalCosts = totalCost + cartItemDetails[teaId].cost;
+    
+    let cartItemDetailsToRevise = cartItemDetails;
+    cartItemDetailsToRevise[teaId].quantity = newQuantity;
+    cartItemDetailsToRevise[teaId].eachTeaCosts = newEachTeaCosts;
+    
+    setTotalCost(newTotalCosts);
+    setCartItemDetails(cartItemDetailsToRevise)
+
     const cartItems = await cartContext.addToCart(teaId, customerId,1);
     setCartItems(cartItems);
   }
   const minusFromCart = async (teaId, customerId) => {
+    let newQuantity = cartItemDetails[teaId].quantity - 1;
+    let newEachTeaCosts = cartItemDetails[teaId].cost * newQuantity;
+    let newTotalCosts = totalCost - cartItemDetails[teaId].cost;
+
+    let cartItemDetailsToRevise = cartItemDetails;
+    cartItemDetailsToRevise[teaId].quantity = newQuantity;
+    cartItemDetailsToRevise[teaId].eachTeaCosts = newEachTeaCosts;
+
+    setTotalCost(newTotalCosts);
+    setCartItemDetails(cartItemDetailsToRevise)
+
     const cartItems = await cartContext.minusFromCart(teaId, customerId);
-    // let itemDetails = {};
-    //     let totalCosts = 0;
-    //     for(let item of cartItems){
-    //         let quantity = item.quantity;
-    //         let teaId = item.tea.id;
-    //         let teaName = item.tea.name;
-    //         let teaCost = item.tea.cost/100;
-    //         let eachTeaCosts = teaCost * quantity;
-    //         totalCosts += eachTeaCosts;
-    //         itemDetails[teaId] = {
-    //             name: teaName,
-    //             cost: teaCost,
-    //             quantity,
-    //             eachTeaCosts
-    //         }
-    //         await setCartItemDetails(itemDetails);
-    //     }
-    //     await setTotalCost(totalCosts);
     setCartItems(cartItems);
   }
 
@@ -123,14 +126,6 @@ export default function Cart(props) {
 
   const showTeaInfo = (teaId) => {
     navigate('/tea/'+teaId)
-    // `/orders/${orderId}`
-  }
-  const deriveTotal = () => {
-    let totalCost = 0;
-    for(let each of cartItemDetails){
-      totalCost = totalCost + each.eachTeaCosts;
-    }
-    setTotalCost(totalCost);
   }
 
   return (
@@ -140,15 +135,16 @@ export default function Cart(props) {
           <NavbarInstance />
         </div>
         <div style={{height:'57px'}}></div>
-          <div style={{margin:'20px'}}><h1 style={{fontSize:'35px',fontFamily:'Khula,sans-serif',fontWeight:'500',textAlign:'center'}}>Shopping Cart</h1>
+          <div id="cartMargin"><h1 style={{fontSize:'35px',fontFamily:'Khula,sans-serif',fontWeight:'500',textAlign:'center',marginBottom:'30px'}}>Shopping Cart</h1>
             <Container style={{ marginLeft: '10px', marginRight: '10px', marginTop: '10px' }}>
-              <table className="table table-borderless">
+              <table id="cartTable" className="table table-borderless">
                   <thead>
-                    <tr>
-                      <th className="text-left col-5">Product</th>
-                      <th className="text-center col-2">Price</th>
-                      <th className="text-center col-2">Quantity</th>
-                      <th className="text-center col-2">Total</th>
+                    <tr style={{fontSize:'19px',fontFamily:'Khula,sans-serif',fontWeight:'500'}}>
+                      <th className="text-left col-2 col-lg-1">PRODUCT</th>
+                      <th className="text-left col-3 col-lg-5"></th>
+                      <th className="text-center col-2">PRICE</th>
+                      <th className="text-center col-2">QUANTITY</th>
+                      <th className="text-center col-2">SUBTOTAL</th>
                       <th className="text-center col-1"></th>
                     </tr>
                   </thead>
@@ -156,8 +152,8 @@ export default function Cart(props) {
                     {cartItems.map(each => {
                       return (
                         <React.Fragment key={each.tea.id}>
-                          <tr>
-                            {/* <td style={{width:'150px'}}><img src={each.tea.image_url} alt={each.tea.name} style={{ height: '130px', width: '130px', objectFit: 'cover' }} /></td> */}
+                          <tr style={{fontSize:'18px',fontFamily:'Khula,sans-serif',fontWeight:'500'}}>
+                            <td style={{width:'150px'}}><img src={each.tea.image_url} alt={each.tea.name} style={{ height: '130px', width: '130px', objectFit: 'cover' }} /></td>
                             <td>
                               <div>
                                 <span style={{marginRight:'10px'}}>{each.tea.name}</span> <img src={info} alt={each.tea_id} style={{height:'20px',width:'20px'}} onClick={()=>{showTeaInfo(each.tea_id)}}/>
@@ -165,7 +161,6 @@ export default function Cart(props) {
                               </div>
                               <div>Brand: {brands[each.tea.brand_id]}</div>
                               <div>Weight: {each.tea.weight} g</div>
-                              <img src={each.tea.image_url} alt={each.tea.name} style={{ height: '130px', width: '130px', objectFit: 'cover' }} />
                             </td>
                             <td className="text-center">S${each.tea.cost/100}</td>
                             <td className="text-center" style={{display:'flex', justifyContent:'center'}}>
@@ -180,24 +175,77 @@ export default function Cart(props) {
                               </Col>
                             </td>
                             <td className="text-center">{cartItemDetails[each.tea_id].eachTeaCosts}</td>
-                            <td className="text-center"><img src={remove} alt="addToCartBtn" style={{ height: "20px", width: "20px" }} onClick={()=>{deleteFromCart(each.tea_id, each.customer_id)}}/></td>
+                            <td className="text-center">
+                              <img src={remove} alt="addToCartBtn" style={{ height: "20px", width: "20px" }} 
+                                onClick={()=>{deleteFromCart(each.tea_id, each.customer_id)}}
+                              />
+                            </td>
                           </tr>
                         </React.Fragment>
                       )
                     })}
                     <tr>
-                      {/* <td></td> */}
                       <td></td>
                       <td></td>
-                      <td className="text-center" style={{verticalAlign:'middle'}}>Total:</td>
-                      <td className="text-center" style={{verticalAlign:'middle'}}>{totalCost}</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr style={{fontSize:'20px',fontFamily:'Khula,sans-serif',fontWeight:'600'}}>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td className="text-center" style={{verticalAlign:'middle'}}>TOTAL:</td>
+                      <td className="text-center" style={{verticalAlign:'middle'}}>S${totalCost}</td>
                       <td><img src={pay} alt="addToCartBtn" style={{ height: "40px", width: "40px" }} onClick={checkout}/></td>
                     </tr>
                   </tbody>
               </table>
               
-              {/* <button className="btn btn-success my-3" onClick={checkout}>Submit</button> */}
             </Container>
+              <div id="cartDiv">
+                {cartItems.map(each => {
+                  return (
+                    <div key={each.tea.id} style={{display:'flex',flexWrap:'wrap',fontFamily:'Khula,sans serif',fontSize:'17px'}}>
+                      <div style={{marginRight:'20px'}}>
+                        <img src={each.tea.image_url} alt={each.tea.name} style={{ height: '130px', width: '130px', objectFit: 'cover' }} />
+                      </div>
+                      <div style={{width:'50%',minWidth:'50px'}}>
+                        <div style={{marginRight:'10px'}}>
+                          <span style={{marginRight:'10px'}}>{each.tea.name}</span>
+                          <img src={info} alt={each.tea_id} style={{height:'20px',width:'20px'}} 
+                            onClick={()=>{showTeaInfo(each.tea_id)}}
+                          />
+                        </div> 
+                        <div>Brand: {brands[each.tea.brand_id]}</div>
+                        <div>Weight: {each.tea.weight} g</div>
+                        <div style={{display:'flex'}}>
+                          <div style={{marginRight:'20px'}}>
+                            <img src={minus} alt="minusFromCartBtn" style={{ height: "20px", width: "20px" }} onClick={() => { minusFromCart(each.tea_id, each.customer_id) }} />
+                          </div>
+                          <div style={{marginRight:'20px'}}>{each.quantity}</div>
+                          <div style={{marginRight:'20px'}}>
+                            <img src={add} alt="addToCartBtn" style={{ height: "20px", width: "20px" }} onClick={() => { addToCart(each.tea_id, each.customer_id) }} />
+                          </div>
+                        </div>
+                      </div>
+                      <div style={{margin:'10px 0px 20px 0px',fontSize:'18px',fontWeight:'600'}}>
+                        <div style={{display:'flex'}}>
+                          <div style={{width:'130px',marginRight:'20px'}}>Unit Price: </div>
+                          <div>S${cartItemDetails[each.tea_id].cost}</div>
+                        </div>
+                        <div style={{display:'flex'}}>
+                          <div style={{width:'130px',marginRight:'20px'}}>Subtotal: </div>
+                          <div>S${cartItemDetails[each.tea_id].eachTeaCosts}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+                <div style={{display:'flex',margin:'10px 0px',fontSize:'18px',fontWeight:'600'}}>
+                  <div style={{width:'130px',marginRight:'20px'}}>Total: </div>
+                  <div>S${totalCost}</div>
+                </div>
+              </div>
           </div>
       </div>
     </React.Fragment>

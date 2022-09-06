@@ -3,8 +3,8 @@ import NavbarInstance from './Navbar';
 import{useContext, useState, useEffect } from 'react';
 import OrderContext from "../context/OrderContext";
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import moment from 'moment';
+import '../css/order.css';
 
 export default function Order(props) {
     const orderContext = useContext(OrderContext);
@@ -40,7 +40,7 @@ export default function Order(props) {
             <NavbarInstance/>
             </div>
             <div style={{height:'57px'}}></div>
-            <div style={{margin:'20px'}}>
+            <div id="orderMargin">
                 <div>
                     <h1 style={{fontSize:'35px',fontFamily:'Khula,sans-serif',fontWeight:'500',textAlign:'center'}}>Order History</h1>
                     <div>
@@ -48,7 +48,6 @@ export default function Order(props) {
                             const createdDate = each.datetime_created.slice(0,10) + " " +each.datetime_created.slice(11,18)
                             const formatOrderedDate = moment(createdDate).format('DD-MM-YYYY')
                             const modifiedDate = each.datetime_last_modified.slice(0,10) + " " +each.datetime_created.slice(11,18)
-                            // const formatModifiedDate = moment(modifiedDate).format('DD-MM-YYYY hh:mm:ss A')
                             const expectedDeliveryDate = moment(moment(createdDate).add(7, 'days')).format('DD-MM-YYYY');
                             const formatModifiedDate = moment(modifiedDate).format('DD-MM-YYYY')
                                 return(

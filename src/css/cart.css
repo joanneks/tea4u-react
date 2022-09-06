@@ -1,0 +1,39 @@
+#cartTable {
+    display:block;
+}
+#cartDiv {
+    display:none;
+}
+#cartMargin{
+    padding:40px 60px;
+}
+
+@media screen and (max-width: 991px) {
+    #cartTable {
+        display:block;
+    }
+    #cartMargin{
+        padding:40px 30px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #cartTable {
+        display:block;
+    }
+    #cartMargin{
+        padding:20px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    #cartTable {
+        display:none;
+    }
+    #cartDiv {
+        display:block;
+    }
+    #cartMargin{
+        padding:20px;
+    }
+}

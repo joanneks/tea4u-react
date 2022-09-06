@@ -1,0 +1,46 @@
+
+#loginPadding{
+    padding:10px 60px;
+}
+#loginBig{
+    display:block;
+}
+#loginSmall{
+    display:none;
+}
+
+@media screen and (max-width: 991px) {
+    #loginPadding{
+        padding:10px 60px;
+    }
+    #loginBig{
+        display:none;
+    }
+    #loginSmall{
+        display:block;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #loginPadding{
+        padding:40px;
+    }
+    #loginBig{
+        display:none;
+    }
+    #loginSmall{
+        display:block;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    #loginPadding{
+        padding: 0px 20px;
+    }
+    #loginBig{
+        display:none;
+    }
+    #loginSmall{
+        display:block;
+    }
+}
