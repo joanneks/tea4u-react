@@ -30,7 +30,20 @@ export default class CartProvider extends React.Component{
         const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/";
         
         const cartContext = { 
-            addToCart: async(teaId,customerId) => {
+            getCartItems:async (teaId) =>{
+                let customerId = JSON.parse(localStorage.getItem('customerId'));
+                let accessToken = await jwtDecode();
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                // const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
+                let cartResponse = await axios.post(url + "cart/",{
+                    user_id:customerId,
+                    tea_id:teaId
+                });
+                const cartItems= cartResponse.data.cartItems;
+                console.log('cheerry',cartItems)
+                return cartItems;
+            },
+            addToCart: async(teaId,quantity,customerId) => {
                 const addToCartUrl = url + "cart/add/" + teaId;
                 customerId = JSON.parse(localStorage.getItem('customerId'));
                 let accessToken = await jwtDecode();
@@ -38,6 +51,7 @@ export default class CartProvider extends React.Component{
                 let addCartResponse = await axios.post(addToCartUrl,{
                     user_id:customerId,
                     tea_id:teaId,
+                    quantity
                 });
                 let itemToAdd = addCartResponse.data;
                 let revisedCartItems = itemToAdd.cartItems;
@@ -55,15 +69,26 @@ export default class CartProvider extends React.Component{
                 let revisedCartItems = itemToMinus.cartItems;
                 return revisedCartItems;
             },
-            getCartItems:async () =>{
+            updateCartQuantity: async (teaId,quantity) =>{
+                const updateCartQuantityUrl = url + "cart/update-quantity/" + teaId;
+                
                 let customerId = JSON.parse(localStorage.getItem('customerId'));
                 let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-                // const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
-                let cartResponse = await axios.post(url + "cart/",{
-                    user_id:customerId
+                console.log(teaId)
+                console.log(customerId);
+                console.log(quantity)
+                let updateCartQuantityResponse = await axios.post(updateCartQuantityUrl,{
+                    user_id:customerId,
+                    tea_id:teaId,
+                    quantity
                 });
-                const cartItems= cartResponse.data.cartItems;
+
+                console.log('TESTING',accessToken)
+                let updateCartQuantity = updateCartQuantityResponse.data;
+                console.log('updatedquantity',updateCartQuantity);
+                let cartItems = await cartContext.getCartItems();
+                console.log('updated cart items',cartItems.data);
                 return cartItems;
             },
             displayCartItems: () => {

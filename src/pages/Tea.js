@@ -83,7 +83,7 @@ export default function Tea(props) {
   }
 
   const addToCart = async (teaId) => {
-    await cartContext.addToCart(teaId);
+    await cartContext.addToCart(teaId,1);
     navigate('/cart')
   }
 
@@ -128,7 +128,7 @@ export default function Tea(props) {
       </div>
       <div style={{height:'70px',display:'flex',justifyContent:'end'}}>
         {isShown && (
-          <div id="hoverComment" style={{position:'absolute', marginTop:'70px',fontSize:'10px'}}>
+          <div id="hoverComment" style={{position:'absolute', marginTop:'70px',fontSize:'10px',borderRadius:'20px',border:'1px solid grey',padding:'3px',backgroundColor: '#f5f2ee' }}>
             Expand/Collapse
           </div>
         )}
@@ -266,7 +266,7 @@ export default function Tea(props) {
                           <div style={{padding: '0px 5px 0px 5px',fontSize:'20px',height:'34px'}}>
                             <span style={{fontWeight:'500'}}>{each.brand.name}</span>
                             <span style={{ float: 'right'}}>
-                              <img src={cart} alt="addToCartBtn" style={{ height: "28px", width: "28px",marginLeft:'10px' }} onClick={()=>{addToCart(each.id)}}/>
+                              <img src={cart} alt="addToCartBtn" style={{ height: "28px", width: "28px",marginLeft:'10px',zIndex:'100' }} onClick={()=>{addToCart(each.id)}}/>
                             </span>
                           </div>
                           <div style={{ height: '50px', marginBottom:'30px',padding: '0px 5px 0px 5px',fontWeight:'600' }}>

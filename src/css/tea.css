@@ -33,9 +33,6 @@
 #hoverComment {
     margin-right:40px;
 }
-.tea-details-padding {
-    padding:40px 80px;
-}
 
 @media screen and (max-width: 991px) {
     .tea-margin {
@@ -44,9 +41,6 @@
     }
     #hoverComment {
         margin-right:60px;
-    }
-    .tea-details-padding {
-        padding:20px 60px;
     }
 }
 
@@ -67,8 +61,5 @@
     }
     #hoverComment {
         margin-right:30px;
-    }
-    .tea-details-padding {
-        padding:20px;
     }
 }

@@ -27,7 +27,7 @@ export default function Cart(props) {
   const [cartItemDetails,setCartItemDetails] = useState([]);
 
   const addToCart = async (teaId, customerId) => {
-    const cartItems = await cartContext.addToCart(teaId, customerId);
+    const cartItems = await cartContext.addToCart(teaId, customerId,1);
     setCartItems(cartItems);
   }
   const minusFromCart = async (teaId, customerId) => {

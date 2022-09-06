@@ -11,18 +11,18 @@ export async function jwtDecode () {
 
     let currentDate = new Date();
 
-    let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
-    let decodedRefreshToken = jwt_decode(refreshToken);
-    if(decodedRefreshToken.exp * 1000 < currentDate.getTime()){
-        let logoutResponse = await customAxios.post('customer/logout',{
-            refreshToken
-        })
-        console.log('refreshTokenexpire, to logout',logoutResponse.data);
+    // let refreshToken = JSON.parse(localStorage.getItem('refreshToken'));
+    // let decodedRefreshToken = jwt_decode(refreshToken);
+    // if(decodedRefreshToken.exp * 1000 < currentDate.getTime()){
+    //     let logoutResponse = await customAxios.post('customer/logout',{
+    //         refreshToken
+    //     })
+    //     console.log('refreshTokenexpire, to logout',logoutResponse.data);
         
-    } else{
-        console.log('refreshToken still valid')
-        return refreshToken;
-    }
+    // } else{
+    //     console.log('refreshToken still valid')
+    //     return refreshToken;
+    // }
 
     if(decoded.exp * 1000 < currentDate.getTime()){
         console.log("access token invalid");
@@ -35,7 +35,6 @@ export async function jwtDecode () {
         await localStorage.setItem('accessToken',JSON.stringify(newAccessToken));
         return newAccessToken;
     } else{
-        console.log("access token still valid");
         return accessToken;
     }
 }
