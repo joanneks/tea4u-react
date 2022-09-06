@@ -10,7 +10,7 @@ export default class TeaProvider extends React.Component{
         brands:[],
         packaging:[],
         placeOfOrigins:[],
-        tasteProfiles:[],
+        tasteProfiles:[]
       }
     async componentDidMount() {
         const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/"
@@ -40,25 +40,31 @@ export default class TeaProvider extends React.Component{
             displayAllTea: () => {
                 return this.state.tea;
             },
+            getAllTea: async () => {
+                let allTeaResponse = await axios.get(teaSearchUrl);
+                let allTea = allTeaResponse.data.tea;
+                return allTea;
+            },
             searchTea: async (searchQuery) => {
-              let teaSearchResults = await axios.get(teaSearchUrl, {
-                params: {
-                  name: searchQuery.name,
-                  min_cost: searchQuery.min_cost,
-                  max_cost: searchQuery.max_cost,
-                  brand_id: searchQuery.brand,
-                  tea_type_id: searchQuery.teaType,
-                  place_of_origin_id: searchQuery.placeOfOrigin,
-                  packaging_id: searchQuery.packaging,
-                  taste_profiles:searchQuery.tasteProfiles
-                }
-              });
-              console.log(teaSearchResults.data)
-              let tea = teaSearchResults.data.tea;
-              console.log(tea);
-              await this.setState({
-                tea
-              });
+                let teaSearchResults = await axios.get(teaSearchUrl, {
+                    params: {
+                    name: searchQuery.name,
+                    min_cost: searchQuery.min_cost,
+                    max_cost: searchQuery.max_cost,
+                    brand_id: searchQuery.brand,
+                    tea_type_id: searchQuery.teaType,
+                    place_of_origin_id: searchQuery.placeOfOrigin,
+                    packaging_id: searchQuery.packaging,
+                    taste_profiles:searchQuery.tasteProfiles
+                    }
+                });
+                console.log(teaSearchResults.data)
+                let tea = teaSearchResults.data.tea;
+                console.log(tea);
+                return tea;
+                // await this.setState({
+                //     tea
+                // });
             },
             getAllTeaBrands: () => {
                 return this.state.brands

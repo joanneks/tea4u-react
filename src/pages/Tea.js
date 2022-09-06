@@ -13,12 +13,30 @@ import Badge from 'react-bootstrap/Badge';
 import cart from '../css/images/cart2.png';
 import more from '../css/images/more.png';
 import search from '../css/images/search.png';
-import filter from '../css/images/filter1.png';
+import filter from '../css/images/filter.png';
+import clearSearch from '../css/images/remove.png';
+import loadingPic from '../css/images/loading.gif';
 
 export default function Tea(props) {
   const navigate = useNavigate();
   const teaContext = useContext(TeaContext);
   const cartContext = useContext(CartContext);
+  const [loading,setLoading] = useState(false);
+  const [allTea,setAllTea] = useState([]);
+  const [isShown, setIsShown] = useState(false);
+
+  useEffect(()=>{
+    const displayAllTea = async() => {
+      setLoading(true);
+      let allTeaResults = await teaContext.getAllTea()
+      await setAllTea(allTeaResults);
+      
+      setTimeout(async()=>{await setLoading(false)},1000)
+    }
+    displayAllTea();
+
+    console.log(allTea);
+  },[])
 
   const [searchQuery, setSearchQuery] = useState({
     name: '',
@@ -30,6 +48,13 @@ export default function Tea(props) {
     packaging: '0',
     tasteProfiles: []
   });
+
+  const searchTea = async (searchQuery) =>{
+    setLoading(true);
+    let searchTeaResults = await teaContext.searchTea(searchQuery);
+    await setAllTea(searchTeaResults);
+    setTimeout(async()=>{await setLoading(false)},1000)
+  }
 
   const [showFilterCount,setShowFilterCount] = useState(0);
   const [showFilter,setShowFilter] = useState('none');
@@ -82,25 +107,51 @@ export default function Tea(props) {
         setShowFilter('none');
       }
   }
+  const clearSearchQuery = () => {
+    setSearchQuery({
+      name: '',
+      min_cost: '',
+      max_cost: '',
+      brand: '',
+      teaType: '',
+      placeOfOrigin: '',
+      packaging: '0',
+      tasteProfiles: []
+    })
+  }
 
   return (
     <React.Fragment>
-    <div style={{minHeight:'100vh'}}>
+    <div style={{minHeight:'100vh', position:'relative'}}>
       <div>
         <NavbarInstance />
       </div>
-      <div style={{height:'70px'}}></div>
+      <div style={{height:'70px',display:'flex',justifyContent:'end'}}>
+        {isShown && (
+          <div id="hoverComment" style={{position:'absolute', marginTop:'70px',fontSize:'10px'}}>
+            Expand/Collapse
+          </div>
+        )}
+      </div>
       <Container className="tea-margin">
           <div>
               <div className="text-center justify-content-start">
                 <div className="col-12 col-sm-12 col-md-12 col-lg-12 search-input">
                   <div className="form-control">
                     <input type="text" name="name" placeholder='SEARCH' style={{border:'none',padding:'0px',width:'70%'}} value={searchQuery.name} onChange={updateFormField} />
-                    <span style={{float:'right'}}><img src={filter} id="filter1" alt="filter" style={{height:'20px',width:'20px'}} onClick={showFilters}/></span>
-                    <span style={{float:'right'}}><img src={search} alt="search" style={{height:'20px',width:'20px',marginRight:'10px'}} onClick={() => { teaContext.searchTea(searchQuery) }}/></span>
-                  </div>
-                  <div style={{margin:'10px 0px 0px 10px'}}>
-                    {/* <span>More Filters<img src={filter} id="filter" alt="filter" style={{height:'20px',width:'20px'}} onClick={showFilters}/></span> */}
+                    <span style={{float:'right'}}>
+                      <img src={clearSearch} alt="filter" style={{height:'20px',width:'20px'}} 
+                        onClick={clearSearchQuery}
+                      />
+                    </span>
+                    <span style={{float:'right'}}>
+                      <img src={filter} id="filter1" alt="filter" style={{height:'20px',width:'20px',marginRight:'10px'}}
+                        onClick={showFilters}
+                        onMouseEnter={() => setIsShown(true)}
+                        onMouseLeave={() => setIsShown(false)}
+                      />
+                    </span>
+                    <span style={{float:'right'}}><img src={search} alt="search" style={{height:'20px',width:'20px',marginRight:'10px'}} onClick={() => { searchTea(searchQuery) }}/></span>
                   </div>
                 </div>
 
@@ -194,35 +245,45 @@ export default function Tea(props) {
           </div>
       </Container>
       <Container className="tea-margin">
+        
+        {loading ? 
+          <div style={{position:'relative',display:'flex',justifyContent:'center'}}>
+          <img src={loadingPic} alt="loadingPic" style={{position:'absolute',height:'300px',margin:'auto'}}/>
+          </div>
+          :
+          <div>
+
         <Row xs={1} md={2} lg={3} className="g-4">
-          {teaContext.displayAllTea().map(each => {
+          {allTea.map(each => {
             return (
               <Col key={each.id}>
                 <div className="col d-flex justify-content-center">
                   <div>
                     <Card style={{width:'19rem'}} >
-                      <Card.Img variant="top" src={each.image_url} className="card-img-top" alt={each.name} style={{ height: '16rem', width: '100%', objectFit: 'cover', }} />
-                      <Card.Body style={{ backgroundColor: '#f3f2f1', height: '160px', padding: '20px',fontFamily:'Khula,sans-serif',fontWeight:'600' }}>
+                      <Card.Img variant="top" src={each.image_url} className="card-img-top" alt={each.name} style={{ height: '16rem', width: '100%', objectFit: 'cover', }} onClick={()=>{showTeaInfo(each.id)}}/>
+                      <Card.Body style={{ backgroundColor: '#f3f2f1', height: '210px', padding: '20px',fontFamily:'Khula,sans-serif',fontWeight:'600' }} onClick={()=>{showTeaInfo(each.id)}}>
                         <Card.Title >
-                          <div style={{ marginBottom: '8px', padding: '0px 5px 0px 5px',fontSize:'20px',height:'34px'}}>
+                          <div style={{padding: '0px 5px 0px 5px',fontSize:'20px',height:'34px'}}>
                             <span style={{fontWeight:'500'}}>{each.brand.name}</span>
                             <span style={{ float: 'right'}}>
-                              <img src={more} alt="moreTeaDetails" style={{ height: "34px", width: "34px",marginLeft:'10px' }} onClick={()=>{showTeaInfo(each.id)}}/>
-                              <img src={cart} alt="addToCartBtn" style={{ height: "34px", width: "34px",marginLeft:'10px' }} onClick={()=>{addToCart(each.id)}}/>
+                              <img src={cart} alt="addToCartBtn" style={{ height: "28px", width: "28px",marginLeft:'10px' }} onClick={()=>{addToCart(each.id)}}/>
                             </span>
                           </div>
-                          <div style={{ height: '50px', margin: '20px 0px 30px 0px',padding: '0px 5px 0px 5px',fontWeight:'600' }}>
-                            {each.name}
-                            <div style={{ fontStyle: 'italic', fontSize: 'small', fontWeight: '400', marginTop: '5px' }}>{each.quantity === 0 ? 'Sold Out' : 'Available Stock: ' + each.quantity}</div>
+                          <div style={{ height: '50px', marginBottom:'30px',padding: '0px 5px 0px 5px',fontWeight:'600' }}>
+                            <div style={{height:'50px'}}>{each.name}</div>
+                            <div style={{ fontStyle: 'italic', fontSize: 'small', fontWeight: '400', marginTop: '5px' }}>
+                              {each.quantity === 0 ? 'Sold Out' : <div>Available Stock:{each.quantity}</div>}
+                            </div>
+                            <div style={{marginTop:'5px'}}>S${each.cost/100}</div>
                           </div>
 
                         </Card.Title>
-                        <Card.Text style={{ marginTop: '15px' }}>
-                          {/* {each.tasteProfile.map(eachTasteProfile => {
+                        <Card.Text style={{ marginTop: '60px' }}>
+                          {each.tasteProfile.map(eachTasteProfile => {
                             return (
                               <Badge key={eachTasteProfile.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{eachTasteProfile.name} </Badge>
                             )
-                          })} */}
+                          })}
                         </Card.Text>
                       </Card.Body>
                     </Card>
@@ -233,6 +294,8 @@ export default function Tea(props) {
             )
           })}
         </Row>
+          </div>
+        }
       </Container>
     </div>
 
