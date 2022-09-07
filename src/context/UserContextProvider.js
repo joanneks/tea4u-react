@@ -59,6 +59,8 @@ export default class UserProvider extends React.Component{
         const logoutUrl = url + "customer/logout";
         const createUserUrl = url + "customer/create";
         const getProfileUrl = url + "customer/profile";
+        const editProfileUrl = url + "customer/edit";
+        const editPasswordUrl = url + "customer/edit-password";
         const userContext = {
             retrieveUserProfile: () =>{
                 return this.state.profileDetails;
@@ -94,8 +96,33 @@ export default class UserProvider extends React.Component{
                     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                     let profileResponse = await axios.get(getProfileUrl);
                     let userProfile = profileResponse.data;
-                    console.log('profileObject',profileResponse.data);
+                    // console.log('profileObject',profileResponse.data);
                     return userProfile
+                } else{
+                    return false;
+                }
+            },
+            updateUserProfile: async (customerId,editedUserProfileObject) => {
+                let updatedUserDetails =  editedUserProfileObject;
+                // let customerId = JSON.parse(localStorage.getItem('customerId'));
+                if(customerId){
+                    let accessToken = await jwtDecode();
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                    let updatedProfileResponse = await axios.post(editProfileUrl,updatedUserDetails);
+                    let updatedUserProfile = updatedProfileResponse.data;
+                    return updatedUserProfile;
+                } else{
+                    return false;
+                }
+            },
+            updatePassword: async(customerId,updatePasswordObject) => {
+                let updatedPasswordDetails = updatePasswordObject;
+                if(customerId){
+                    let accessToken = await jwtDecode();
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                    let updatedPasswordResponse = await axios.post(editPasswordUrl,updatedPasswordDetails);
+                    let updatedUserPassword = updatedPasswordResponse.data;
+                    return updatedUserPassword;
                 } else{
                     return false;
                 }
