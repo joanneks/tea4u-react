@@ -67,7 +67,7 @@ export default function Login(props) {
     let newUserResponse = await userContext.createUser(newUser);
     console.log('login page create user',newUserResponse);
     setNewUserError(newUserResponse.errorMessages);
-    navigate('/tea');
+    navigate('/login');
   }
 
   return (

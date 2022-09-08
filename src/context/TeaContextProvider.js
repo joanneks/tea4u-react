@@ -10,10 +10,28 @@ export default class TeaProvider extends React.Component{
         brands:[],
         packaging:[],
         placeOfOrigins:[],
-        tasteProfiles:[]
+        tasteProfiles:[],
+        teaByBrand:[],
+        teaTypeFilter:{
+            oolongTea:'',
+            whiteTea:'',
+            blackTea:'',
+            puerhTea:'',
+            greenTea:'',
+            tisaneTea:'',
+            herbalTea:''
+        },
+        teaBrandFilter:{
+            kindreaTeas:'',
+            teaSpoonOfLove:'',
+            petaleTea:''
+        },
+        teaTypeFilterStatus:false,
+        teaBrandFilterStatus:false
       }
     async componentDidMount() {
-        const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/"
+        // const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/"
+        const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
         let teaResponse = await axios.get(url + "tea");
         let packaging= teaResponse.data.packaging;
         let teaTypes= teaResponse.data.teaTypes;
@@ -33,17 +51,65 @@ export default class TeaProvider extends React.Component{
         })
     };
     render(){
-        const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/";
+        // const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/";
+        const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
         const teaSearchUrl = url + "tea/";
-        
+
         const teaContext = { 
-            displayAllTea: () => {
-                return this.state.tea;
+            getTeaTypeFilter: (keyName,teaTypeId) => {
+                this.setState({
+                    teaBrandFilterStatus:false
+                });
+                let revisedTeaTypeFilter = this.state.teaTypeFilter;
+                revisedTeaTypeFilter[keyName] = teaTypeId;
+                this.setState(revisedTeaTypeFilter);
+                this.setState({teaTypeFilterStatus:true});
+            },
+            getTeaBrandFilter: (keyName,teaBrandId) => {
+                this.setState({
+                    teaTypeFilterStatus:false,
+                });
+                let revisedTeaBrandFilter = this.state.teaBrandFilter;
+                revisedTeaBrandFilter[keyName] = teaBrandId;
+                this.setState(revisedTeaBrandFilter);
+                this.setState({teaBrandFilterStatus:true});
             },
             getAllTea: async () => {
-                let allTeaResponse = await axios.get(teaSearchUrl);
-                let allTea = allTeaResponse.data.tea;
-                return allTea;
+                let teaTypeFilterStatus = this.state.teaTypeFilterStatus;
+                let teaBrandFilterStatus = this.state.teaBrandFilterStatus;
+                let teaTypeFilter = this.state.teaTypeFilter;
+                let teaBrandFilter = this.state.teaBrandFilter;
+                if(teaTypeFilterStatus){
+                    for(let each in teaTypeFilter){
+                        console.log('LALLAL',each)
+                        if(teaTypeFilter[each] !== ''){
+                            let filteredTeaResponse = await axios.get(teaSearchUrl,{
+                                params:{
+                                    tea_type_id:teaTypeFilter[each]
+                                }
+                            });
+                            let filteredTea = filteredTeaResponse.data.tea;
+                            return filteredTea;
+                        }
+                    }
+                }else if(teaBrandFilterStatus){
+                    for(let each in teaBrandFilter){
+                        console.log('KAKAKAK',each)
+                        if(teaBrandFilter[each] !== ''){
+                            let filteredTeaResponse = await axios.get(teaSearchUrl,{
+                                params:{
+                                    brand_id:teaBrandFilter[each]
+                                }
+                            });
+                            let filteredTea = filteredTeaResponse.data.tea;
+                            return filteredTea;
+                        }
+                    }
+                } else{
+                    let allTeaResponse = await axios.get(teaSearchUrl);
+                    let allTea = allTeaResponse.data.tea;
+                    return allTea;
+                }
             },
             searchTea: async (searchQuery) => {
                 let teaSearchResults = await axios.get(teaSearchUrl, {
@@ -66,6 +132,20 @@ export default class TeaProvider extends React.Component{
                 //     tea
                 // });
             },
+            getTeaByBrand: async(brandId) => {
+                let teaSearchResults = await axios.get(teaSearchUrl, {
+                    params: {
+                    brand_id: brandId
+                    }
+                });
+                console.log(teaSearchResults.data)
+                let tea = teaSearchResults.data.tea;
+                this.setState({
+                    teaByBrand:tea
+                })
+                console.log(tea);
+                return tea;
+            },
             getAllTeaBrands: () => {
                 return this.state.brands
             },
@@ -82,7 +162,6 @@ export default class TeaProvider extends React.Component{
                 return this.state.tasteProfiles
             },
             getTeaDetails: async (teaId) => {
-                // const url = "https://3000-joanneks-tea4uexpressba-azji6dgmjtq.ws-us63.gitpod.io/api/"
                 let teaResponse = await axios.get(url + "tea/" + teaId); 
                 let tea = teaResponse.data.tea;
                 console.log(tea)
