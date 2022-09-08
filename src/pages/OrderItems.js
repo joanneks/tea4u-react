@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useContext, useState } from 'react';
 import NavbarInstance from './Navbar';
+import NavbarBottom from './NavbarBottom';
 import { useParams } from 'react-router-dom';
 import OrderContext from "../context/OrderContext";
 import TeaContext from "../context/TeaContext";
@@ -111,7 +112,8 @@ function OrderItems(props) {
                 <div>
                     <NavbarInstance />
                 </div>
-                <div style={{height:'57px'}}></div>
+                <NavbarBottom/>
+                <div style={{height:'56px'}}></div>
                 <div style={{ margin: '20px 20px 0px 20px' }}>
                     {
                         loading ?

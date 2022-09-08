@@ -46,7 +46,7 @@ function App() {
             </CartProvider>
           </UserProvider>
         </TeaProvider>
-      </div>
+      </div>     
     </React.Fragment>
   );
 }

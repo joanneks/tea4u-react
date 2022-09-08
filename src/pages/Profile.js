@@ -1,5 +1,6 @@
 import React from 'react';
 import NavbarInstance from './Navbar';
+import NavbarBottom from './NavbarBottom';
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate } from 'react-router-dom';
@@ -228,7 +229,8 @@ export default function Profile(props) {
         <div>
           <NavbarInstance/>
         </div>
-        <div style={{height:'57px'}}></div>
+        <NavbarBottom/>
+        <div style={{height:'46px'}}></div>
         {
           loading ?
           <div style={{position:'relative',display:'flex',justifyContent:'center'}}>
@@ -237,7 +239,7 @@ export default function Profile(props) {
           :
           <div style = {{fontFamily:'Khula,sans-serif'}}>
             <div>
-              <h4 style={{backgroundColor:'#e3ece5',padding:'18px 20px 10px 20px',fontWeight:'600'}}>{profileDetails.first_name.toUpperCase()} {profileDetails.last_name.toUpperCase()}'S ACCOUNT </h4>
+              <h4 style={{backgroundColor:'#e2d6d4',padding:'18px 20px 10px 20px',fontWeight:'600'}}>{profileDetails.first_name.toUpperCase()} {profileDetails.last_name.toUpperCase()}'S ACCOUNT </h4>
             </div>
             <div style={{padding:'20px'}}>
               <div style={{display:'flex',flexWrap:'wrap'}}>
@@ -269,7 +271,7 @@ export default function Profile(props) {
             </div>
   
             <div>
-              <h4 style={{backgroundColor:'#e3ece5',padding:'18px 20px 10px 20px',fontWeight:'600'}}>EDIT PASSWORD</h4>
+              <h4 style={{backgroundColor:'#e2d6d4',padding:'18px 20px 10px 20px',fontWeight:'600'}}>EDIT PASSWORD</h4>
             </div>
             <div style={{padding:'20px'}}>
               <div style={{display:'flex',flexWrap:'wrap'}} >
@@ -304,7 +306,7 @@ export default function Profile(props) {
             </div>
   
             <div>
-              <h4 style={{backgroundColor:'#e3ece5',padding:'18px 20px 10px 20px',fontWeight:'600'}}>EDIT ACCOUNT DETAILS</h4>
+              <h4 style={{backgroundColor:'#e2d6d4',padding:'18px 20px 10px 20px',fontWeight:'600'}}>EDIT ACCOUNT DETAILS</h4>
               <p style={{margin:'0px 20px',fontStyle:'italic',fontSize:'small'}}>If you wish to change email for this account, kindly contact us at admin@tea4u.com</p>
             </div>
             <div style={{padding:'20px',fontFamily:'Khula, sans-serif'}}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import NavbarInstance from './Navbar';
+import NavbarBottom from './NavbarBottom';
 import{useContext, useState, useEffect } from 'react';
 import OrderContext from "../context/OrderContext";
 import { useNavigate } from 'react-router-dom';
@@ -42,7 +43,8 @@ export default function Order(props) {
             <div>
             <NavbarInstance/>
             </div>
-            <div style={{height:'57px'}}></div>
+            <NavbarBottom/>
+            <div style={{height:'56px'}}></div>
             <div id="orderMargin">
                 <div>
                     <h1 style={{fontSize:'35px',fontFamily:'Khula,sans-serif',fontWeight:'500',textAlign:'center'}}>Order History</h1>

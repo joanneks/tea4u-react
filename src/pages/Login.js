@@ -1,5 +1,6 @@
 import React from 'react';
 import NavbarInstance from './Navbar';
+import NavbarBottom from './NavbarBottom';
 import { useState, useContext } from "react";
 import UserContext from "../context/UserContext";
 import { useNavigate } from 'react-router-dom';
@@ -76,7 +77,8 @@ export default function Login(props) {
         <div>
           <NavbarInstance/>
         </div>
-        <div style={{height:'57px'}}></div>
+        <NavbarBottom/>
+        <div style={{height:'46px'}}></div>
         <div id="loginBig">
           <div className="col col-12" style={{padding:'20px',paddingBottom:'40px',fontFamily:'Khula,sans-serif',display:'flex',flexWrap:'wrap'}}>
             <div className='col col-12 col-sm-12 col-md-12 col-lg-6' >
@@ -267,7 +269,6 @@ export default function Login(props) {
             </div>
           </div>
         </div>
-
       </div>
     </React.Fragment> 
     );

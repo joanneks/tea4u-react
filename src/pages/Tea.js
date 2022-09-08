@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import NavbarInstance from './Navbar';
+import NavbarBottom from './NavbarBottom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import '../css/tea.css';
@@ -128,7 +129,8 @@ export default function Tea(props) {
       <div>
         <NavbarInstance />
       </div>
-      <div style={{height:'70px',display:'flex',justifyContent:'end'}}>
+      <NavbarBottom/>
+      <div style={{height:'66px',display:'flex',justifyContent:'end'}}>
         {isShown && (
           <div id="hoverComment" style={{position:'absolute', marginTop:'70px',fontSize:'10px',borderRadius:'20px',border:'1px solid grey',padding:'3px',backgroundColor: '#f5f2ee' }}>
             Expand/Collapse

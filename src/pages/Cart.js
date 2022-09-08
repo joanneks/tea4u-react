@@ -1,5 +1,6 @@
 import React from 'react';
 import NavbarInstance from './Navbar';
+import NavbarBottom from './NavbarBottom';
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from 'react-router-dom';
 import CartContext from '../context/CartContext';
@@ -139,7 +140,8 @@ export default function Cart(props) {
         <div>
           <NavbarInstance />
         </div>
-        <div style={{height:'57px'}}></div>
+        <NavbarBottom/>
+        <div style={{height:'56px'}}></div>
           <div id="cartMargin"><h1 style={{fontSize:'35px',fontFamily:'Khula,sans-serif',fontWeight:'500',textAlign:'center',marginBottom:'30px'}}>Shopping Cart</h1>
             {
               loading ? 

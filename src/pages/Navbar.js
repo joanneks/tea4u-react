@@ -1,6 +1,5 @@
 
 import React from 'react';
-// import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -29,31 +28,40 @@ export default function NavbarInstance(props) {
       return false;
     }
   }
+  const login = () => {
+    navigate('/login')
+  }
 
   return (
     <React.Fragment>
-      <div>
-          <Navbar fixed="top" bg="light" expand="lg" id="navbar">
-              <Container>
+      <div style={{display:'flex',flexWrap:'wrap'}}>
+            <Navbar fixed="top" bg="light" expand="lg" id="navbar" style={{padding:'2px',display:'flex',flexWrap:'wrap'}}>
               <Navbar.Brand href="/">Tea4U</Navbar.Brand>
-              <Navbar.Toggle aria-controls="basic-navbar-nav" />
-              <Navbar.Collapse id="basic-navbar-nav">
-                  <Nav className="me-auto">
-                  <Nav.Link href="/tea">Shop</Nav.Link>
-                  <Nav.Link href="/profile">Profile</Nav.Link>
-                  <Nav.Link href="/cart">Cart</Nav.Link>
-                  <Nav.Link href="/orders">Orders</Nav.Link>
-                  <Nav.Link href="/login">Login</Nav.Link>
-                  </Nav>
-              </Navbar.Collapse>
               {checkIfLoggedIn() ?
-                <button className="btn btn-danger" onClick={logout}>Logout</button>
-                // <a href='' style={{fontFamily:'Khula,sans-serif',fontSize:'16px',fontWeight:'600',textDecoration:'none'}} onClick={logout}>Logout</a>
-                : ''
+                <div id="loggingSmall" onClick={logout}>LOGOUT</div>
+                : <div id="loggingSmall" onClick={login}>LOGIN  ||  JOIN</div>
               }
+              <Container id="navContainer">
+                <div id="showNavbar">
+                  <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+                  <Navbar.Collapse id="basic-navbar-nav">
+                      <Nav className="me-auto">
+                      <Nav.Link href="/tea">SHOP</Nav.Link>
+                      <Nav.Link href="/profile">PROFILE</Nav.Link>
+                      <Nav.Link href="/cart">CART</Nav.Link>
+                      <Nav.Link href="/orders">ORDERS</Nav.Link>
+                      </Nav>
+                  </Navbar.Collapse>
+                </div>
               </Container>
-          </Navbar>
+              {checkIfLoggedIn() ?
+                <div id="logging" onClick={logout}>LOGOUT</div>
+                : <div id="logging" onClick={login}>LOGIN  ||  JOIN</div>
+              }
+              {/* <div style={{width:'20px'}}></div> */}
+            </Navbar>
       </div>
+
     </React.Fragment>
   );
 }

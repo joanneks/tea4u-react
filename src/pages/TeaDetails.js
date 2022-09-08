@@ -1,5 +1,6 @@
 import React from 'react';
 import NavbarInstance from './Navbar';
+import NavbarBottom from './NavbarBottom';
 import TeaContext from "../context/TeaContext";
 import CartContext from "../context/CartContext";
 import { useParams } from 'react-router-dom';
@@ -75,7 +76,8 @@ function TeaDetails(props) {
         <div>
           <NavbarInstance/>
         </div>
-        <div style={{height:'56px'}}></div>
+        <NavbarBottom/>
+        <div style={{height:'26px'}}></div>
         {
           loading ? 
           <div style={{position:'relative',display:'flex',justifyContent:'center'}}>
