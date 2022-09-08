@@ -15,29 +15,30 @@ import cart from '../css/images/cart.png';
 import search from '../css/images/search.png';
 import filter from '../css/images/filter.png';
 import clearSearch from '../css/images/remove.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import loadingPic from '../css/images/loading.gif';
 
 export default function Tea(props) {
   const navigate = useNavigate();
   const teaContext = useContext(TeaContext);
   const cartContext = useContext(CartContext);
-  const [loading,setLoading] = useState(false);
-  const [allTea,setAllTea] = useState([]);
-  const [allTeaCount,setAllTeaCount] = useState();
+  const [loading, setLoading] = useState(false);
+  const [allTea, setAllTea] = useState([]);
+  const [allTeaCount, setAllTeaCount] = useState();
   const [isShown, setIsShown] = useState(false);
 
-  useEffect(()=>{
-    const displayAllTea = async() => {
+  useEffect(() => {
+    const displayAllTea = async () => {
       setLoading(true);
       let allTeaResults = await teaContext.getAllTea()
       await setAllTea(allTeaResults);
       await setAllTeaCount(allTeaResults.length)
-      console.log(allTeaResults)
-      
-      setTimeout(async()=>{await setLoading(false)},300)
+
+      setTimeout(async () => { await setLoading(false) }, 300)
     }
     displayAllTea();
-  },[])
+  }, [])
 
   const [searchQuery, setSearchQuery] = useState({
     name: '',
@@ -50,17 +51,16 @@ export default function Tea(props) {
     tasteProfiles: []
   });
 
-  const searchTea = async (searchQuery) =>{
+  const searchTea = async (searchQuery) => {
     setLoading(true);
     let searchTeaResults = await teaContext.searchTea(searchQuery);
     await setAllTea(searchTeaResults);
-    console.log(searchTeaResults)
     await setAllTeaCount(searchTeaResults.length)
-    setTimeout(async()=>{await setLoading(false)},300)
+    setTimeout(async () => { await setLoading(false) }, 300)
   }
 
-  const [showFilterCount,setShowFilterCount] = useState(0);
-  const [showFilter,setShowFilter] = useState('none');
+  const [showFilterCount, setShowFilterCount] = useState(0);
+  const [showFilter, setShowFilter] = useState('none');
 
   const updateFormField = (e) => {
     setSearchQuery({
@@ -70,45 +70,57 @@ export default function Tea(props) {
   }
 
   const updateFormFieldMultiple = (e) => {
-      console.log('searchQuery', searchQuery.tasteProfiles, 'e.target.options', e.target.options);
-      let revisedTasteProfile = []
-      let options = e.target.options;
-      for (let i = 0; i < options.length; i++) {
-        if (options[i].selected) {
-          revisedTasteProfile.push(options[i].value);
-        }
+    let revisedTasteProfile = []
+    let options = e.target.options;
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        revisedTasteProfile.push(options[i].value);
       }
-      console.log('addRevised', revisedTasteProfile)
-      setSearchQuery({
-        ...searchQuery,
-        tasteProfiles: revisedTasteProfile
-      })
+    }
+    setSearchQuery({
+      ...searchQuery,
+      tasteProfiles: revisedTasteProfile
+    })
   }
-
+  
   const addToCart = async (teaId) => {
-    await cartContext.addToCart(teaId,1);
-    navigate('/cart')
+    const addToCartToast = toast.loading("Adding To Cart...");
+    let customerId = JSON.parse(localStorage.getItem('customerId'));
+    if(customerId){
+      await cartContext.addToCart(teaId, 1);
+      toast.update(addToCartToast, {
+        render: `Item added to cart!`,
+        type: "success",
+        isLoading: false,
+        autoClose: 1000
+      });
+      navigate('/cart')
+    } else {
+      toast.update(addToCartToast, {
+        render: <span>Login required to add to cart. <a href="/login">Login now</a></span>,
+        type: "error",
+        isLoading: false,
+        autoClose: 1000
+      });
+    }
   }
 
   const showTeaInfo = (teaId) => {
     navigate(`/tea/${teaId}`)
   }
-  useEffect(()=>{
-  },[showFilter])
+  useEffect(() => {
+  }, [showFilter])
 
   const showFilters = () => {
-      let clickCount = showFilterCount + 1;
-      console.log('click',clickCount)
-        
-      if(clickCount%2 === 1){
-        console.log('if',clickCount%2 === 1)
-        setShowFilterCount(clickCount);
-        setShowFilter('block');
-      } else if(clickCount%2 === 0){
-        console.log('else',clickCount%2 === 0)
-        setShowFilterCount(clickCount);
-        setShowFilter('none');
-      }
+    let clickCount = showFilterCount + 1;
+
+    if (clickCount % 2 === 1) {
+      setShowFilterCount(clickCount);
+      setShowFilter('block');
+    } else if (clickCount % 2 === 0) {
+      setShowFilterCount(clickCount);
+      setShowFilter('none');
+    }
   }
   const clearSearchQuery = () => {
     setSearchQuery({
@@ -125,41 +137,42 @@ export default function Tea(props) {
 
   return (
     <React.Fragment>
-    <div style={{minHeight:'100vh', position:'relative'}}>
-      <div>
-        <NavbarInstance />
-      </div>
-      <NavbarBottom/>
-      <div style={{height:'66px',display:'flex',justifyContent:'end'}}>
-        {isShown && (
-          <div id="hoverComment" style={{position:'absolute', marginTop:'70px',fontSize:'10px',borderRadius:'20px',border:'1px solid grey',padding:'3px',backgroundColor: '#f5f2ee' }}>
-            Expand/Collapse
-          </div>
-        )}
-      </div>
-      <Container className="tea-margin">
+      <div style={{ minHeight: '100vh', position: 'relative' }}>
         <div>
+          <NavbarInstance />
+        </div>
+        <NavbarBottom />
+        <ToastContainer />
+        <div style={{ height: '66px', display: 'flex', justifyContent: 'end' }}>
+          {isShown && (
+            <div id="hoverComment" style={{ position: 'absolute', marginTop: '70px', fontSize: '10px', borderRadius: '20px', border: '1px solid grey', padding: '3px', backgroundColor: '#f5f2ee' }}>
+              Expand/Collapse
+            </div>
+          )}
+        </div>
+        <Container className="tea-margin">
+          <div>
             <div className="text-center justify-content-start">
               <div className="col-12 col-sm-12 col-md-12 col-lg-12 search-input">
-                <div className="form-control" style={{padding:'6px 10px',fontFamily:'Khula,sans-serif',fontWeight:'500'}}>
-                  <input type="text" name="name" placeholder='SEARCH' style={{fontSize:'17px',border:'none',padding:'0px',width:'70%'}} value={searchQuery.name} onChange={updateFormField} />
-                  <span style={{float:'right'}}>
-                    <img src={clearSearch} alt="filter" style={{height:'20px',width:'20px'}} 
+                <div className="form-control" style={{ padding: '6px 10px', fontFamily: 'Khula,sans-serif', fontWeight: '500' }}>
+                  <input type="text" name="name" placeholder='SEARCH' style={{ fontSize: '17px', border: 'none', padding: '0px', width: '70%' }} value={searchQuery.name} onChange={updateFormField} />
+                  <span style={{ float: 'right' }}>
+                    <img src={clearSearch} alt="filter" style={{ height: '20px', width: '20px' }}
                       onClick={clearSearchQuery}
                     />
                   </span>
-                  <span style={{float:'right'}}>
-                    <img src={filter} id="filter1" alt="filter" style={{height:'20px',width:'20px',marginRight:'10px'}}
+                  <span style={{ float: 'right' }}>
+                    <img src={filter} id="filter1" alt="filter" style={{ height: '20px', width: '20px', marginRight: '10px' }}
                       onClick={showFilters}
                       onMouseEnter={() => setIsShown(true)}
                       onMouseLeave={() => setIsShown(false)}
                     />
                   </span>
-                  <span style={{float:'right'}}><img src={search} alt="search" style={{height:'20px',width:'20px',marginRight:'10px'}} onClick={() => { searchTea(searchQuery) }}/></span>
+                  <span style={{ float: 'right' }}><img src={search} alt="search" style={{ height: '20px', width: '20px', marginRight: '10px' }} onClick={() => { searchTea(searchQuery) }} /></span>
                 </div>
               </div>
 
-              <div className="text-center justify-content-start" style={{display:showFilter,marginLeft: '10px'}}>
+              <div className="text-center justify-content-start" style={{ display: showFilter, marginLeft: '10px' }}>
                 <div className="search-input-cost">
                   <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
                     <label>Price Range: </label>
@@ -190,7 +203,7 @@ export default function Tea(props) {
                 </div>
                 <div className="search-input-div">
                   <div className="col-4 col-sm-4 col-md-4 col-lg-4 search-label" >
-                  <label>Tea Type: </label>
+                    <label>Tea Type: </label>
                   </div>
                   <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
                     <select name="teaType" className="form-control" value={searchQuery.teaType} onChange={updateFormField}>
@@ -221,13 +234,13 @@ export default function Tea(props) {
                     <label>Tea Origin: </label>
                   </div>
                   <div className="col-8 col-sm-8 col-md-8 col-lg-8 search-label" >
-                  <select name="placeOfOrigin" style={{ marginRight: '20px' }} className="form-control" value={searchQuery.placeOfOrigin} onChange={updateFormField}>
-                    {teaContext.getAllPlaceOfOrigins().map(each => {
-                      return (
-                        <option key={each[0]} value={each[0]}>{each[1]}</option>
-                      )
-                    })}
-                  </select>
+                    <select name="placeOfOrigin" style={{ marginRight: '20px' }} className="form-control" value={searchQuery.placeOfOrigin} onChange={updateFormField}>
+                      {teaContext.getAllPlaceOfOrigins().map(each => {
+                        return (
+                          <option key={each[0]} value={each[0]}>{each[1]}</option>
+                        )
+                      })}
+                    </select>
                   </div>
                 </div>
                 <div className="search-input-div">
@@ -245,63 +258,63 @@ export default function Tea(props) {
                   </div>
                 </div>
               </div>
+            </div>
           </div>
-        </div>
 
-        <div style={{textAlign:'start',margin:'20px 0px 20px 10px',fontFamily:'Khula,sans-serif',fontWeight:'600'}}>{ loading ? '' : allTeaCount + ' results(s) found' }</div>
-      
-        {loading ? 
-          <div style={{position:'relative',display:'flex',justifyContent:'center'}}>
-          <img src={loadingPic} alt="loadingPic" style={{position:'absolute',height:'300px',margin:'auto'}}/>
-          </div>
-          :
-          <div>
+          <div style={{ textAlign: 'start', margin: '20px 0px 20px 10px', fontFamily: 'Khula,sans-serif', fontWeight: '600' }}>{loading ? '' : allTeaCount + ' results(s) found'}</div>
 
-        <Row xs={1} md={2} lg={3} className="g-4">
-          {allTea.map(each => {
-            return (
-              <Col key={each.id}>
-                <div className="col d-flex justify-content-center">
-                  <div>
-                    <Card style={{width:'19rem'}} >
-                      <Card.Img variant="top" src={each.image_url} className="card-img-top" alt={each.name} style={{ height: '16rem', width: '100%', objectFit: 'cover', }} onClick={()=>{showTeaInfo(each.id)}}/>
-                      <Card.Body style={{ backgroundColor: '#f3f2f1', height: '210px', padding: '20px',fontFamily:'Khula,sans-serif',fontWeight:'600' }}>
-                        <Card.Title >
-                          <div style={{padding: '0px 5px 0px 5px',fontSize:'20px',height:'34px'}}>
-                            <span style={{fontWeight:'500'}}>{each.brand.name}</span>
-                            <span style={{ float: 'right'}}>
-                              <img src={cart} alt="addToCartBtn" style={{ height: "28px", width: "28px",marginLeft:'10px',zIndex:'100' }} onClick={()=>{addToCart(each.id)}}/>
-                            </span>
-                          </div>
-                          <div style={{ height: '50px', marginBottom:'30px',padding: '0px 5px 0px 5px',fontWeight:'600' }} onClick={()=>{showTeaInfo(each.id)}}>
-                            <div style={{height:'50px'}}>{each.name}</div>
-                            <div style={{ fontStyle: 'italic', fontSize: 'small', fontWeight: '400', marginTop: '5px' }}>
-                              {each.quantity === 0 ? 'Sold Out' : <div>Available Stock:{each.quantity}</div>}
-                            </div>
-                            <div style={{marginTop:'5px'}}>S${each.cost/100}</div>
-                          </div>
+          {loading ?
+            <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+              <img src={loadingPic} alt="loadingPic" style={{ position: 'absolute', height: '300px', margin: 'auto' }} />
+            </div>
+            :
+            <div>
 
-                        </Card.Title>
-                        <Card.Text style={{ marginTop: '60px' }}>
-                          {each.tasteProfile.map(eachTasteProfile => {
-                            return (
-                              <Badge key={eachTasteProfile.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{eachTasteProfile.name} </Badge>
-                            )
-                          })}
-                        </Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </div>
-                </div>
+              <Row xs={1} md={2} lg={3} className="g-4">
+                {allTea.map(each => {
+                  return (
+                    <Col key={each.id}>
+                      <div className="col d-flex justify-content-center">
+                        <div>
+                          <Card style={{ width: '19rem' }} >
+                            <Card.Img variant="top" src={each.image_url} className="card-img-top" alt={each.name} style={{ height: '16rem', width: '100%', objectFit: 'cover', }} onClick={() => { showTeaInfo(each.id) }} />
+                            <Card.Body style={{ backgroundColor: '#f3f2f1', height: '210px', padding: '20px', fontFamily: 'Khula,sans-serif', fontWeight: '600' }}>
+                              <Card.Title >
+                                <div style={{ padding: '0px 5px 0px 5px', fontSize: '20px', height: '34px' }}>
+                                  <span style={{ fontWeight: '500' }}>{each.brand.name}</span>
+                                  <span style={{ float: 'right' }}>
+                                    <img src={cart} alt="addToCartBtn" style={{ height: "28px", width: "28px", marginLeft: '10px', zIndex: '100' }} onClick={() => { addToCart(each.id) }} />
+                                  </span>
+                                </div>
+                                <div style={{ height: '50px', marginBottom: '30px', padding: '0px 5px 0px 5px', fontWeight: '600' }} onClick={() => { showTeaInfo(each.id) }}>
+                                  <div style={{ height: '50px' }}>{each.name}</div>
+                                  <div style={{ fontStyle: 'italic', fontSize: 'small', fontWeight: '400', marginTop: '5px' }}>
+                                    {each.quantity === 0 ? 'Sold Out' : <div>Available Stock:{each.quantity}</div>}
+                                  </div>
+                                  <div style={{ marginTop: '5px' }}>S${each.cost / 100}</div>
+                                </div>
 
-              </Col>
-            )
-          })}
-        </Row>
-          </div>
-        }
-      </Container>
-    </div>
+                              </Card.Title>
+                              <Card.Text style={{ marginTop: '60px' }}>
+                                {each.tasteProfile.map(eachTasteProfile => {
+                                  return (
+                                    <Badge key={eachTasteProfile.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{eachTasteProfile.name} </Badge>
+                                  )
+                                })}
+                              </Card.Text>
+                            </Card.Body>
+                          </Card>
+                        </div>
+                      </div>
+
+                    </Col>
+                  )
+                })}
+              </Row>
+            </div>
+          }
+        </Container>
+      </div>
 
     </React.Fragment>
   )

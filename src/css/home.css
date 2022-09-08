@@ -1,267 +1,297 @@
-#headerPic{
-    width:100%; 
-    border-bottom:10px solid #e2ddd4;
+#headerPic {
+    width: 100%;
+    border-bottom: 10px solid #e2ddd4;
     max-height: 360px;
     object-fit: cover;
     object-position: center;
-    margin-bottom:20px;
+    margin-bottom: 20px;
 }
 
-#headerCaption{
-    position:absolute;
-    margin:40px 0px 0px 80px;
-    font-size:26px;
-    font-weight:600;
-    font-family:'Indie Flower';
+#headerCaption {
+    position: absolute;
+    margin: 40px 0px 0px 80px;
+    font-size: 26px;
+    font-weight: 600;
+    font-family: 'Indie Flower';
 }
 
-#titleHeader{
-    font-weight:600;
-    font-size:50px;
-    text-align:center;
+#titleHeader {
+    font-weight: 600;
+    font-size: 50px;
+    text-align: center;
     margin: 30px 0px 20px 0px;
-    font-family:'Caveat';
+    font-family: 'Caveat';
 }
 
-#paddingHome{
-    padding:10px 50px 20px 50px;
-    font-family:'Khula', sans-serif;
-    font-size:22px;
-    text-align:center;
+#paddingHome {
+    padding: 10px 50px 20px 50px;
+    font-family: 'Khula', sans-serif;
+    font-size: 22px;
+    text-align: center;
 }
 
-#homeTeaTypes{
-    padding:0px 20px 20px 20px;
+#homeTeaTypes {
+    padding: 0px 20px 20px 20px;
 }
-#teaTypeName{
-    height:100px;
-    width:150px;
-    display:flex;
-    border:1px solid lightgrey;
-    font-size:28px;
+
+#teaTypeName {
+    height: 100px;
+    width: 150px;
+    display: flex;
+    border: 1px solid lightgrey;
+    font-size: 28px;
 }
-#brandName{
+
+#brandName {
     color: black;
     position: absolute;
-    background-color:white;
-    opacity:80%;
-    padding:10px 20px;
-    border-radius:10px;
-    margin:30px 0px 0px 150px;
-    font-size:40px;
+    background-color: white;
+    opacity: 80%;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 30px 0px 0px 150px;
+    font-size: 40px;
 }
 
-#clickNow{
-    display:inline-block;
+#clickNow {
+    display: inline-block;
 }
 
 @media screen and (max-width: 991px) {
-    #headerPic{
-        width:100%; 
-        border-bottom:10px solid #e2ddd4;
+    #headerPic {
+        width: 100%;
+        border-bottom: 10px solid #e2ddd4;
         max-height: 360px;
         object-fit: cover;
         object-position: center;
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
-    #headerCaption{
-        position:absolute;
-        margin:60px 0px 0px 80px;
-        font-size:22px;
-        font-weight:600;
-        font-family:'Indie Flower';
+
+    #headerCaption {
+        position: absolute;
+        margin: 60px 0px 0px 80px;
+        font-size: 22px;
+        font-weight: 600;
+        font-family: 'Indie Flower';
     }
-    #titleHeader{
-        font-family:'Caveat';
-        font-weight:600;
-        font-size:38px;
-        text-align:center;
-        margin:20px 0px;
+
+    #titleHeader {
+        font-family: 'Caveat';
+        font-weight: 600;
+        font-size: 38px;
+        text-align: center;
+        margin: 20px 0px;
     }
-    #paddingHome{
-        padding:10px 50px 20px 50px;
-        font-family:'Khula', sans-serif;
-        font-size:20px;
-        text-align:center;
+
+    #paddingHome {
+        padding: 10px 50px 20px 50px;
+        font-family: 'Khula', sans-serif;
+        font-size: 20px;
+        text-align: center;
     }
-    #homeTeaTypes{
-        padding:0px 50px 20px 50px;
+
+    #homeTeaTypes {
+        padding: 0px 50px 20px 50px;
     }
-    #teaTypeName{
-        height:100px;
-        width:150px;
-        display:flex;
-        border:1px solid lightgrey;
-        font-size:30px;
+
+    #teaTypeName {
+        height: 100px;
+        width: 150px;
+        display: flex;
+        border: 1px solid lightgrey;
+        font-size: 30px;
     }
-    #brandName{
+
+    #brandName {
         color: black;
         position: absolute;
-        background-color:white;
-        opacity:80%;
-        padding:5px 10px;
-        border-radius:10px;
-        margin:10px 0px 0px 20px;
-        font-size:40px;
+        background-color: white;
+        opacity: 80%;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin: 10px 0px 0px 20px;
+        font-size: 40px;
     }
-    #clickNow{
-        display:inline-block;
+
+    #clickNow {
+        display: inline-block;
     }
 }
 
 @media screen and (max-width: 767px) {
-    #headerPic{
-        width:100%;
-        border-bottom:10px solid #e2ddd4;
+    #headerPic {
+        width: 100%;
+        border-bottom: 10px solid #e2ddd4;
         max-height: 330px;
         object-fit: cover;
         object-position: center;
-        margin-bottom:20px;
+        margin-bottom: 20px;
     }
-    #headerCaption{
-        position:absolute;
-        margin:40px 0px 0px 60px;
-        font-size:22px;
-        font-weight:600;
-        font-family:'Indie Flower';
+
+    #headerCaption {
+        position: absolute;
+        margin: 40px 0px 0px 60px;
+        font-size: 22px;
+        font-weight: 600;
+        font-family: 'Indie Flower';
     }
-    #titleHeader{
-        font-family:'Caveat';
-        font-weight:600;
-        font-size:32px;
-        text-align:center;
-        margin-top:20px;
+
+    #titleHeader {
+        font-family: 'Caveat';
+        font-weight: 600;
+        font-size: 32px;
+        text-align: center;
+        margin-top: 20px;
     }
-    #paddingHome{
-        padding:10px 50px 20px 50px;
-        font-family:'Khula', sans-serif;
-        font-size:18px;
-        text-align:center;
+
+    #paddingHome {
+        padding: 10px 50px 20px 50px;
+        font-family: 'Khula', sans-serif;
+        font-size: 18px;
+        text-align: center;
     }
-    #homeTeaTypes{
-        padding:0px 20px 20px 20px;
+
+    #homeTeaTypes {
+        padding: 0px 20px 20px 20px;
     }
-    #teaTypeName{
-        height:100px;
-        width:150px;
-        display:flex;
-        border:1px solid lightgrey;
-        font-size:25px;
+
+    #teaTypeName {
+        height: 100px;
+        width: 150px;
+        display: flex;
+        border: 1px solid lightgrey;
+        font-size: 25px;
     }
-    #brandName{
+
+    #brandName {
         color: black;
         position: absolute;
-        background-color:white;
-        opacity:80%;
-        padding:5px 10px;
-        border-radius:10px;
-        margin:20px 0px 0px 40px;
-        font-size:30px;
+        background-color: white;
+        opacity: 80%;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin: 20px 0px 0px 40px;
+        font-size: 30px;
     }
-    #clickNow{
-        display:inline-block;
+
+    #clickNow {
+        display: inline-block;
     }
 }
 
 @media screen and (max-width: 575px) {
-    #headerPic{
-        width:100%;
-        height:270px;
-        border-bottom:10px solid #e2ddd4;
-        margin-bottom:20px;
+    #headerPic {
+        width: 100%;
+        height: 270px;
+        border-bottom: 10px solid #e2ddd4;
+        margin-bottom: 20px;
     }
-    #headerCaption{
-        position:absolute;
-        margin:35px 0px 0px 35px;
-        font-size:18px;
-        font-weight:600;
-        font-family:'Indie Flower';
+
+    #headerCaption {
+        position: absolute;
+        margin: 35px 0px 0px 35px;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: 'Indie Flower';
     }
-    #titleHeader{
-        font-family:'Caveat';
-        font-weight:600;
-        font-size:32px;
-        text-align:center;
-        margin:10px 0px;
+
+    #titleHeader {
+        font-family: 'Caveat';
+        font-weight: 600;
+        font-size: 32px;
+        text-align: center;
+        margin: 10px 0px;
     }
-    #paddingHome{
-        padding:10px 30px 10px 30px;
-        font-family:'Khula', sans-serif;
-        font-size:18px;
-        text-align:center;
+
+    #paddingHome {
+        padding: 10px 30px 10px 30px;
+        font-family: 'Khula', sans-serif;
+        font-size: 18px;
+        text-align: center;
     }
-    #homeTeaTypes{
-        padding:0px 30px 20px 30px;
+
+    #homeTeaTypes {
+        padding: 0px 30px 20px 30px;
     }
-    #teaTypeName{
-        height:100px;
-        width:150px;
-        display:flex;
-        border:1px solid lightgrey;
-        font-size:25px;
+
+    #teaTypeName {
+        height: 100px;
+        width: 150px;
+        display: flex;
+        border: 1px solid lightgrey;
+        font-size: 25px;
     }
-    #brandName{
+
+    #brandName {
         color: black;
         position: absolute;
-        background-color:white;
-        opacity:80%;
-        padding:5px 10px;
-        border-radius:10px;
-        margin:10px 0px 0px 20px;
-        font-size:25px;
+        background-color: white;
+        opacity: 80%;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin: 10px 0px 0px 20px;
+        font-size: 25px;
     }
-    #clickNow{
-        display:block;
+
+    #clickNow {
+        display: block;
     }
 }
 
 @media screen and (max-width: 400px) {
-    #headerPic{
-        width:100%;
-        height:240px;
-        border-bottom:10px solid #e2ddd4;
+    #headerPic {
+        width: 100%;
+        height: 240px;
+        border-bottom: 10px solid #e2ddd4;
     }
-    #headerCaption{
-        position:absolute;
-        margin:20px 0px 0px 25px;
-        font-size:17px;
-        font-weight:600;
-        font-family:'Indie Flower';
+
+    #headerCaption {
+        position: absolute;
+        margin: 20px 0px 0px 25px;
+        font-size: 17px;
+        font-weight: 600;
+        font-family: 'Indie Flower';
     }
-    #titleHeader{
-        font-weight:600;
-        font-size:28px;
-        text-align:center;
-        margin:10px 0px;
-        font-family:'Caveat';
+
+    #titleHeader {
+        font-weight: 600;
+        font-size: 28px;
+        text-align: center;
+        margin: 10px 0px;
+        font-family: 'Caveat';
     }
-    #paddingHome{
-        padding:0px 30px 10px 30px;
-        font-family:'Khula', sans-serif;
-        font-size:18px;
-        text-align:center;
+
+    #paddingHome {
+        padding: 0px 30px 10px 30px;
+        font-family: 'Khula', sans-serif;
+        font-size: 18px;
+        text-align: center;
     }
-    #homeTeaTypes{
-        padding:0px 20px 20px 20px;
+
+    #homeTeaTypes {
+        padding: 0px 20px 20px 20px;
     }
-    #teaTypeName{
-        height:100px;
-        width:150px;
-        display:flex;
-        border:1px solid lightgrey;
-        font-size:25px;
+
+    #teaTypeName {
+        height: 100px;
+        width: 150px;
+        display: flex;
+        border: 1px solid lightgrey;
+        font-size: 25px;
     }
-    #brandName{
+
+    #brandName {
         color: black;
         position: absolute;
-        background-color:white;
-        opacity:80%;
-        padding:5px 10px;
-        border-radius:10px;
-        margin:10px 0px 0px 20px;
-        font-size:25px;
+        background-color: white;
+        opacity: 80%;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin: 10px 0px 0px 20px;
+        font-size: 25px;
     }
-    #clickNow{
-        display:block;
+
+    #clickNow {
+        display: block;
     }
 }

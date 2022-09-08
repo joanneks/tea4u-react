@@ -1,230 +1,277 @@
-
-#navbar{
+#navbar {
     background-color: #e2ddd4 !important;
 }
-#loggingSmall{
-    display:none;
+
+#loggingSmall {
+    display: none;
 }
-#logging{
-    color:#4c4c4c;
-    font-family:'khula',sans-serif;
-    font-weight:600;
-    padding:5px 30px 0px 0px;
-    min-width:140px;
-    width:12%;
-    text-align:right;
+
+#logging {
+    color: #4c4c4c;
+    font-family: 'khula', sans-serif;
+    font-weight: 600;
+    padding: 5px 30px 0px 0px;
+    min-width: 140px;
+    width: 12%;
+    text-align: right;
 }
-#navContainer{
-    margin:0px;
-    min-width:250px;
-    width:76%;
+
+#navContainer {
+    margin: 0px;
+    min-width: 250px;
+    width: 76%;
 }
-.navbar-brand{
-    font-family:'Pacifico';
-    font-size:28px;
-    width:12%;
-    margin:0px;
-    padding:0px 0px 0px 30px;
+
+.navbar-brand {
+    font-family: 'Pacifico';
+    font-size: 28px;
+    width: 12%;
+    margin: 0px;
+    padding: 0px 0px 0px 30px;
 }
+
 .navbar-toggler {
-    display: none ;
+    display: none;
 }
+
 .navbar-expand-lg .navbar-nav {
     flex-direction: row !important;
 }
+
 .collapse:not(.show) {
-    display:block;
+    display: block;
 }
+
 .nav-link {
-    padding:8px 25px !important;
+    padding: 8px 25px !important;
     color: #4c4c4c;
-    font-weight:600;
+    font-weight: 600;
 }
-.navbar{
-    display:flex;
-    flex-wrap:wrap;
+
+.navbar {
+    display: flex;
+    flex-wrap: wrap;
 }
-.container{
-    padding:0px;
+
+.container {
+    padding: 0px;
 }
-#basic-navbar-nav{
-    width:70%;
+
+#basic-navbar-nav {
+    width: 70%;
 }
-#navbar{
+
+#navbar {
     justify-content: normal;
 }
 
 @media screen and (max-width: 1200px) {
-    #logging{
-        color:#4c4c4c;
-        font-family:'khula',sans-serif;
-        font-weight:600;
-        padding:5px 30px 0px 0px;
-        min-width:140px;
-        width:15%;
-        text-align:right;
+    #logging {
+        color: #4c4c4c;
+        font-family: 'khula', sans-serif;
+        font-weight: 600;
+        padding: 5px 30px 0px 0px;
+        min-width: 140px;
+        width: 15%;
+        text-align: right;
     }
-    #navContainer{
-        margin:0px;
-        min-width:250px;
-        width:72%;
+
+    #navContainer {
+        margin: 0px;
+        min-width: 250px;
+        width: 72%;
     }
-    .navbar-brand{
-        font-family:'Pacifico';
-        font-size:28px;
-        width:13%;
-        margin:0px;
-        padding:0px 0px 0px 30px;
+
+    .navbar-brand {
+        font-family: 'Pacifico';
+        font-size: 28px;
+        width: 13%;
+        margin: 0px;
+        padding: 0px 0px 0px 30px;
     }
+
     .navbar-toggler {
-        display: none ;
+        display: none;
     }
+
     .navbar-expand-lg .navbar-nav {
         flex-direction: row !important;
     }
+
     .collapse:not(.show) {
-        display:block;
+        display: block;
     }
+
     .nav-link {
-        padding:8px 25px !important;
+        padding: 8px 25px !important;
     }
-    .navbar{
-        display:flex;
-        flex-wrap:wrap;
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
     }
-    .container{
-        padding:0px;
+
+    .container {
+        padding: 0px;
     }
-    #basic-navbar-nav{
-        width:70%;
+
+    #basic-navbar-nav {
+        width: 70%;
     }
-    #navbar{
+
+    #navbar {
         justify-content: normal;
     }
 }
 
 @media screen and (max-width: 991px) {
-    #logging{
-        color:#4c4c4c;
-        font-family:'khula',sans-serif;
-        font-weight:600;
-        padding:5px 30px 0px 0px;
-        min-width:140px;
-        width:20%;
-        text-align:right;
+    #logging {
+        color: #4c4c4c;
+        font-family: 'khula', sans-serif;
+        font-weight: 600;
+        padding: 5px 30px 0px 0px;
+        min-width: 140px;
+        width: 20%;
+        text-align: right;
     }
-    #navContainer{
-        margin:0px;
-        min-width:250px;
-        width:64%;
+
+    #navContainer {
+        margin: 0px;
+        min-width: 250px;
+        width: 64%;
     }
-    .navbar-brand{
-        font-family:'Pacifico';
-        font-size:28px;
-        width:16%;
-        margin:0px;
-        padding:0px 0px 0px 30px;
+
+    .navbar-brand {
+        font-family: 'Pacifico';
+        font-size: 28px;
+        width: 16%;
+        margin: 0px;
+        padding: 0px 0px 0px 30px;
     }
+
     .navbar-toggler {
-        display: none ;
+        display: none;
     }
+
     .navbar-expand-lg .navbar-nav {
         flex-direction: row !important;
     }
+
     .collapse:not(.show) {
-        display:block;
+        display: block;
     }
+
     .nav-link {
-        padding:8px 20px !important;
+        padding: 8px 20px !important;
     }
-    .navbar{
-        display:flex;
-        flex-wrap:wrap;
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
     }
-    .container{
-        padding:0px;
+
+    .container {
+        padding: 0px;
     }
-    #basic-navbar-nav{
-        width:70%;
+
+    #basic-navbar-nav {
+        width: 70%;
     }
-    #navbar{
+
+    #navbar {
         justify-content: normal;
     }
 }
 
 @media screen and (max-width: 767px) {
-    #logging{
-        color:#4c4c4c;
-        font-family:'khula',sans-serif;
-        font-weight:600;
-        padding:5px 18px 0px 0px;
-        width:25%;
-        text-align:right;
+    #logging {
+        color: #4c4c4c;
+        font-family: 'khula', sans-serif;
+        font-weight: 600;
+        padding: 5px 18px 0px 0px;
+        width: 25%;
+        text-align: right;
     }
-    #navContainer{
-        margin:0px;
-        width:56%;
+
+    #navContainer {
+        margin: 0px;
+        width: 56%;
     }
-    .navbar-brand{
-        font-family:'Pacifico';
-        font-size:28px;
-        width:18%;
-        margin:0px;
-        padding:0px 0px 0px 18px;
+
+    .navbar-brand {
+        font-family: 'Pacifico';
+        font-size: 28px;
+        width: 18%;
+        margin: 0px;
+        padding: 0px 0px 0px 18px;
     }
+
     .navbar-toggler {
-        display: none ;
+        display: none;
     }
+
     .navbar-expand-lg .navbar-nav {
         flex-direction: row !important;
     }
+
     .collapse:not(.show) {
-        display:block;
+        display: block;
     }
+
     .nav-link {
-        padding:8px 13px !important;
+        padding: 8px 13px !important;
     }
-    .navbar{
-        display:flex;
-        flex-wrap:wrap;
+
+    .navbar {
+        display: flex;
+        flex-wrap: wrap;
     }
-    .container{
-        padding:0px;
+
+    .container {
+        padding: 0px;
     }
-    #basic-navbar-nav{
-        width:70%;
+
+    #basic-navbar-nav {
+        width: 70%;
     }
-    #navbar{
+
+    #navbar {
         justify-content: normal;
     }
 }
+
 @media screen and (max-width: 575px) {
-    #showNavbar{
-        display:none;
+    #showNavbar {
+        display: none;
     }
-    #logging{
-        display:none;
+
+    #logging {
+        display: none;
     }
-    #loggingSmall{
-        display:block;
-        color:#4c4c4c;
-        font-family:'khula',sans-serif;
-        font-weight:600;
-        padding:5px 18px 0px 0px;
-        width:50%;
-        text-align:right;
+
+    #loggingSmall {
+        display: block;
+        color: #4c4c4c;
+        font-family: 'khula', sans-serif;
+        font-weight: 600;
+        padding: 5px 18px 0px 0px;
+        width: 50%;
+        text-align: right;
     }
-    .navbar-brand{
-        font-family:'Pacifico';
-        font-size:28px;
-        width:50%;
-        margin:0px;
-        padding:0px 0px 0px 18px;
+
+    .navbar-brand {
+        font-family: 'Pacifico';
+        font-size: 28px;
+        width: 50%;
+        margin: 0px;
+        padding: 0px 0px 0px 18px;
     }
+
     .navbar-toggler {
-        display: none ;
+        display: none;
     }
-    #navbar{
+
+    #navbar {
         justify-content: normal;
     }
 }

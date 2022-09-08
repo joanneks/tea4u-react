@@ -11,25 +11,19 @@ import Profile from './pages/Profile';
 import Order from './pages/Order';
 import OrderItems from './pages/OrderItems';
 
-import { useContext } from "react";
-import UserContext from "./context/UserContext";
 import UserProvider from './context/UserContextProvider';
 import TeaProvider from './context/TeaContextProvider';
 import CartProvider from './context/CartContextProvider';
 import OrderProvider from './context/OrderContextProvider';
 
 function App() {
-  const userContext = useContext(UserContext);
-
-  // setInterval(userContext.getNewAccessToken,890000)
   return (
     <React.Fragment>
-      <div style={{minHeight:'100vh',backgroundColor: '#f5f2ee' }}>
+      <div style={{ minHeight: '100vh', backgroundColor: '#f5f2ee' }}>
         <TeaProvider>
           <UserProvider>
             <CartProvider>
               <OrderProvider>
-
                 <Router>
                   <Routes>
                     <Route path="/" element={<Home />} />
@@ -46,7 +40,7 @@ function App() {
             </CartProvider>
           </UserProvider>
         </TeaProvider>
-      </div>     
+      </div>
     </React.Fragment>
   );
 }

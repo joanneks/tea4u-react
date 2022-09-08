@@ -1,34 +1,34 @@
-.teaDetailsLabel{
-    width:45%;
+.teaDetailsLabel {
+    width: 45%;
 }
 
-.teaDetailsLabel1{
-    width:50%;
+.teaDetailsLabel1 {
+    width: 50%;
 }
 
 
 .tea-details-padding {
-    padding:10px 50px;
+    padding: 10px 50px;
 }
 
 @media screen and (max-width: 991px) {
     .tea-details-padding {
-        padding:20px 50px;
+        padding: 20px 50px;
     }
 }
 
-@media screen and (max-width: 767px) {
-}
+@media screen and (max-width: 767px) {}
 
 @media screen and (max-width: 575px) {
-    .teaDetailsLabel{
-        width:100%;
+    .teaDetailsLabel {
+        width: 100%;
     }
-    .teaDetailsLabel1{
-        width:100%;
+
+    .teaDetailsLabel1 {
+        width: 100%;
     }
+
     .tea-details-padding {
-        padding:20px;
+        padding: 20px;
     }
 }
-

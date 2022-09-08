@@ -1,46 +1,53 @@
+#loginPadding {
+    padding: 10px 60px;
+}
 
-#loginPadding{
-    padding:10px 60px;
+#loginBig {
+    display: block;
 }
-#loginBig{
-    display:block;
-}
-#loginSmall{
-    display:none;
+
+#loginSmall {
+    display: none;
 }
 
 @media screen and (max-width: 991px) {
-    #loginPadding{
-        padding:10px 60px;
+    #loginPadding {
+        padding: 10px 60px;
     }
-    #loginBig{
-        display:none;
+
+    #loginBig {
+        display: none;
     }
-    #loginSmall{
-        display:block;
+
+    #loginSmall {
+        display: block;
     }
 }
 
 @media screen and (max-width: 767px) {
-    #loginPadding{
-        padding:40px;
+    #loginPadding {
+        padding: 40px;
     }
-    #loginBig{
-        display:none;
+
+    #loginBig {
+        display: none;
     }
-    #loginSmall{
-        display:block;
+
+    #loginSmall {
+        display: block;
     }
 }
 
 @media screen and (max-width: 575px) {
-    #loginPadding{
+    #loginPadding {
         padding: 0px 20px;
     }
-    #loginBig{
-        display:none;
+
+    #loginBig {
+        display: none;
     }
-    #loginSmall{
-        display:block;
+
+    #loginSmall {
+        display: block;
     }
 }

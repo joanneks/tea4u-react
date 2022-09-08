@@ -67,28 +67,33 @@ export default class UserProvider extends React.Component{
                 return this.state.profileDetails;
             },
             login: async (email,password) => {
-                let loginResponse = await axios.post(loginUrl,{
-                    email,
-                    password,
-                })
-                console.log(loginResponse);
-                let tokenData = loginResponse.data;
-                console.log(tokenData);
-
-                await localStorage.setItem('customerId', JSON.stringify(tokenData.userDetails.id));
-                await localStorage.setItem('accessToken', JSON.stringify(tokenData.accessToken));
-                await localStorage.setItem('refreshToken', JSON.stringify(tokenData.refreshToken));
-                
-                this.setState({
-                    userDetails:{
-                        id:tokenData.userDetails.id,
-                        email:tokenData.userDetails.email,
-                        username:tokenData.userDetails.username,
-                        accessToken:tokenData.accessToken,
-                        refreshToken:tokenData.refreshToken,
-                    },
-                    loggedIn:true
-                })
+                try{
+                    let loginResponse = await axios.post(loginUrl,{
+                        email,
+                        password,
+                    })
+                    console.log(loginResponse);
+                    let tokenData = loginResponse.data;
+                    console.log(tokenData);
+    
+                    await localStorage.setItem('customerId', JSON.stringify(tokenData.userDetails.id));
+                    await localStorage.setItem('accessToken', JSON.stringify(tokenData.accessToken));
+                    await localStorage.setItem('refreshToken', JSON.stringify(tokenData.refreshToken));
+                    
+                    this.setState({
+                        userDetails:{
+                            id:tokenData.userDetails.id,
+                            email:tokenData.userDetails.email,
+                            username:tokenData.userDetails.username,
+                            accessToken:tokenData.accessToken,
+                            refreshToken:tokenData.refreshToken,
+                        },
+                        loggedIn:true
+                    })
+                    return this.state.loggedIn;
+                }catch(e){
+                  
+                }
             },
             getUserProfile:async() => {
                 let customerId = JSON.parse(localStorage.getItem('customerId'));
