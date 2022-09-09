@@ -19,6 +19,7 @@ export default class CartProvider extends React.Component{
             let cartResponse = await axios.post(url + "cart/",{
                 user_id:customerId
             });
+            console.log(cartResponse.data.cartItems)
             this.setState({
                 cartItems: cartResponse.data.cartItems,
                 totalCost: cartResponse.data.totalCost,

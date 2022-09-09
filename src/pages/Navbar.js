@@ -7,17 +7,33 @@ import '../css/navbar.css';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from "react";
 import UserContext from "../context/UserContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function NavbarInstance(props) {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
 
   const logout = async () => {
+    const loginToast = toast.loading("Logging out...");
     let customerId = JSON.parse(localStorage.getItem('customerId'));
     if (customerId) {
       console.log('logout fail');
       await userContext.logout();
+      toast.update(loginToast, {
+        render: <span>Logged out successfully</span>,
+        type: "success",
+        isLoading: false,
+        autoClose: 2000
+      });
       navigate("/tea");
+    }else{
+      toast.update(loginToast, {
+        render: <span>Unsuccessful logout</span>,
+        type: "error",
+        isLoading: false,
+        autoClose: 2000
+      });
     }
   }
   const checkIfLoggedIn = () => {
@@ -60,6 +76,7 @@ export default function NavbarInstance(props) {
           }
         </Navbar>
       </div>
+      <ToastContainer />
 
     </React.Fragment>
   );

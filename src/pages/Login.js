@@ -156,7 +156,7 @@ export default function Login(props) {
             <div className='col col-12 col-sm-12 col-md-12 col-lg-6' >
               <div id="loginPadding">
                 <h1 style={{ fontWeight: '500', margin: '30px 0px' }}>Sign In</h1>
-                <p style={{ fontWeight: '500', margin: '30px 0px', textAlign: 'justify' }}>Welcome back! Login here to view your cart, order history and/or make purchases.</p>
+                <p style={{ fontWeight: '500', margin: '30px 0px', textAlign: 'justify' }}>Welcome back! Login here to view your profile, cart, orders history or make purchases.</p>
 
                 <div style={{ marginBottom: '20px', fontWeight: '600' }}>
                   <label>EMAIL ADDRESS:</label>
@@ -251,7 +251,7 @@ export default function Login(props) {
             <div className='col col-12 col-sm-12 col-md-12 col-lg-6' >
               <div id="loginPadding">
                 <h1 style={{ fontWeight: '500', margin: '30px 0px' }}>Sign In</h1>
-                <p style={{ fontWeight: '500', margin: '30px 0px', textAlign: 'justify' }}>Welcome back! Login here to view your cart, order history and/or make purchases.</p>
+                <p style={{ fontWeight: '500', margin: '30px 0px', textAlign: 'justify' }}>Welcome back! Login here to view your profile, cart, orders history or make purchases</p>
 
                 <div style={{ marginBottom: '20px', fontWeight: '600' }}>
                   <label>EMAIL ADDRESS:</label>

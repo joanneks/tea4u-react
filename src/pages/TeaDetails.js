@@ -145,7 +145,7 @@ function TeaDetails(props) {
                   </div>
                 </div>
                 <div id="cart" style={{ display: 'flex', flexWrap: 'wrap' }}>
-                  <div className="col-12 col-sm-12 col-md-12 col-lg-6 my-3" style={{ display: 'flex', verticalAlign: 'middle' }}>
+                  <div className="col-12 col-sm-12 col-md-4 col-lg-6 my-3" style={{ display: 'flex', verticalAlign: 'middle' }}>
                     <div style={{
                       display: 'inline-block', width: '34px', height: '34px', fontWeight: '400', fontSize: '20px', textAlign: 'center',
                       backgroundColor: '#4c4c4c', color: 'white'
@@ -155,7 +155,7 @@ function TeaDetails(props) {
                       -
                     </div>
                     <div style={{ display: 'inline-block' }}>
-                      <input type="text" name="quantity" style={{ border: 'none', width: '80px', padding: '5px', textAlign: 'center' }}
+                      <input type="text" name="quantity" style={{ border: 'none', width: '100px', padding: '5px', textAlign: 'center' }}
                         value={quantity}
                         onChange={updateFormField}
                       />
@@ -168,9 +168,9 @@ function TeaDetails(props) {
                     >
                       +
                     </div>
-                    <div style={{ color: 'red' }}>{addToCartError}</div>
                   </div>
-                  <div className="col-12 col-sm-12 col-md-12 col-lg-6 my-3"
+                  <div className="col-12 col-sm-12 col-md-12 col-lg-12" style={{ color: 'red',marginBottom:'15px'}}>{addToCartError}</div>
+                  <div className="col-12 col-sm-12 col-md-12 col-lg-12 my-3"
                     style={{ display: 'inline-block', height: '34px', fontWeight: '400', fontSize: '15px', padding: '5px', textAlign: 'center', backgroundColor: '#4c4c4c', color: 'white' }}
                     onClick={() => { addToCart(teaDetails.id, quantity) }}
                   >

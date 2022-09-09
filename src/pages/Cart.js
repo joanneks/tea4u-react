@@ -147,71 +147,76 @@ export default function Cart(props) {
                 <img src={loadingPic} alt="loadingPic" style={{ position: 'absolute', height: '300px', margin: 'auto' }} />
               </div>
               :
+              cartItems.length === 0 ? 
+              <div style={{paddingTop:'10px',marginBottom:'40px',textAlign:'center'}}>No items were added to cart.</div>
+              :
               <div>
                 <Container style={{ marginLeft: '10px', marginRight: '10px', marginTop: '10px' }}>
-                  <table id="cartTable" className="table table-borderless">
-                    <thead>
-                      <tr style={{ fontSize: '19px', fontFamily: 'Khula,sans-serif', fontWeight: '500' }}>
-                        <th className="text-left col-2 col-lg-1">PRODUCT</th>
-                        <th className="text-left col-3 col-lg-5"></th>
-                        <th className="text-center col-2">PRICE</th>
-                        <th className="text-center col-2">QUANTITY</th>
-                        <th className="text-center col-2">SUBTOTAL</th>
-                        <th className="text-center col-1"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {cartItems.map(each => {
-                        return (
-                          <React.Fragment key={each.tea.id}>
-                            <tr style={{ fontSize: '18px', fontFamily: 'Khula,sans-serif', fontWeight: '500' }}>
-                              <td style={{ width: '150px' }}><img src={each.tea.image_url} alt={each.tea.name} style={{ height: '130px', width: '130px', objectFit: 'cover' }} /></td>
-                              <td>
-                                <div>
-                                  <span style={{ marginRight: '10px' }}>{each.tea.name}</span> <img src={info} alt={each.tea_id} style={{ height: '20px', width: '20px' }} onClick={() => { showTeaInfo(each.tea_id) }} />
-
-                                </div>
-                                <div>Brand: {brands[each.tea.brand_id]}</div>
-                                <div>Weight: {each.tea.weight} g</div>
-                              </td>
-                              <td className="text-center">S${each.tea.cost / 100}</td>
-                              <td className="text-center" style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Col xs={12} md={3} lg={2} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', width: '100px', marginLeftt: '20px' }}>
-                                  <span style={{ float: 'left', justifyContent: 'center' }}>
-                                    <img src={minus} alt="minusFromCartBtn" style={{ height: "20px", width: "20px" }} onClick={() => { minusFromCart(each.tea_id, each.customer_id) }} />
-                                  </span>
-                                  <span>{each.quantity}</span>
-                                  <span style={{ float: 'right', justifyContent: 'center' }}>
-                                    <img src={add} alt="addToCartBtn" style={{ height: "20px", width: "20px" }} onClick={() => { addToCart(each.tea_id, each.customer_id) }} />
-                                  </span>
-                                </Col>
-                              </td>
-                              <td className="text-center">{cartItemDetails[each.tea_id].eachTeaCosts}</td>
-                              <td className="text-center">
-                                <img src={remove} alt="addToCartBtn" style={{ height: "20px", width: "20px" }}
-                                  onClick={() => { deleteFromCart(each.tea_id, each.customer_id) }}
-                                />
-                              </td>
-                            </tr>
-                          </React.Fragment>
-                        )
-                      })}
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr style={{ fontSize: '20px', fontFamily: 'Khula,sans-serif', fontWeight: '600' }}>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td className="text-center" style={{ verticalAlign: 'middle' }}>TOTAL:</td>
-                        <td className="text-center" style={{ verticalAlign: 'middle' }}>S${totalCost}</td>
-                        <td><img src={pay} alt="addToCartBtn" style={{ height: "40px", width: "40px" }} onClick={checkout} /></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  {
+                    <table id="cartTable" className="table table-borderless">
+                      <thead>
+                        <tr style={{ fontSize: '19px', fontFamily: 'Khula,sans-serif', fontWeight: '500' }}>
+                          <th className="text-left col-2 col-lg-1">PRODUCT</th>
+                          <th className="text-left col-3 col-lg-5"></th>
+                          <th className="text-center col-2">PRICE</th>
+                          <th className="text-center col-2">QUANTITY</th>
+                          <th className="text-center col-2">SUBTOTAL</th>
+                          <th className="text-center col-1"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {cartItems.map(each => {
+                          return (
+                            <React.Fragment key={each.tea.id}>
+                              <tr style={{ fontSize: '18px', fontFamily: 'Khula,sans-serif', fontWeight: '500' }}>
+                                <td style={{ width: '150px' }}><img src={each.tea.image_url} alt={each.tea.name} style={{ height: '130px', width: '130px', objectFit: 'cover' }} /></td>
+                                <td>
+                                  <div>
+                                    <span style={{ marginRight: '10px' }}>{each.tea.name}</span> <img src={info} alt={each.tea_id} style={{ height: '20px', width: '20px' }} onClick={() => { showTeaInfo(each.tea_id) }} />
+  
+                                  </div>
+                                  <div>Brand: {brands[each.tea.brand_id]}</div>
+                                  <div>Weight: {each.tea.weight} g</div>
+                                </td>
+                                <td className="text-center">S${each.tea.cost / 100}</td>
+                                <td className="text-center" style={{ display: 'flex', justifyContent: 'center' }}>
+                                  <Col xs={12} md={3} lg={2} style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', width: '100px', marginLeftt: '20px' }}>
+                                    <span style={{ float: 'left', justifyContent: 'center' }}>
+                                      <img src={minus} alt="minusFromCartBtn" style={{ height: "20px", width: "20px" }} onClick={() => { minusFromCart(each.tea_id, each.customer_id) }} />
+                                    </span>
+                                    <span>{each.quantity}</span>
+                                    <span style={{ float: 'right', justifyContent: 'center' }}>
+                                      <img src={add} alt="addToCartBtn" style={{ height: "20px", width: "20px" }} onClick={() => { addToCart(each.tea_id, each.customer_id) }} />
+                                    </span>
+                                  </Col>
+                                </td>
+                                <td className="text-center">{cartItemDetails[each.tea_id].eachTeaCosts}</td>
+                                <td className="text-center">
+                                  <img src={remove} alt="addToCartBtn" style={{ height: "20px", width: "20px" }}
+                                    onClick={() => { deleteFromCart(each.tea_id, each.customer_id) }}
+                                  />
+                                </td>
+                              </tr>
+                            </React.Fragment>
+                          )
+                        })}
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr style={{ fontSize: '20px', fontFamily: 'Khula,sans-serif', fontWeight: '600' }}>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td className="text-center" style={{ verticalAlign: 'middle' }}>TOTAL:</td>
+                          <td className="text-center" style={{ verticalAlign: 'middle' }}>S${totalCost}</td>
+                          <td><img src={pay} alt="addToCartBtn" style={{ height: "40px", width: "40px" }} onClick={checkout} /></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  }
 
                 </Container>
                 <div id="cartDiv">
@@ -259,6 +264,8 @@ export default function Cart(props) {
                   </div>
                 </div>
               </div>
+          }
+          {
           }
         </div>
       </div>

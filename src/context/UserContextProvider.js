@@ -30,27 +30,27 @@ export default class UserProvider extends React.Component{
         // const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/";
         const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
         const getUserProfileUrl = url + "customer/profile"
-        let customerId = JSON.parse(localStorage.getItem('customerId'));
-        if(customerId){
-            let accessToken = await jwtDecode();
-            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            const userProfileResponse = await axios.get(getUserProfileUrl);
-
-            const userProfile = userProfileResponse.data;
-            const profileDetails = {
-                id: userProfile.id,
-                first_name: userProfile.first_name,
-                last_name: userProfile.last_name,
-                username: userProfile.username,
-                email: userProfile.email,
-                shipping_address: userProfile.shipping_address,
-                postal_code: userProfile.postal_code,
-                mobile_number: userProfile.mobile_number
+            let customerId = JSON.parse(localStorage.getItem('customerId'));
+            if(customerId){
+                let accessToken = await jwtDecode();
+                axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                const userProfileResponse = await axios.get(getUserProfileUrl);
+    
+                const userProfile = userProfileResponse.data;
+                const profileDetails = {
+                    id: userProfile.id,
+                    first_name: userProfile.first_name,
+                    last_name: userProfile.last_name,
+                    username: userProfile.username,
+                    email: userProfile.email,
+                    shipping_address: userProfile.shipping_address,
+                    postal_code: userProfile.postal_code,
+                    mobile_number: userProfile.mobile_number
+                }
+                this.setState({profileDetails});
+            } else{
+                return false;
             }
-            this.setState({profileDetails});
-        } else{
-            return false;
-        }
     }
     
     render(){

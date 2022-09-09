@@ -265,13 +265,13 @@ export default function Profile(props) {
               </div>
               <div style={{ padding: '20px' }}>
                 <div style={{ display: 'flex', flexWrap: 'wrap' }} >
-                  <div className="col-7 col-sm-6 col-md-4 col-lg-3 mb-3">
+                  <div className="col-9 col-sm-7 col-md-4 col-lg-3 mb-3">
                     <h6 style={{ fontWeight: '600' }}>EXISTING PASSWORD</h6>
                     <input type='password' name="existing_password" value={updatePassword.existing_password} onChange={updatePasswordFormField} className="form-control" style={{ fontWeight: '500', fontSize: '17px' }} />
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{passwordErrorMessage.existingPasswordMatch}</div>
                   </div>
-                  <div className="col-0 col-sm-0 col-md-6 col-lg-0 mb-3"></div>
-                  <div className="col-7 col-sm-6 col-md-4 col-lg-3 mb-3">
+                  <div className="col-0 col-sm-2 col-md-6 col-lg-1 mb-3"></div>
+                  <div className="col-9 col-sm-7 col-md-4 col-lg-3 mb-3">
                     <h6 style={{ fontWeight: '600' }}>NEW PASSWORD</h6>
                     <input type='password' name="password" value={updatePassword.password} onChange={updatePasswordFormField} className="form-control" style={{ fontWeight: '500', fontSize: '17px' }} />
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{passwordErrorMessage.password}</div>
@@ -280,7 +280,7 @@ export default function Profile(props) {
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{passwordErrorMessage.passwordSpecialCheckInvalid}</div>
                   </div>
                   <div className="col-1 col-sm-1 col-md-0 col-lg-0 mb-3"></div>
-                  <div className="col-7 col-sm-6 col-md-4 col-lg-3 mb-3">
+                  <div className="col-9 col-sm-7 col-md-4 col-lg-3 mb-3">
                     <h6 style={{ fontWeight: '600' }}>CONFIRM PASSWORD</h6>
                     <input type='password' name="confirm_password" value={updatePassword.confirm_password} onChange={updatePasswordFormField} className="form-control" style={{ fontWeight: '500', fontSize: '17px' }} />
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{passwordErrorMessage.passwordMatch}</div>
@@ -307,7 +307,7 @@ export default function Profile(props) {
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{errorMessages.firstName}</div>
                   </div>
                   <div className="col-1 col-sm-1 col-md-0 col-lg-0 mb-3"></div>
-                  <div className="col-5 col-sm-6 col-md-5 col-lg-3 mb-3">
+                  <div className="col-5 col-sm-5 col-md-5 col-lg-3 mb-3">
                     <h6 style={{ fontWeight: '600' }}>LAST NAME</h6>
                     <input type='text' name="last_name" value={newProfileDetails.last_name} onChange={updateUserFormField} className="form-control" style={{ fontWeight: '500', fontSize: '17px' }} />
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{errorMessages.lastName}</div>
@@ -319,7 +319,7 @@ export default function Profile(props) {
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{errorMessages.username}</div>
                   </div>
                   <div className="col-1 col-sm-1 col-md-0 col-lg-0 mb-3"></div>
-                  <div className="col-5 col-sm-6 col-md-5 col-lg-3 mb-3">
+                  <div className="col-5 col-sm-5 col-md-5 col-lg-3 mb-3">
                     <h6 style={{ fontWeight: '600' }}>PHONE NUMBER</h6>
                     <input type='text' name="mobile_number" value={newProfileDetails.mobile_number} onChange={updateUserFormField} className="form-control" style={{ fontWeight: '500', fontSize: '17px' }} />
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{errorMessages.mobileNumber ? 'Mobile number must have 8 numbers' : ''}</div>
@@ -332,15 +332,15 @@ export default function Profile(props) {
                     <input type='text' name="shipping_address" value={newProfileDetails.shipping_address} onChange={updateUserFormField} className="form-control" style={{ fontWeight: '500', fontSize: '17px' }} />
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{errorMessages.shippingAddress}</div>
                   </div>
-                  <div className="col-0 col-sm-0 col-md-1 col-lg-1 mb-3"></div>
-                  <div className="col-6 col-sm-6 col-md-5 col-lg-3 mb-3">
+                  <div className="col-0 col-sm-1 col-md-1 col-lg-1 mb-3"></div>
+                  <div className="col-6 col-sm-5 col-md-5 col-lg-3 mb-3">
                     <h6 style={{ fontWeight: '600' }}>POSTAL CODE</h6>
                     <input type='text' name="postal_code" value={newProfileDetails.postal_code} onChange={updateUserFormField} className="form-control" style={{ fontWeight: '500', fontSize: '17px' }} />
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{errorMessages.postalCode}</div>
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{errorMessages.postalNumberCheck}</div>
                   </div>
-                  <div className="col-1 col-sm-1 col-md-1 col-lg-0 mb-3"></div>
-                  <div className="col-6 col-sm-6 col-md-5 col-lg-3 mb-3">
+                  <div className="col-1 col-sm-0 col-md-0 col-lg-1 mb-3"></div>
+                  <div className="col-5 col-sm-6 col-md-5 col-lg-3 mb-3">
                     <h6 style={{ fontWeight: '600' }}>PASSWORD</h6>
                     <input type='password' name="password" value={newProfileDetails.password} onChange={updateUserFormField} className="form-control" style={{ fontWeight: '500', fontSize: '17px' }} />
                     <div style={{ fontWeight: '500', color: 'red', fontSize: '13px' }}>{errorMessages.password}</div>

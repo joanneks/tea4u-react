@@ -5,8 +5,7 @@ import {jwtDecode} from './Jwt.js';
 
 export default class OrderProvider extends React.Component{
     state={
-        orderItems:[],
-        teaTypes:[]
+        orderItems:[]
     }
     
     render(){

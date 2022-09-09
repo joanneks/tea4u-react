@@ -35,7 +35,7 @@ export default function Tea(props) {
       await setAllTea(allTeaResults);
       await setAllTeaCount(allTeaResults.length)
 
-      setTimeout(async () => { await setLoading(false) }, 300)
+      setTimeout(async () => { await setLoading(false) }, 1000)
     }
     displayAllTea();
   }, [])
@@ -56,7 +56,7 @@ export default function Tea(props) {
     let searchTeaResults = await teaContext.searchTea(searchQuery);
     await setAllTea(searchTeaResults);
     await setAllTeaCount(searchTeaResults.length)
-    setTimeout(async () => { await setLoading(false) }, 300)
+    setTimeout(async () => { await setLoading(false) }, 1000)
   }
 
   const [showFilterCount, setShowFilterCount] = useState(0);
@@ -94,12 +94,13 @@ export default function Tea(props) {
         isLoading: false,
         autoClose: 1000
       });
-      navigate('/cart')
+      setTimeout(()=>{navigate('/cart')},1000);
     } else {
       toast.update(addToCartToast, {
         render: <span>Login required to add to cart. <a href="/login">Login now</a></span>,
         type: "error",
         isLoading: false,
+        closeOnClick:true,
         autoClose: 1000
       });
     }
@@ -142,7 +143,7 @@ export default function Tea(props) {
           <NavbarInstance />
         </div>
         <NavbarBottom />
-        <ToastContainer />
+        <ToastContainer/>
         <div style={{ height: '66px', display: 'flex', justifyContent: 'end' }}>
           {isShown && (
             <div id="hoverComment" style={{ position: 'absolute', marginTop: '70px', fontSize: '10px', borderRadius: '20px', border: '1px solid grey', padding: '3px', backgroundColor: '#f5f2ee' }}>
