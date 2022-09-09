@@ -297,11 +297,11 @@ export default function Tea(props) {
                                     <div style={{ fontStyle: 'italic', fontSize: 'small', fontWeight: '400', marginTop: '5px' }}>
                                       {each.quantity === 0 ? 'Sold Out' : <div>Available Stock:{each.quantity}</div>}
                                     </div>
-                                    <div style={{ marginTop: '5px' }}>S${each.cost / 100}</div>
+                                    <div style={{ marginTop: '5px' }}>S${parseFloat(each.cost / 100).toFixed(2)}</div>
                                   </div>
 
                                 </Card.Title>
-                                <Card.Text style={{ marginTop: '60px' }}>
+                                <Card.Text style={{ marginTop: '60px',maxHeight:'30px',overflowY:'scroll' }}>
                                   {each.tasteProfile.map(eachTasteProfile => {
                                     return (
                                       <Badge key={eachTasteProfile.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{eachTasteProfile.name} </Badge>

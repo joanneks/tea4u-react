@@ -120,7 +120,7 @@ function OrderItems(props) {
                             :
                             <div style={{ margin: '20px 20px 0px 20px' }}>
                                 <div style={{ fontSize: '20px', fontFamily: 'Khula,sans-serif', fontWeight: '700' }}>Order Id #{orderId}
-                                    <span style={{ fontSize: '20px', fontFamily: 'Khula,sans-serif', fontWeight: '700', float: 'right' }}>Total: S${orderItemDetails.totalCosts}</span>
+                                    <span style={{ fontSize: '20px', fontFamily: 'Khula,sans-serif', fontWeight: '700', float: 'right' }}>Total: S${parseFloat(orderItemDetails.totalCosts).toFixed(2)}</span>
                                 </div>
                                 <div style={{ fontSize: '15px', fontFamily: 'Khula,sans-serif' }}>
                                     {orderItems.map(each => {
@@ -173,12 +173,12 @@ function OrderItems(props) {
                                                                 <tr>
                                                                     <td></td>
                                                                     <td style={{ fontWeight: '600' }}>Cost x Quantity:</td>
-                                                                    <td style={{ fontWeight: '500' }}>{each.tea.cost / 100}     x     {each.quantity}</td>
+                                                                    <td style={{ fontWeight: '500' }}>S${parseFloat(each.tea.cost / 100).toFixed(2)}     x     {each.quantity}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td></td>
                                                                     <td style={{ fontWeight: '600' }}>Subtotal:</td>
-                                                                    <td style={{ fontWeight: '500' }}>S${orderItemDetails[each.tea.id].eachTeaCosts}</td>
+                                                                    <td style={{ fontWeight: '500' }}>S${parseFloat(orderItemDetails[each.tea.id].eachTeaCosts).toFixed(2)}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

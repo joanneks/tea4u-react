@@ -28,19 +28,73 @@ export default function Cart(props) {
   const [cartItemDetails, setCartItemDetails] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    async function getCartItems() {
+      setLoading(true);
+      let customerId = JSON.parse(localStorage.getItem('customerId'));
+      if (customerId) {
+        const cartItems = await cartContext.getCartItems();
+        setCartItems(cartItems);
+
+        let itemDetails = {};
+        let totalCosts = 0;
+        for (let item of cartItems) {
+          let quantity = item.quantity;
+          let teaId = item.tea.id;
+          let teaName = item.tea.name;
+          let teaCost = item.tea.cost / 100;
+          let eachTeaCosts = teaCost * quantity;
+          totalCosts += eachTeaCosts;
+          itemDetails[teaId] = {
+            name: teaName,
+            cost: teaCost,
+            quantity,
+            eachTeaCosts
+          }
+        }
+        await setCartItemDetails(itemDetails);
+        await setTotalCost(totalCosts);
+
+        const brands = await teaContext.getAllTeaBrands();
+        let brandObject = {};
+        for (let brand of brands) {
+          brandObject[brand[0]] = brand[1];
+        };
+        delete brandObject[0];
+        setBrands(brandObject);
+
+        setTimeout(async () => { await setLoading(false) }, 500)
+        console.log('CARRTTT',cartItems)
+        return cartItems;
+      } else {
+        console.log(`Login required to view cart`);
+        navigate('/login');
+      }
+    };
+    getCartItems();
+  }, [])
+
   const addToCart = async (teaId, customerId) => {
-    let newQuantity = cartItemDetails[teaId].quantity + 1;
+    console.log("dog")
+    console.log('before',cartItemDetails)
+    let newQuantity = parseInt(cartItemDetails[teaId].quantity) + parseInt(1);
     let newEachTeaCosts = cartItemDetails[teaId].cost * newQuantity;
     let newTotalCosts = totalCost + cartItemDetails[teaId].cost;
-
+    
     let cartItemDetailsToRevise = cartItemDetails;
     cartItemDetailsToRevise[teaId].quantity = newQuantity;
     cartItemDetailsToRevise[teaId].eachTeaCosts = newEachTeaCosts;
+    console.log(cartItemDetails)
+    console.log('originalqty',cartItemDetails[teaId].quantity)
+    console.log('newQuantity',newQuantity)
+    console.log('newEachTeaCosts',newEachTeaCosts)
+    console.log('newTotalCosts',newTotalCosts)
+    console.log('after',cartItemDetails)
 
     setTotalCost(newTotalCosts);
     setCartItemDetails(cartItemDetailsToRevise)
 
-    const cartItems = await cartContext.addToCart(teaId, customerId, 1);
+    const cartItems = await cartContext.addToCart(teaId, 1, customerId);
     setCartItems(cartItems);
   }
   const minusFromCart = async (teaId, customerId) => {
@@ -82,51 +136,6 @@ export default function Cart(props) {
     window.location.href = checkoutResponse.data.sessionUrl
   }
 
-  useEffect(() => {
-    async function getCartItems() {
-      setLoading(true);
-      let customerId = JSON.parse(localStorage.getItem('customerId'));
-      if (customerId) {
-        const cartItems = await cartContext.getCartItems();
-        setCartItems(cartItems);
-
-        let itemDetails = {};
-        let totalCosts = 0;
-        for (let item of cartItems) {
-          let quantity = item.quantity;
-          let teaId = item.tea.id;
-          let teaName = item.tea.name;
-          let teaCost = item.tea.cost / 100;
-          let eachTeaCosts = teaCost * quantity;
-          totalCosts += eachTeaCosts;
-          itemDetails[teaId] = {
-            name: teaName,
-            cost: teaCost,
-            quantity,
-            eachTeaCosts
-          }
-        }
-        await setCartItemDetails(itemDetails);
-        await setTotalCost(totalCosts);
-
-        const brands = await teaContext.getAllTeaBrands();
-        let brandObject = {};
-        for (let brand of brands) {
-          brandObject[brand[0]] = brand[1];
-        };
-        delete brandObject[0];
-        setBrands(brandObject);
-
-        setTimeout(async () => { await setLoading(false) }, 500)
-
-        return cartItems;
-      } else {
-        console.log(`Login required to view cart`);
-        navigate('/login');
-      }
-    };
-    getCartItems();
-  }, [])
 
   const showTeaInfo = (teaId) => {
     navigate('/tea/' + teaId)
@@ -190,7 +199,7 @@ export default function Cart(props) {
                                     </span>
                                   </Col>
                                 </td>
-                                <td className="text-center">{cartItemDetails[each.tea_id].eachTeaCosts}</td>
+                                <td className="text-center">{parseFloat(cartItemDetails[each.tea_id].eachTeaCosts).toFixed(2)}</td>
                                 <td className="text-center">
                                   <img src={remove} alt="addToCartBtn" style={{ height: "20px", width: "20px" }}
                                     onClick={() => { deleteFromCart(each.tea_id, each.customer_id) }}
@@ -211,7 +220,7 @@ export default function Cart(props) {
                           <td></td>
                           <td></td>
                           <td className="text-center" style={{ verticalAlign: 'middle' }}>TOTAL:</td>
-                          <td className="text-center" style={{ verticalAlign: 'middle' }}>S${totalCost}</td>
+                          <td className="text-center" style={{ verticalAlign: 'middle' }}>S${parseFloat(totalCost).toFixed(2)}</td>
                           <td><img src={pay} alt="addToCartBtn" style={{ height: "40px", width: "40px" }} onClick={checkout} /></td>
                         </tr>
                       </tbody>
@@ -248,11 +257,11 @@ export default function Cart(props) {
                         <div style={{ margin: '10px 0px 20px 0px', fontSize: '18px', fontWeight: '600' }}>
                           <div style={{ display: 'flex' }}>
                             <div style={{ width: '130px', marginRight: '20px' }}>Unit Price: </div>
-                            <div>S${cartItemDetails[each.tea_id].cost}</div>
+                            <div>S${parseFloat(cartItemDetails[each.tea_id].cost).toFixed(2)}</div>
                           </div>
                           <div style={{ display: 'flex' }}>
                             <div style={{ width: '130px', marginRight: '20px' }}>Subtotal: </div>
-                            <div>S${cartItemDetails[each.tea_id].eachTeaCosts}</div>
+                            <div>S${parseFloat(cartItemDetails[each.tea_id].eachTeaCosts).toFixed(2)}</div>
                           </div>
                         </div>
                       </div>
@@ -260,7 +269,7 @@ export default function Cart(props) {
                   })}
                   <div style={{ display: 'flex', margin: '10px 0px', fontSize: '18px', fontWeight: '600' }}>
                     <div style={{ width: '130px', marginRight: '20px' }}>Total: </div>
-                    <div>S${totalCost}<img src={pay} alt="addToCartBtn" style={{ height: "40px", width: "40px", marginLeft: '30px' }} onClick={checkout} /></div>
+                    <div>S${parseFloat(totalCost).toFixed(2)}<img src={pay} alt="addToCartBtn" style={{ height: "40px", width: "40px", marginLeft: '30px' }} onClick={checkout} /></div>
                   </div>
                 </div>
               </div>

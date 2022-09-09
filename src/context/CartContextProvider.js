@@ -14,8 +14,8 @@ export default class CartProvider extends React.Component{
         if(customerId){
             let accessToken = await jwtDecode();
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-            // const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/"
-            const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
+            const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/"
+            // const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
             let cartResponse = await axios.post(url + "cart/",{
                 user_id:customerId
             });
@@ -29,8 +29,8 @@ export default class CartProvider extends React.Component{
         }
     };
     render(){
-        // const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/";
-        const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
+        const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/";
+        // const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
         
         const cartContext = { 
             getCartItems:async (teaId) =>{
@@ -50,11 +50,14 @@ export default class CartProvider extends React.Component{
                 customerId = JSON.parse(localStorage.getItem('customerId'));
                 let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+                console.log('MONKEY')
                 let addCartResponse = await axios.post(addToCartUrl,{
                     user_id:customerId,
                     tea_id:teaId,
                     quantity
                 });
+                console.log('GOAT')
+                console.log("ADDTOCART",addCartResponse.data);
                 let itemToAdd = addCartResponse.data;
                 let revisedCartItems = itemToAdd.cartItems;
                 return revisedCartItems;
