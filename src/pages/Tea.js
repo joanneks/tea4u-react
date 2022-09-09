@@ -135,6 +135,7 @@ export default function Tea(props) {
       packaging: '0',
       tasteProfiles: []
     })
+    await teaContext.clearSearch();
     let allTea = await teaContext.getAllTea();
     await setAllTea(allTea);
     await setAllTeaCount(allTea.length);

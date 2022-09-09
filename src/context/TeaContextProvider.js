@@ -111,6 +111,12 @@ export default class TeaProvider extends React.Component{
                     return allTea;
                 }
             },
+            clearSearch: () =>{
+                this.setState({
+                    teaTypeFilterStatus:false,
+                    teaBrandFilterStatus:false
+                });
+            },
             searchTea: async (searchQuery) => {
                 let teaSearchResults = await axios.get(teaSearchUrl, {
                     params: {
