@@ -123,7 +123,8 @@ export default function Tea(props) {
       setShowFilter('none');
     }
   }
-  const clearSearchQuery = () => {
+  const clearSearchQuery = async() => {
+    setLoading(true);
     setSearchQuery({
       name: '',
       min_cost: '',
@@ -134,6 +135,10 @@ export default function Tea(props) {
       packaging: '0',
       tasteProfiles: []
     })
+    let allTea = await teaContext.getAllTea();
+    await setAllTea(allTea);
+    await setAllTeaCount(allTea.length);
+    setLoading(false);
   }
 
   return (
@@ -262,58 +267,59 @@ export default function Tea(props) {
             </div>
           </div>
 
-          <div style={{ textAlign: 'start', margin: '20px 0px 20px 10px', fontFamily: 'Khula,sans-serif', fontWeight: '600' }}>{loading ? '' : allTeaCount + ' results(s) found'}</div>
+          <div style={{marginTop:'20px',minHeight:'50vh'}}>
+            <div style={{ textAlign: 'start', margin: '20px 0px 20px 10px', fontFamily: 'Khula,sans-serif', fontWeight: '600' }}>{loading ? '' : allTeaCount + ' results(s) found'}</div>
+            {loading ?
+              <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+                <img src={loadingPic} alt="loadingPic" style={{ position: 'absolute', height: '300px', margin: 'auto' }} />
+              </div>
+              :
+              <div>
 
-          {loading ?
-            <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-              <img src={loadingPic} alt="loadingPic" style={{ position: 'absolute', height: '300px', margin: 'auto' }} />
-            </div>
-            :
-            <div>
-
-              <Row xs={1} md={2} lg={3} className="g-4">
-                {allTea.map(each => {
-                  return (
-                    <Col key={each.id}>
-                      <div className="col d-flex justify-content-center">
-                        <div>
-                          <Card style={{ width: '19rem' }} >
-                            <Card.Img variant="top" src={each.image_url} className="card-img-top" alt={each.name} style={{ height: '16rem', width: '100%', objectFit: 'cover', }} onClick={() => { showTeaInfo(each.id) }} />
-                            <Card.Body style={{ backgroundColor: '#f3f2f1', height: '210px', padding: '20px', fontFamily: 'Khula,sans-serif', fontWeight: '600' }}>
-                              <Card.Title >
-                                <div style={{ padding: '0px 5px 0px 5px', fontSize: '20px', height: '34px' }}>
-                                  <span style={{ fontWeight: '500' }}>{each.brand.name}</span>
-                                  <span style={{ float: 'right' }}>
-                                    <img src={cart} alt="addToCartBtn" style={{ height: "28px", width: "28px", marginLeft: '10px', zIndex: '100' }} onClick={() => { addToCart(each.id) }} />
-                                  </span>
-                                </div>
-                                <div style={{ height: '50px', marginBottom: '30px', padding: '0px 5px 0px 5px', fontWeight: '600' }} onClick={() => { showTeaInfo(each.id) }}>
-                                  <div style={{ height: '50px' }}>{each.name}</div>
-                                  <div style={{ fontStyle: 'italic', fontSize: 'small', fontWeight: '400', marginTop: '5px' }}>
-                                    {each.quantity === 0 ? 'Sold Out' : <div>Available Stock:{each.quantity}</div>}
+                <Row xs={1} md={2} lg={3} className="g-4">
+                  {allTea.map(each => {
+                    return (
+                      <Col key={each.id}>
+                        <div className="col d-flex justify-content-center">
+                          <div>
+                            <Card style={{ width: '19rem' }} >
+                              <Card.Img variant="top" src={each.image_url} className="card-img-top" alt={each.name} style={{ height: '16rem', width: '100%', objectFit: 'cover', }} onClick={() => { showTeaInfo(each.id) }} />
+                              <Card.Body style={{ backgroundColor: '#f3f2f1', height: '210px', padding: '20px', fontFamily: 'Khula,sans-serif', fontWeight: '600' }}>
+                                <Card.Title >
+                                  <div style={{ padding: '0px 5px 0px 5px', fontSize: '20px', height: '34px' }}>
+                                    <span style={{ fontWeight: '500' }}>{each.brand.name}</span>
+                                    <span style={{ float: 'right' }}>
+                                      <img src={cart} alt="addToCartBtn" style={{ height: "28px", width: "28px", marginLeft: '10px', zIndex: '100' }} onClick={() => { addToCart(each.id) }} />
+                                    </span>
                                   </div>
-                                  <div style={{ marginTop: '5px' }}>S${each.cost / 100}</div>
-                                </div>
+                                  <div style={{ height: '50px', marginBottom: '30px', padding: '0px 5px 0px 5px', fontWeight: '600' }} onClick={() => { showTeaInfo(each.id) }}>
+                                    <div style={{ height: '50px' }}>{each.name}</div>
+                                    <div style={{ fontStyle: 'italic', fontSize: 'small', fontWeight: '400', marginTop: '5px' }}>
+                                      {each.quantity === 0 ? 'Sold Out' : <div>Available Stock:{each.quantity}</div>}
+                                    </div>
+                                    <div style={{ marginTop: '5px' }}>S${each.cost / 100}</div>
+                                  </div>
 
-                              </Card.Title>
-                              <Card.Text style={{ marginTop: '60px' }}>
-                                {each.tasteProfile.map(eachTasteProfile => {
-                                  return (
-                                    <Badge key={eachTasteProfile.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{eachTasteProfile.name} </Badge>
-                                  )
-                                })}
-                              </Card.Text>
-                            </Card.Body>
-                          </Card>
+                                </Card.Title>
+                                <Card.Text style={{ marginTop: '60px' }}>
+                                  {each.tasteProfile.map(eachTasteProfile => {
+                                    return (
+                                      <Badge key={eachTasteProfile.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{eachTasteProfile.name} </Badge>
+                                    )
+                                  })}
+                                </Card.Text>
+                              </Card.Body>
+                            </Card>
+                          </div>
                         </div>
-                      </div>
 
-                    </Col>
-                  )
-                })}
-              </Row>
-            </div>
-          }
+                      </Col>
+                    )
+                  })}
+                </Row>
+              </div>
+            }
+          </div>
         </Container>
       </div>
 
