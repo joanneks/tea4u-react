@@ -1,5 +1,9 @@
 # Tea4U - Ecommerce Website selling Tea Leaves
- 
+<div style="height:20px"></div>
+
+![Device Mockup](/readme/deviceMockup.png)
+<div style="height:20px"></div>
+
 Access the live demo ecommerce website of [Tea4U](https://tea4u-tgc18.netlify.app/).
 
 For github repository of database and order management by admin, refer to [Tea4U-Express-Backend](https://github.com/joanneks/Tea4U-Express-Backend). 
@@ -212,6 +216,7 @@ REFRESH_TOKEN_SECRET=</div>
 6. [MomentJS](https://momentjs.com/docs/) for date and time display
 7. [ReactToastify](https://www.npmjs.com/package/react-toastify) for toast notifications
 8. [React Bootstrap](https://react-bootstrap.github.io/) for HTML, CSS Styling
+    - Carousel, Navbar, Col
 9. [Bootstrap](https://getbootstrap.com/docs/5.2/getting-started/introduction/) for HTML, CSS Styling
     - Dropdown menu,input group (Text, Email), Navbar
 10. [GoogleFonts](https://fonts.google.com/) for CSS styling
@@ -271,8 +276,13 @@ REFRESH_TOKEN_SECRET=</div>
 | HomePage | Carousel - Tea Spoon of Love| [teaspo.jpeg](https://images.squarespace-cdn.com/content/v1/535f243be4b09e1f27e8003d/1627991469429-YDYFCEKZJ4VC2NAO16JA/DSCF9218+copy.JPG?format=1500w)|
 | HomePage | Header Picture| [home.webp](https://img.freepik.com/premium-photo/tea-cups-with-copy-space_23-2148555401.jpg?w=2000)|
 
+<div style="height:20px"></div>
+
 Loading.gif (used in some pages): 
 <a href="https://iconscout.com/lotties/astronaut" target="_blank">Astronaut in Tea break Animated Icon</a> by <a href="https://iconscout.com/contributors/israfil-hossain-anik">Israfil Hossain</a> on <a href="https://iconscout.com">IconScout</a>
+<div style="height:20px"></div>
+
+[Multi Device Website Mockup Generator](https://techsini.com/multi-mockup/index.php) for creating device mockups of the website
 <div style="height:20px"></div>
 
 ### **_Other Sources_**
