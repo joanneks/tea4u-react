@@ -301,7 +301,7 @@ export default function Tea(props) {
                                   </div>
 
                                 </Card.Title>
-                                <Card.Text style={{ marginTop: '60px',maxHeight:'30px',overflowY:'scroll' }}>
+                                <Card.Text style={{ marginTop: '60px',maxHeight:'30px',overflowY:'auto' }}>
                                   {each.tasteProfile.map(eachTasteProfile => {
                                     return (
                                       <Badge key={eachTasteProfile.name} pill bg="light" text="dark" style={{ border: '1px solid grey', marginRight: '5px' }}>{eachTasteProfile.name} </Badge>
