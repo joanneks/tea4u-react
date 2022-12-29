@@ -14,8 +14,9 @@ export default class CartProvider extends React.Component{
         if(customerId){
             let accessToken = await jwtDecode();
             axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+            const url = "https://joanneks-tea4uexpressba-shcmrkqyenp.ws-us80.gitpod.io/"
             // const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/"
-            const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
+            // const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
             let cartResponse = await axios.post(url + "cart/",{
                 user_id:customerId
             });
