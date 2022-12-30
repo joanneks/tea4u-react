@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export async function jwtDecode () {
     const customAxios = axios.create({
-        baseURL: "https://joanneks-tea4uexpressba-shcmrkqyenp.ws-us80.gitpod.io/api/"
+        baseURL: "https://tea4ubackend.onrender.com/api/"
         // baseURL: "https://tea4u-express-tgc18.herokuapp.com/api/"
         // baseURL : "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/"
     });
