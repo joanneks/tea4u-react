@@ -129,7 +129,8 @@ export default function Cart(props) {
       postal_code: userProfile.postal_code
     }
     // const checkoutUrl = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us63.gitpod.io/api/checkout"
-    const checkoutUrl = "https://tea4u-express-tgc18.herokuapp.com/api/checkout"
+    // const checkoutUrl = "https://tea4u-express-tgc18.herokuapp.com/api/checkout"
+    const checkoutUrl = "https://tea4ubackend.onrender.com/api/checkout"
 
     const checkoutResponse = await axios.post(checkoutUrl, checkoutObject);
     console.log(checkoutResponse.data)

@@ -11,10 +11,11 @@ import loadingPic from '../css/images/loading.gif';
 export default function Order(props) {
     const orderContext = useContext(OrderContext);
     const navigate = useNavigate();
-    const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [orders, setOrders] = useState([]);
 
     useEffect(() => {
+        console.log('apple');
         const getOrders = async () => {
             setLoading(true);
             let customerId = JSON.parse(localStorage.getItem('customerId'));

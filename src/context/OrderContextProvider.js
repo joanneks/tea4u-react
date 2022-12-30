@@ -18,9 +18,10 @@ export default class OrderProvider extends React.Component{
                 let accessToken = await jwtDecode();
                 axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
                 const getOrdersUrl = url + "order/" + customerId;
+                console.log('link',customerId);
                 const ordersResponse = await axios.get(getOrdersUrl);
                 const orders = ordersResponse.data.orders;
-                console.log('orderssss',orders);
+                console.log('orderssss4',orders);
                 return orders;
             },
             getOrderItems: async (customerId,orderId) => {
