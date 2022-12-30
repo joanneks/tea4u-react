@@ -13,9 +13,12 @@ Test Accounts:
     - Email: jonsnow1@gmail.com
     - Password: Jonsnow1!
 
-2. Tea4U-Express-Backend : https://tea4u-express-tgc18.herokuapp.com/
+2. Tea4U-Express-Backend : https://tea4ubackend.onrender.com/tea-type
     - Email: admin@tea4u.com
     - Password: Tadmin1!
+
+3. Card Number for Test Payment : 4242 4242 4242 4242
+    - Expiry date and CVC can be randomly put
 
 ## **Overview**
 
