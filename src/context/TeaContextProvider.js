@@ -30,7 +30,7 @@ export default class TeaProvider extends React.Component{
         teaBrandFilterStatus:false
       }
     async componentDidMount() {
-        const url = "https://joanneks-tea4uexpressba-shcmrkqyenp.ws-us80.gitpod.io/"
+        const url = "https://joanneks-tea4uexpressba-shcmrkqyenp.ws-us80.gitpod.io/api/"
         // const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/"
         // const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
         let teaResponse = await axios.get(url + "tea");
@@ -52,7 +52,7 @@ export default class TeaProvider extends React.Component{
         })
     };
     render(){
-        const url = "https://joanneks-tea4uexpressba-shcmrkqyenp.ws-us80.gitpod.io/"
+        const url = "https://joanneks-tea4uexpressba-shcmrkqyenp.ws-us80.gitpod.io/api/"
         // const url = "https://3000-joanneks-tea4uexpressba-qiw1tvvgol5.ws-us64.gitpod.io/api/";
         // const url = "https://tea4u-express-tgc18.herokuapp.com/api/"
         const teaSearchUrl = url + "tea/";
