@@ -15,12 +15,12 @@ export default function Order(props) {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        console.log('apple');
         const getOrders = async () => {
             setLoading(true);
             let customerId = JSON.parse(localStorage.getItem('customerId'));
             if (customerId) {
                 const orders = await orderContext.getOrders(customerId);
+                console.log('apple',orders);
                 await setOrders(orders);
                 setTimeout(async () => { await setLoading(false) }, 300)
             } else {
